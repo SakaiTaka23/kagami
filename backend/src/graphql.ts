@@ -7,8 +7,13 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export class UserName {
+    name: string;
+}
+
 export class User {
     id: string;
+    name: string;
 }
 
 export abstract class IQuery {
@@ -18,7 +23,7 @@ export abstract class IQuery {
 }
 
 export abstract class IMutation {
-    abstract createUser(): User | Promise<User>;
+    abstract createUser(username: UserName): User | Promise<User>;
 }
 
 type Nullable<T> = T | null;
