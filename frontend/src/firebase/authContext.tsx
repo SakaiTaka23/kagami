@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState, VFC } from 'react';
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/router';
 
 import firebaseApp from './firebase';
 
@@ -9,6 +10,7 @@ type Props = {
 };
 
 type AuthContextState = {
+  useAuthGuard: () => void;
   userID: string;
 };
 
@@ -16,7 +18,9 @@ const AuthContext = createContext({} as AuthContextState);
 
 const AuthProvider: VFC<Props> = ({ children }) => {
   const firebaseAuth = getAuth(firebaseApp);
+  const router = useRouter();
   const [userID, setUserID] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const tokenStorageKey = 'firebase-authentication-jwt';
 
   useEffect(() => {
@@ -30,10 +34,19 @@ const AuthProvider: VFC<Props> = ({ children }) => {
         setUserID('');
         localStorage.removeItem(tokenStorageKey);
       }
+      setIsLoading(false);
     });
-  });
+  }, [firebaseAuth]);
 
-  return <AuthContext.Provider value={{ userID }}>{children}</AuthContext.Provider>;
+  const useAuthGuard = () => {
+    useEffect(() => {
+      if (!isLoading && userID === '') {
+        router.replace('/signin');
+      }
+    });
+  };
+
+  return <AuthContext.Provider value={{ useAuthGuard, userID }}>{children}</AuthContext.Provider>;
 };
 
 export { AuthContext, AuthProvider };
