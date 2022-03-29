@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
+    "seed": "ts-node ./prisma/seed.ts",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"src/**/*.ts\"",
@@ -20,6 +21,7 @@
     "generate": "yarn gen-typings && yarn gen-merge"
   },
   "dependencies": {
+    "@faker-js/faker": "^6.1.1",
     "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.4",
     "@nestjs/apollo": "^10.0.7",
