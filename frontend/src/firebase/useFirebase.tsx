@@ -22,10 +22,16 @@ const useFirebase = () => {
     });
   };
 
-  const SignUp = async (email: string, password: string) => {
+  const SignUp = async (name: string, email: string, password: string) => {
     await createUserWithEmailAndPassword(firebaseAuth, email, password).then((user_credential) => {
       user_credential.user.getIdToken(true).then(() => {
-        createUserMutation();
+        createUserMutation({
+          variables: {
+            username: {
+              name,
+            },
+          },
+        });
         router.replace('/private');
       });
     });

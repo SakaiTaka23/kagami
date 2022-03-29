@@ -3,31 +3,27 @@ import * as React from 'react';
 import { Avatar, CssBaseline, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import { Box } from '@mui/system';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useFirebase } from '@/firebase/useFirebase';
 
 import SubmitButton from './Button/SubmitButton';
 import EmailInput from './Inputs/EmailInput';
+import NameInput from './Inputs/NameInput';
 import PasswordInput from './Inputs/PasswordInput';
-import AuthLinks from './Providers/AuthLinks';
 
 type SubmitData = {
+  name: string;
   email: string;
   password: string;
 };
 
 export default function SignUpForm() {
-  const methods = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
+  const methods = useForm<SubmitData>();
   const { SignUp } = useFirebase();
 
-  const submit = (data: SubmitData) => {
-    SignUp(data.email, data.password);
+  const submit: SubmitHandler<SubmitData> = (data) => {
+    SignUp(data.name, data.email, data.password);
   };
 
   return (
@@ -47,12 +43,12 @@ export default function SignUpForm() {
         </Typography>
         <FormProvider {...methods}>
           <Box component='form' onSubmit={methods.handleSubmit(submit)} sx={{ mt: 3 }}>
+            <NameInput />
             <EmailInput />
             <PasswordInput />
             <SubmitButton />
           </Box>
         </FormProvider>
-        <AuthLinks />
       </Box>
     </Container>
   );
