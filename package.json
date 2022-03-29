@@ -1,0 +1,11 @@
+{
+  "name": "next-nest-graphql",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7"
+  }
+}
