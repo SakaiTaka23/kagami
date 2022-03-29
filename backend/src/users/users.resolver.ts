@@ -2,6 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
+import { UserName } from 'src/graphql';
 
 import { UsersService } from './users.service';
 
@@ -11,8 +12,8 @@ export class UsersResolver {
 
   @UseGuards(FirebaseAuthGuard)
   @Mutation('createUser')
-  create(@CurrentUserID() id: string) {
-    return this.usersService.create(id);
+  create(@CurrentUserID() id: string, @Args('username') username: UserName) {
+    return this.usersService.create(id, username.name);
   }
 
   @Query('user')

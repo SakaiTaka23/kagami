@@ -5,10 +5,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  create(id: string) {
+  create(id: string, name: string) {
     return this.prisma.user.create({
       data: {
         id,
+        name,
       },
     });
   }
