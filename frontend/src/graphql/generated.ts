@@ -1,12 +1,11 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {};
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -21,11 +20,17 @@ export type Mutation = {
   createUser: User;
 };
 
+
+export type MutationCreateUserArgs = {
+  username: UserName;
+};
+
 export type Query = {
   __typename?: 'Query';
   user?: Maybe<User>;
   userFromToken: User;
 };
+
 
 export type QueryUserArgs = {
   id: Scalars['String'];
@@ -34,29 +39,41 @@ export type QueryUserArgs = {
 export type User = {
   __typename?: 'User';
   id: Scalars['String'];
+  name: Scalars['String'];
 };
 
-export type CreateUserMutationVariables = Exact<{ [key: string]: never }>;
+export type UserName = {
+  name: Scalars['String'];
+};
 
-export type CreateUserMutation = { __typename?: 'Mutation'; createUser: { __typename?: 'User'; id: string } };
+export type CreateUserMutationVariables = Exact<{
+  username: UserName;
+}>;
 
-export type UserFromTokenQueryVariables = Exact<{ [key: string]: never }>;
 
-export type UserFromTokenQuery = { __typename?: 'Query'; userFromToken: { __typename?: 'User'; id: string } };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string } };
+
+export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserFromTokenQuery = { __typename?: 'Query', userFromToken: { __typename?: 'User', id: string } };
 
 export type UserFromIdQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-export type UserFromIdQuery = { __typename?: 'Query'; user?: { __typename?: 'User'; id: string } | null | undefined };
+
+export type UserFromIdQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string } | null };
+
 
 export const CreateUserDocument = gql`
-  mutation CreateUser {
-    createUser {
-      id
-    }
+    mutation CreateUser($username: UserName!) {
+  createUser(username: $username) {
+    id
+    name
   }
-`;
+}
+    `;
 export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 
 /**
@@ -72,25 +89,24 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  * @example
  * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
  *   variables: {
+ *      username: // value for 'username'
  *   },
  * });
  */
-export function useCreateUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-}
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const UserFromTokenDocument = gql`
-  query UserFromToken {
-    userFromToken {
-      id
-    }
+    query UserFromToken {
+  userFromToken {
+    id
   }
-`;
+}
+    `;
 
 /**
  * __useUserFromTokenQuery__
@@ -107,28 +123,24 @@ export const UserFromTokenDocument = gql`
  *   },
  * });
  */
-export function useUserFromTokenQuery(
-  baseOptions?: Apollo.QueryHookOptions<UserFromTokenQuery, UserFromTokenQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<UserFromTokenQuery, UserFromTokenQueryVariables>(UserFromTokenDocument, options);
-}
-export function useUserFromTokenLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<UserFromTokenQuery, UserFromTokenQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<UserFromTokenQuery, UserFromTokenQueryVariables>(UserFromTokenDocument, options);
-}
+export function useUserFromTokenQuery(baseOptions?: Apollo.QueryHookOptions<UserFromTokenQuery, UserFromTokenQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserFromTokenQuery, UserFromTokenQueryVariables>(UserFromTokenDocument, options);
+      }
+export function useUserFromTokenLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserFromTokenQuery, UserFromTokenQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserFromTokenQuery, UserFromTokenQueryVariables>(UserFromTokenDocument, options);
+        }
 export type UserFromTokenQueryHookResult = ReturnType<typeof useUserFromTokenQuery>;
 export type UserFromTokenLazyQueryHookResult = ReturnType<typeof useUserFromTokenLazyQuery>;
 export type UserFromTokenQueryResult = Apollo.QueryResult<UserFromTokenQuery, UserFromTokenQueryVariables>;
 export const UserFromIdDocument = gql`
-  query UserFromID($userId: String!) {
-    user(id: $userId) {
-      id
-    }
+    query UserFromID($userId: String!) {
+  user(id: $userId) {
+    id
   }
-`;
+}
+    `;
 
 /**
  * __useUserFromIdQuery__
@@ -147,15 +159,13 @@ export const UserFromIdDocument = gql`
  * });
  */
 export function useUserFromIdQuery(baseOptions: Apollo.QueryHookOptions<UserFromIdQuery, UserFromIdQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<UserFromIdQuery, UserFromIdQueryVariables>(UserFromIdDocument, options);
-}
-export function useUserFromIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<UserFromIdQuery, UserFromIdQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<UserFromIdQuery, UserFromIdQueryVariables>(UserFromIdDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserFromIdQuery, UserFromIdQueryVariables>(UserFromIdDocument, options);
+      }
+export function useUserFromIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserFromIdQuery, UserFromIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserFromIdQuery, UserFromIdQueryVariables>(UserFromIdDocument, options);
+        }
 export type UserFromIdQueryHookResult = ReturnType<typeof useUserFromIdQuery>;
 export type UserFromIdLazyQueryHookResult = ReturnType<typeof useUserFromIdLazyQuery>;
 export type UserFromIdQueryResult = Apollo.QueryResult<UserFromIdQuery, UserFromIdQueryVariables>;
