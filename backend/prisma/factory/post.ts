@@ -10,7 +10,7 @@ export const posts = async (count: number) => {
       data: Array(count)
         .fill(0)
         .map(() => ({
-          authorId: user.id,
+          userId: user.id,
           content: faker.datatype.string(Math.floor(Math.random() * (140 + 1 - 10) + 10)),
         })),
     });

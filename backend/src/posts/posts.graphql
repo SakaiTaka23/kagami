@@ -1,0 +1,10 @@
+type Post {
+  id: String!
+  content: String!
+  user: User!
+  userId: String!
+}
+
+type Query {
+  timeline: [Post!]!
+}

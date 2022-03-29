@@ -11,15 +11,24 @@ export class UserName {
     name: string;
 }
 
-export class User {
+export class Post {
     id: string;
-    name: string;
+    content: string;
+    user: User;
+    userId: string;
 }
 
 export abstract class IQuery {
+    abstract timeline(): Post[] | Promise<Post[]>;
+
     abstract userFromToken(): User | Promise<User>;
 
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
+}
+
+export class User {
+    id: string;
+    name: string;
 }
 
 export abstract class IMutation {
