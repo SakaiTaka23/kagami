@@ -1,62 +1,50 @@
-# next-nest-graphql
+# kagami
 
-- template for next-nest-graphql
+- 一日を振り返るSNS
+- 一日に一回まで投稿可能
+- いいねはできる
+- フォロー・フォロワーも可能
+- いいね数やフォロ・フォロワーの数は確認できない
+- シンプルなデザイン
 
-## Technologies
+```mermaid
+erDiagram
+user ||--o{post : "" 
 
-### Common
+user {
+ char id
+ char name
+}
 
-- Docker
-- ESLint
-- Firebase Authentication
-- GraphQL
-- Husky
-- Prettier
-- TypeScript
-
-### Backend
-
-- Apollo Server
-- Nest.js
-- Passport.js
-- Prisma
-
-### Frontend
-
-- Apollo Client
-- MUI
-- Next.js
-- React Hook Form
-
-## Getting Started
-
-1. execute command
-
-```shell
-make install
+post {
+ char id
+ char user_id
+ text content
+}
 ```
 
-2. set up firebase
+```mermaid
+flowchart LR
+    subgraph 認証
+    タイムライン --- サインアップ
+    サインアップ --- サインイン
+    タイムライン --- サインイン
+    end
 
-- set firebase adminsdk as filename "firebase-adminsdk.json" in the src/auth folder(backend)
-- set firebase key in the .env file(frontend)
+    subgraph プロフィール
+    タイムライン --- プロフィールページ
+    プロフィールページ --- プロフィール編集ページ
+    end
 
-3. start the server
+    subgraph 投稿
+    タイムライン --- 投稿ページ
+    タイムライン --- 詳細
+    タイムライン --- 投稿頻度
+    詳細 --- プロフィール
+    end
 
-```shell
-docker compose up
-```
-
-## Production(Docker)
-
-1. build docker container
-
-```shell
-make build-prod
-```
-
-**to test**
-
-```shell
-make up-prod
+    subgraph テンプレート
+    タイムライン --- テンプレート一覧
+    テンプレート一覧 --- テンプレート詳細
+    end
 ```
