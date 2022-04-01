@@ -12,7 +12,7 @@ RUN apt-get update \
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-EXPOSE 5000
+EXPOSE 5000 5555
 CMD ["bash", "./wait-db.sh", "yarn", "dev"]
 
 
