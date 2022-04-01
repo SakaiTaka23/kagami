@@ -11,7 +11,6 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
-    "seed": "ts-node ./prisma/seed.ts",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"src/**/*.ts\"",
@@ -19,6 +18,9 @@
     "gen-typings": "ts-node src/generate-typings",
     "gen-merge": "ts-node src/merge-schemas",
     "generate": "yarn gen-typings && yarn gen-merge"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^6.1.1",
