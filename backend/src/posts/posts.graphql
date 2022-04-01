@@ -6,5 +6,5 @@ type Post {
 }
 
 type Query {
-  timeline: [Post!]!
+  timeline(take: Int!, cursor: String): [Post!]
 }
