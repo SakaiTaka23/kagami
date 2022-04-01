@@ -14,6 +14,9 @@ export class PostsService {
       include: {
         user: true,
       },
+      orderBy: {
+        id: 'desc',
+      },
     });
   }
 }
