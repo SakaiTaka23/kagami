@@ -6,7 +6,7 @@ type Post {
 }
 
 type Query {
-  timeline(take: Int!, cursor: String): [Post!]
+  timeline(take: Int!, cursor: String): [Post!]!
   userFromToken: User!
   user(id: String!): User
 }
