@@ -25,10 +25,25 @@ export type MutationCreateUserArgs = {
   username: UserName;
 };
 
+export type Post = {
+  __typename?: 'Post';
+  content: Scalars['String'];
+  id: Scalars['String'];
+  user: User;
+  userId: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
+};
+
+
+export type QueryTimelineArgs = {
+  cursor?: InputMaybe<Scalars['String']>;
+  take: Scalars['Int'];
 };
 
 
@@ -52,6 +67,14 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string } };
+
+export type TimeLineQueryVariables = Exact<{
+  take: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type TimeLineQuery = { __typename?: 'Query', timeline: Array<{ __typename?: 'Post', id: string, content: string, userId: string, user: { __typename?: 'User', name: string } }> };
 
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -100,6 +123,47 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const TimeLineDocument = gql`
+    query TimeLine($take: Int!, $cursor: String) {
+  timeline(take: $take, cursor: $cursor) {
+    id
+    content
+    userId
+    user {
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useTimeLineQuery__
+ *
+ * To run a query within a React component, call `useTimeLineQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTimeLineQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTimeLineQuery({
+ *   variables: {
+ *      take: // value for 'take'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useTimeLineQuery(baseOptions: Apollo.QueryHookOptions<TimeLineQuery, TimeLineQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TimeLineQuery, TimeLineQueryVariables>(TimeLineDocument, options);
+      }
+export function useTimeLineLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TimeLineQuery, TimeLineQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TimeLineQuery, TimeLineQueryVariables>(TimeLineDocument, options);
+        }
+export type TimeLineQueryHookResult = ReturnType<typeof useTimeLineQuery>;
+export type TimeLineLazyQueryHookResult = ReturnType<typeof useTimeLineLazyQuery>;
+export type TimeLineQueryResult = Apollo.QueryResult<TimeLineQuery, TimeLineQueryVariables>;
 export const UserFromTokenDocument = gql`
     query UserFromToken {
   userFromToken {
