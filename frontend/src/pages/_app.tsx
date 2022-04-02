@@ -2,7 +2,7 @@ import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { EmotionCache } from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { CssBaseline } from '@mui/material';
+import { Container, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppProps } from 'next/app';
 
@@ -44,7 +44,9 @@ function App(props: MyAppProps) {
         <AuthProvider>
           <ApolloProvider client={client}>
             <CssBaseline />
-            <Component {...pageProps} />
+            <Container maxWidth='sm'>
+              <Component {...pageProps} />
+            </Container>
           </ApolloProvider>
         </AuthProvider>
       </ThemeProvider>
