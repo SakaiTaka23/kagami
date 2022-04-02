@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import React, { FC } from 'react';
 
 import Post from './Post';
 
@@ -11,7 +11,7 @@ type Props = {
   }[];
 };
 
-const Posts: VFC<Props> = (props) => {
+const Posts: FC<Props> = (props) => {
   return (
     <>
       {props.timeline?.map((post, i) => {

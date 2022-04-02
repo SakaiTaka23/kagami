@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import React, { FC } from 'react';
 
 import { Paper, Typography } from '@mui/material';
 
@@ -9,7 +9,7 @@ type Props = {
   };
 };
 
-const Post: VFC<Props> = (post) => {
+const Post: FC<Props> = (post) => {
   const { name } = post.user;
   const { content } = post;
   return (

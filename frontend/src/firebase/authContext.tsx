@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState, VFC } from 'react';
+import { createContext, ReactNode, useEffect, useState, FC } from 'react';
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
@@ -16,7 +16,7 @@ type AuthContextState = {
 
 const AuthContext = createContext({} as AuthContextState);
 
-const AuthProvider: VFC<Props> = ({ children }) => {
+const AuthProvider: FC<Props> = ({ children }) => {
   const firebaseAuth = getAuth(firebaseApp);
   const router = useRouter();
   const [userID, setUserID] = useState('');
