@@ -1,0 +1,10 @@
+query TimeLine($take: Int!, $cursor: String) {
+  timeline(take: $take, cursor: $cursor) {
+    id
+    content
+    userId
+    user {
+      name
+    }
+  }
+}

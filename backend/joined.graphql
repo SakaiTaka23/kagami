@@ -1,3 +1,16 @@
+type Post {
+  id: String!
+  content: String!
+  user: User!
+  userId: String!
+}
+
+type Query {
+  timeline(take: Int!, cursor: String): [Post!]!
+  userFromToken: User!
+  user(id: String!): User
+}
+
 type User {
   id: String!
   name: String!
@@ -5,11 +18,6 @@ type User {
 
 input UserName {
   name: String!
-}
-
-type Query {
-  userFromToken: User!
-  user(id: String!): User
 }
 
 type Mutation {
