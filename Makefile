@@ -29,6 +29,7 @@ install: ## install command
 	cp .env.example .env
 	cp frontend/.env.example frontend/.env
 	cp backend/.env.example backend/.env
+	yarn install
 	cd frontend && yarn install
 	cd backend && yarn install
 build: ## build docker images
