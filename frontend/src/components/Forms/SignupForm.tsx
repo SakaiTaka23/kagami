@@ -8,12 +8,14 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useFirebase } from '@/firebase/useFirebase';
 
 import SubmitButton from './Button/SubmitButton';
+import AccountNameInput from './Inputs/AccountNameInput';
 import EmailInput from './Inputs/EmailInput';
-import NameInput from './Inputs/NameInput';
 import PasswordInput from './Inputs/PasswordInput';
+import UserNameInput from './Inputs/UserNameInput';
 
 type SubmitData = {
-  name: string;
+  accountName: string;
+  userName: string;
   email: string;
   password: string;
 };
@@ -23,7 +25,7 @@ export default function SignUpForm() {
   const { SignUp } = useFirebase();
 
   const submit: SubmitHandler<SubmitData> = (data) => {
-    SignUp(data.name, data.email, data.password);
+    SignUp(data.accountName, data.userName, data.email, data.password);
   };
 
   return (
@@ -43,9 +45,10 @@ export default function SignUpForm() {
         </Typography>
         <FormProvider {...methods}>
           <Box component='form' onSubmit={methods.handleSubmit(submit)} sx={{ mt: 3 }}>
-            <NameInput />
             <EmailInput />
             <PasswordInput />
+            <UserNameInput />
+            <AccountNameInput />
             <SubmitButton />
           </Box>
         </FormProvider>

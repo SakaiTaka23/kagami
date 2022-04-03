@@ -22,13 +22,14 @@ const useFirebase = () => {
     });
   };
 
-  const SignUp = async (name: string, email: string, password: string) => {
+  const SignUp = async (accountName: string, userName: string, email: string, password: string) => {
     await createUserWithEmailAndPassword(firebaseAuth, email, password).then((user_credential) => {
       user_credential.user.getIdToken(true).then(() => {
         createUserMutation({
           variables: {
             username: {
-              name,
+              accountName,
+              userName,
             },
           },
         });
