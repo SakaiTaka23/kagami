@@ -8,7 +8,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export class UserName {
-    name: string;
+    account_name: string;
+    user_name: string;
 }
 
 export class Post {
@@ -28,7 +29,8 @@ export abstract class IQuery {
 
 export class User {
     id: string;
-    name: string;
+    account_name: string;
+    user_name: string;
 }
 
 export abstract class IMutation {

@@ -13,7 +13,7 @@ export class UsersResolver {
   @UseGuards(FirebaseAuthGuard)
   @Mutation('createUser')
   create(@CurrentUserID() id: string, @Args('username') username: UserName) {
-    return this.usersService.create(id, username.name);
+    return this.usersService.create(id, username.account_name, username.user_name);
   }
 
   @Query('user')

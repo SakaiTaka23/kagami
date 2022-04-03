@@ -13,11 +13,13 @@ type Query {
 
 type User {
   id: String!
-  name: String!
+  account_name: String!
+  user_name: String!
 }
 
 input UserName {
-  name: String!
+  account_name: String!
+  user_name: String!
 }
 
 type Mutation {
