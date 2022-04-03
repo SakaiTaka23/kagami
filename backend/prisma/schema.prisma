@@ -13,7 +13,8 @@ datasource db {
 
 model User {
   id String @id
-  name String
+  account_name String
+  user_name String @unique
   posts Post[]
 }
 
