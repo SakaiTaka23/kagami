@@ -3,7 +3,7 @@ import React from 'react';
 import { TextField, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
-const NameInput = () => {
+const AccountNameInput = () => {
   const {
     control,
     formState: { errors },
@@ -14,21 +14,20 @@ const NameInput = () => {
       <Controller
         control={control}
         defaultValue=''
-        name='name'
+        name='accountName'
         rules={{
           required: true,
-          minLength: 4,
-          maxLength: 16,
+          pattern: /^[0-9a-zA-Z_]{1,15}$/,
         }}
-        render={({ field }) => <TextField {...field} margin='normal' placeholder='Name *' fullWidth />}
+        render={({ field }) => <TextField {...field} margin='normal' placeholder='Account Name *' fullWidth />}
       />
-      {errors.name && (
+      {errors.accountName && (
         <Typography color='error' variant='overline'>
-          required and must be 4 to 16 long
+          {`required and must be 1 to 16 long \n only number alphabet and underscores`}
         </Typography>
       )}
     </>
   );
 };
 
-export default NameInput;
+export default AccountNameInput;
