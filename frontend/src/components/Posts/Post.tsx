@@ -5,16 +5,18 @@ import { Paper, Typography } from '@mui/material';
 type Props = {
   content: string;
   user: {
-    name: string;
+    accountName: string;
+    userName: string;
   };
 };
 
 const Post: FC<Props> = (post) => {
-  const { name } = post.user;
+  const { accountName, userName } = post.user;
   const { content } = post;
   return (
     <Paper>
-      <Typography>{name}</Typography>
+      <Typography>{accountName}</Typography>
+      <Typography>{userName}</Typography>
       <Typography>{content}</Typography>
     </Paper>
   );

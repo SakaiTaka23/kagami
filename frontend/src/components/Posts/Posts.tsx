@@ -6,7 +6,8 @@ type Props = {
   timeline: {
     content: string;
     user: {
-      name: string;
+      accountName: string;
+      userName: string;
     };
   }[];
 };
