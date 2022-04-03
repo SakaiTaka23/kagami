@@ -1,12 +1,12 @@
 type User {
   id: String!
-  account_name: String!
-  user_name: String!
+  accountName: String!
+  userName: String!
 }
 
 input UserName {
-  account_name: String!
-  user_name: String!
+  accountName: String!
+  userName: String!
 }
 
 type Query {

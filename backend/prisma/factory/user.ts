@@ -8,8 +8,8 @@ export const users = async (count: number) => {
       .fill(0)
       .map(() => ({
         id: faker.datatype.uuid(),
-        account_name: faker.name.firstName(),
-        user_name: faker.name.middleName(),
+        accountName: faker.name.firstName(),
+        userName: faker.name.middleName(),
       })),
   });
 };
