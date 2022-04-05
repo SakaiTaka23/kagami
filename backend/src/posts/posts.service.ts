@@ -19,4 +19,15 @@ export class PostsService {
       },
     });
   }
+
+  findFromID(id: string) {
+    return this.prisma.post.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        user: true,
+      },
+    });
+  }
 }
