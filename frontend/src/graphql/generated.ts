@@ -35,9 +35,16 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+  postDetail?: Maybe<Post>;
   timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
+};
+
+
+export type QueryPostDetailArgs = {
+  id: Scalars['String'];
+  userName: Scalars['String'];
 };
 
 
@@ -77,6 +84,14 @@ export type TimeLineQueryVariables = Exact<{
 
 
 export type TimeLineQuery = { __typename?: 'Query', timeline: Array<{ __typename?: 'Post', id: string, content: string, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
+
+export type PostDetailQueryVariables = Exact<{
+  postDetailId: Scalars['String'];
+  userName: Scalars['String'];
+}>;
+
+
+export type PostDetailQuery = { __typename?: 'Query', postDetail?: { __typename?: 'Post', content: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -166,6 +181,46 @@ export function useTimeLineLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<T
 export type TimeLineQueryHookResult = ReturnType<typeof useTimeLineQuery>;
 export type TimeLineLazyQueryHookResult = ReturnType<typeof useTimeLineLazyQuery>;
 export type TimeLineQueryResult = Apollo.QueryResult<TimeLineQuery, TimeLineQueryVariables>;
+export const PostDetailDocument = gql`
+    query PostDetail($postDetailId: String!, $userName: String!) {
+  postDetail(id: $postDetailId, userName: $userName) {
+    content
+    user {
+      accountName
+      userName
+    }
+  }
+}
+    `;
+
+/**
+ * __usePostDetailQuery__
+ *
+ * To run a query within a React component, call `usePostDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostDetailQuery({
+ *   variables: {
+ *      postDetailId: // value for 'postDetailId'
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function usePostDetailQuery(baseOptions: Apollo.QueryHookOptions<PostDetailQuery, PostDetailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostDetailQuery, PostDetailQueryVariables>(PostDetailDocument, options);
+      }
+export function usePostDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostDetailQuery, PostDetailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostDetailQuery, PostDetailQueryVariables>(PostDetailDocument, options);
+        }
+export type PostDetailQueryHookResult = ReturnType<typeof usePostDetailQuery>;
+export type PostDetailLazyQueryHookResult = ReturnType<typeof usePostDetailLazyQuery>;
+export type PostDetailQueryResult = Apollo.QueryResult<PostDetailQuery, PostDetailQueryVariables>;
 export const UserFromTokenDocument = gql`
     query UserFromToken {
   userFromToken {

@@ -11,4 +11,9 @@ export class PostsResolver {
     const cursorObj = cursor === undefined ? undefined : { id: cursor };
     return this.postsService.getMany(take, cursorObj);
   }
+
+  @Query('postDetail')
+  detail(@Args('id') id: string, @Args('userName') userName: string) {
+    return this.postsService.findDetail(id, userName);
+  }
 }

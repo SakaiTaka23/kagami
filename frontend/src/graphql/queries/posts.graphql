@@ -9,3 +9,13 @@ query TimeLine($take: Int!, $cursor: String) {
     }
   }
 }
+
+query PostDetail($postDetailId: String!, $userName: String!) {
+  postDetail(id: $postDetailId, userName: $userName) {
+    content
+    user {
+      accountName
+      userName
+    }
+  }
+}

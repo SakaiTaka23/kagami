@@ -4,6 +4,7 @@ import Post from './Post';
 
 type Props = {
   timeline: {
+    id: string;
     content: string;
     user: {
       accountName: string;
