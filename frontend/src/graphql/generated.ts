@@ -44,6 +44,7 @@ export type Query = {
 
 export type QueryPostDetailArgs = {
   id: Scalars['String'];
+  userName: Scalars['String'];
 };
 
 
@@ -86,6 +87,7 @@ export type TimeLineQuery = { __typename?: 'Query', timeline: Array<{ __typename
 
 export type PostDetailQueryVariables = Exact<{
   postDetailId: Scalars['String'];
+  userName: Scalars['String'];
 }>;
 
 
@@ -180,8 +182,8 @@ export type TimeLineQueryHookResult = ReturnType<typeof useTimeLineQuery>;
 export type TimeLineLazyQueryHookResult = ReturnType<typeof useTimeLineLazyQuery>;
 export type TimeLineQueryResult = Apollo.QueryResult<TimeLineQuery, TimeLineQueryVariables>;
 export const PostDetailDocument = gql`
-    query PostDetail($postDetailId: String!) {
-  postDetail(id: $postDetailId) {
+    query PostDetail($postDetailId: String!, $userName: String!) {
+  postDetail(id: $postDetailId, userName: $userName) {
     content
     user {
       accountName
@@ -204,6 +206,7 @@ export const PostDetailDocument = gql`
  * const { data, loading, error } = usePostDetailQuery({
  *   variables: {
  *      postDetailId: // value for 'postDetailId'
+ *      userName: // value for 'userName'
  *   },
  * });
  */

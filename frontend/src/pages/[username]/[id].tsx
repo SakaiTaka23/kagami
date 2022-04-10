@@ -7,16 +7,17 @@ import { usePostDetailQuery } from '@/graphql/generated';
 
 const PostDetail = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, username } = router.query;
   const { data, loading, error } = usePostDetailQuery({
     skip: !router.isReady,
     variables: {
       postDetailId: String(id),
+      userName: String(username),
     },
   });
 
   useEffect(() => {
-    if (loading === false && data === null) {
+    if (loading === false && data?.postDetail === null) {
       router.replace('/404');
     }
   }, [loading, data, router]);
