@@ -7,5 +7,5 @@ type Post {
 
 type Query {
   timeline(take: Int!, cursor: String): [Post!]!
-  postDetail(id: String!): Post
+  postDetail(id: String!, userName: String!): Post
 }

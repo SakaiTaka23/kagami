@@ -22,7 +22,7 @@ export class Post {
 export abstract class IQuery {
     abstract timeline(take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
 
-    abstract postDetail(id: string): Nullable<Post> | Promise<Nullable<Post>>;
+    abstract postDetail(id: string, userName: string): Nullable<Post> | Promise<Nullable<Post>>;
 
     abstract userFromToken(): User | Promise<User>;
 

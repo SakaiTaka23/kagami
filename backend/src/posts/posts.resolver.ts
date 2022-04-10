@@ -13,7 +13,7 @@ export class PostsResolver {
   }
 
   @Query('postDetail')
-  detail(@Args('id') id: string) {
-    return this.postsService.findFromID(id);
+  detail(@Args('id') id: string, @Args('userName') userName: string) {
+    return this.postsService.findDetail(id, userName);
   }
 }
