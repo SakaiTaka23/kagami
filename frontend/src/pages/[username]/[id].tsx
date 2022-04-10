@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
+import Detail from '@/components/Posts/Detail';
 import { usePostDetailQuery } from '@/graphql/generated';
 
 const PostDetail = () => {
@@ -15,7 +16,7 @@ const PostDetail = () => {
   });
 
   useEffect(() => {
-    if (loading === false && data === undefined) {
+    if (loading === false && data === null) {
       router.replace('/404');
     }
   }, [loading, data, router]);
@@ -23,7 +24,7 @@ const PostDetail = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <div>PostDetail</div>;
+  return <>{data?.postDetail && <Detail {...data.postDetail} />}</>;
 };
 
 export default PostDetail;
