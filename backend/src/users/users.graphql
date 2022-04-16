@@ -11,6 +11,7 @@ input UserName {
 
 type Query {
   userFromToken: User!
+  userFromUserName(userName: String!): User
   user(id: String!): User
 }
 

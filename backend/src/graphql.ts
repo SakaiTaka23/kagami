@@ -26,6 +26,8 @@ export abstract class IQuery {
 
     abstract userFromToken(): User | Promise<User>;
 
+    abstract userFromUserName(userName: string): Nullable<User> | Promise<Nullable<User>>;
+
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 

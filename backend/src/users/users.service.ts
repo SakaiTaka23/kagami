@@ -22,4 +22,12 @@ export class UsersService {
       },
     });
   }
+
+  fromUserName(userName: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        userName,
+      },
+    });
+  }
 }
