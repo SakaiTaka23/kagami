@@ -23,10 +23,39 @@ export class UsersService {
     });
   }
 
+  follow(userID: string, follow: string) {
+    return this.prisma.follow.create({
+      data: {
+        followerId: userID,
+        followingId: follow,
+      },
+    });
+  }
+
   fromUserName(userName: string) {
     return this.prisma.user.findUnique({
       where: {
         userName,
+      },
+    });
+  }
+
+  async isFollowing(userID: string, followerId: string) {
+    return this.prisma.follow.count({
+      where: {
+        followingId: userID,
+        followerId,
+      },
+    });
+  }
+
+  unFollow(followingId: string, followerId: string) {
+    return this.prisma.follow.delete({
+      where: {
+        followerId_followingId: {
+          followingId,
+          followerId,
+        },
       },
     });
   }
