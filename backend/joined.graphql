@@ -8,6 +8,7 @@ type Post {
 type Query {
   timeline(take: Int!, cursor: String): [Post!]!
   postDetail(id: String!, userName: String!): Post
+  followToggle(follow: String!): User
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User

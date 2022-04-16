@@ -10,6 +10,7 @@ input UserName {
 }
 
 type Query {
+  followToggle(follow: String!): User
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User
