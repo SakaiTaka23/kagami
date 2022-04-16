@@ -9,3 +9,10 @@ query UserFromID($userId: String!) {
     id
   }
 }
+
+query UserFromUserName($userName: String!) {
+  userFromUserName(userName: $userName) {
+    accountName
+    userName
+  }
+}

@@ -39,6 +39,7 @@ export type Query = {
   timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
+  userFromUserName?: Maybe<User>;
 };
 
 
@@ -56,6 +57,11 @@ export type QueryTimelineArgs = {
 
 export type QueryUserArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryUserFromUserNameArgs = {
+  userName: Scalars['String'];
 };
 
 export type User = {
@@ -104,6 +110,13 @@ export type UserFromIdQueryVariables = Exact<{
 
 
 export type UserFromIdQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string } | null };
+
+export type UserFromUserNameQueryVariables = Exact<{
+  userName: Scalars['String'];
+}>;
+
+
+export type UserFromUserNameQuery = { __typename?: 'Query', userFromUserName?: { __typename?: 'User', accountName: string, userName: string } | null };
 
 
 export const CreateUserDocument = gql`
@@ -290,3 +303,39 @@ export function useUserFromIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type UserFromIdQueryHookResult = ReturnType<typeof useUserFromIdQuery>;
 export type UserFromIdLazyQueryHookResult = ReturnType<typeof useUserFromIdLazyQuery>;
 export type UserFromIdQueryResult = Apollo.QueryResult<UserFromIdQuery, UserFromIdQueryVariables>;
+export const UserFromUserNameDocument = gql`
+    query UserFromUserName($userName: String!) {
+  userFromUserName(userName: $userName) {
+    accountName
+    userName
+  }
+}
+    `;
+
+/**
+ * __useUserFromUserNameQuery__
+ *
+ * To run a query within a React component, call `useUserFromUserNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserFromUserNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserFromUserNameQuery({
+ *   variables: {
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function useUserFromUserNameQuery(baseOptions: Apollo.QueryHookOptions<UserFromUserNameQuery, UserFromUserNameQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserFromUserNameQuery, UserFromUserNameQueryVariables>(UserFromUserNameDocument, options);
+      }
+export function useUserFromUserNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserFromUserNameQuery, UserFromUserNameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserFromUserNameQuery, UserFromUserNameQueryVariables>(UserFromUserNameDocument, options);
+        }
+export type UserFromUserNameQueryHookResult = ReturnType<typeof useUserFromUserNameQuery>;
+export type UserFromUserNameLazyQueryHookResult = ReturnType<typeof useUserFromUserNameLazyQuery>;
+export type UserFromUserNameQueryResult = Apollo.QueryResult<UserFromUserNameQuery, UserFromUserNameQueryVariables>;
