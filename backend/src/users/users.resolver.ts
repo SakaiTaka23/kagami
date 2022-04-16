@@ -26,4 +26,9 @@ export class UsersResolver {
   findFromToken(@CurrentUserID() id: string) {
     return this.usersService.findOne(id);
   }
+
+  @Query('userFromUserName')
+  findFromUserName(@Args('userName') userName: string) {
+    return this.usersService.fromUserName(userName);
+  }
 }
