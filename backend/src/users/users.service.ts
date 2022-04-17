@@ -40,16 +40,16 @@ export class UsersService {
     });
   }
 
-  async isFollowing(userID: string, followerId: string) {
+  async isFollowing(userID: string, followingId: string) {
     return this.prisma.follow.count({
       where: {
-        followingId: userID,
-        followerId,
+        followerId: userID,
+        followingId,
       },
     });
   }
 
-  unFollow(followingId: string, followerId: string) {
+  unFollow(followerId: string, followingId: string) {
     return this.prisma.follow.delete({
       where: {
         followerId_followingId: {
