@@ -3,3 +3,9 @@ mutation CreateUser($username: UserName!) {
     id
   }
 }
+
+mutation FollowToggle($followingId: String!) {
+  followToggle(followingId: $followingId) {
+    followingId
+  }
+}

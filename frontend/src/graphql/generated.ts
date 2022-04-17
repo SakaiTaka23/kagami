@@ -15,14 +15,26 @@ export type Scalars = {
   Float: number;
 };
 
+export type Follow = {
+  __typename?: 'Follow';
+  followerId: Scalars['String'];
+  followingId: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
+  followToggle: Follow;
 };
 
 
 export type MutationCreateUserArgs = {
   username: UserName;
+};
+
+
+export type MutationFollowToggleArgs = {
+  followingId: Scalars['String'];
 };
 
 export type Post = {
@@ -82,6 +94,13 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string } };
+
+export type FollowToggleMutationVariables = Exact<{
+  followingId: Scalars['String'];
+}>;
+
+
+export type FollowToggleMutation = { __typename?: 'Mutation', followToggle: { __typename?: 'Follow', followingId: string } };
 
 export type TimeLineQueryVariables = Exact<{
   take: Scalars['Int'];
@@ -152,6 +171,39 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const FollowToggleDocument = gql`
+    mutation FollowToggle($followingId: String!) {
+  followToggle(followingId: $followingId) {
+    followingId
+  }
+}
+    `;
+export type FollowToggleMutationFn = Apollo.MutationFunction<FollowToggleMutation, FollowToggleMutationVariables>;
+
+/**
+ * __useFollowToggleMutation__
+ *
+ * To run a mutation, you first call `useFollowToggleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowToggleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [followToggleMutation, { data, loading, error }] = useFollowToggleMutation({
+ *   variables: {
+ *      followingId: // value for 'followingId'
+ *   },
+ * });
+ */
+export function useFollowToggleMutation(baseOptions?: Apollo.MutationHookOptions<FollowToggleMutation, FollowToggleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FollowToggleMutation, FollowToggleMutationVariables>(FollowToggleDocument, options);
+      }
+export type FollowToggleMutationHookResult = ReturnType<typeof useFollowToggleMutation>;
+export type FollowToggleMutationResult = Apollo.MutationResult<FollowToggleMutation>;
+export type FollowToggleMutationOptions = Apollo.BaseMutationOptions<FollowToggleMutation, FollowToggleMutationVariables>;
 export const TimeLineDocument = gql`
     query TimeLine($take: Int!, $cursor: String) {
   timeline(take: $take, cursor: $cursor) {
