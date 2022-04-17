@@ -4,13 +4,17 @@ type User {
   userName: String!
 }
 
+type Follow {
+  followerId: String!
+  followingId: String!
+}
+
 input UserName {
   accountName: String!
   userName: String!
 }
 
 type Query {
-  followToggle(follow: String!): User
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User
@@ -18,4 +22,5 @@ type Query {
 
 type Mutation {
   createUser(username: UserName!): User!
+  followToggle(followingId: String!): Follow!
 }

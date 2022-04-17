@@ -23,11 +23,11 @@ export class UsersService {
     });
   }
 
-  follow(userID: string, follow: string) {
+  follow(userID: string, followingId: string) {
     return this.prisma.follow.create({
       data: {
         followerId: userID,
-        followingId: follow,
+        followingId,
       },
     });
   }
