@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
+import Profile from '@/components/Profile/Profile';
 import { useUserFromUserNameQuery } from '@/graphql/generated';
 
 const UserProfile = () => {
@@ -27,8 +28,7 @@ const UserProfile = () => {
   return (
     <>
       <Typography variant='h3'>Profile</Typography>
-      <Typography variant='h5'>{`${data?.userFromUserName?.userName}`}</Typography>
-      <Typography variant='h5'>{`${data?.userFromUserName?.accountName}`}</Typography>
+      {data?.userFromUserName && <Profile {...data?.userFromUserName} />}
     </>
   );
 };
