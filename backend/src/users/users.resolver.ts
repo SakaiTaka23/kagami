@@ -34,6 +34,12 @@ export class UsersResolver {
   }
 
   @UseGuards(FirebaseAuthGuard)
+  @Query('isFollowing')
+  following(@CurrentUserID() id: string, @Args('followingId') followingId: string) {
+    return this.usersService.isFollowing(id, followingId);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
   @Mutation('followToggle')
   async toggle(@CurrentUserID() id: string, @Args('followingId') followingId: string) {
     const isFollowing = await this.usersService.isFollowing(id, followingId);
