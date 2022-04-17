@@ -15,7 +15,7 @@ input UserName {
 }
 
 type Query {
-  isFollowing(followingId: String!): Boolean!
+  isFollowing(userName: String!): Boolean!
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User

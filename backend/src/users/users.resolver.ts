@@ -35,8 +35,8 @@ export class UsersResolver {
 
   @UseGuards(FirebaseAuthGuard)
   @Query('isFollowing')
-  following(@CurrentUserID() id: string, @Args('followingId') followingId: string) {
-    return this.usersService.isFollowing(id, followingId);
+  following(@CurrentUserID() id: string, @Args('userName') userName: string) {
+    return this.usersService.isFollowing(id, userName);
   }
 
   @UseGuards(FirebaseAuthGuard)

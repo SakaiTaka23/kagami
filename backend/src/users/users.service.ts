@@ -40,11 +40,13 @@ export class UsersService {
     });
   }
 
-  async isFollowing(userID: string, followingId: string) {
+  async isFollowing(userID: string, userName: string) {
     return this.prisma.follow.count({
       where: {
         followerId: userID,
-        followingId,
+        following: {
+          userName,
+        },
       },
     });
   }

@@ -24,7 +24,7 @@ export abstract class IQuery {
 
     abstract postDetail(id: string, userName: string): Nullable<Post> | Promise<Nullable<Post>>;
 
-    abstract isFollowing(followingId: string): boolean | Promise<boolean>;
+    abstract isFollowing(userName: string): boolean | Promise<boolean>;
 
     abstract userFromToken(): User | Promise<User>;
 
