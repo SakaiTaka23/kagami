@@ -1,5 +1,6 @@
-import { UseGuards } from '@nestjs/common';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
 import { UserName } from 'src/graphql';
@@ -37,7 +38,13 @@ export class UsersResolver {
   async toggle(@CurrentUserID() id: string, @Args('followingId') followingId: string) {
     const isFollowing = await this.usersService.isFollowing(id, followingId);
     if (isFollowing === 0) {
-      return this.usersService.follow(id, followingId);
+      return this.usersService.follow(id, followingId).catch((e) => {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === 'P2003') {
+            throw new HttpException('BadRequest', HttpStatus.BAD_REQUEST);
+          }
+        }
+      });
     }
     return this.usersService.unFollow(id, followingId);
   }
