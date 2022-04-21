@@ -4,12 +4,12 @@ import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import Profile from '@/components/Profile/Profile';
-import { useUserFromUserNameQuery } from '@/graphql/generated';
+import { useUserProfileQuery } from '@/graphql/generated';
 
 const UserProfile = () => {
   const router = useRouter();
   const { username } = router.query;
-  const { data, loading, error } = useUserFromUserNameQuery({
+  const { data, loading, error } = useUserProfileQuery({
     skip: !router.isReady,
     variables: {
       userName: String(username),
@@ -28,7 +28,7 @@ const UserProfile = () => {
   return (
     <>
       <Typography variant='h3'>Profile</Typography>
-      {data?.userFromUserName && <Profile {...data?.userFromUserName} />}
+      {data?.userFromUserName && <Profile {...data.userFromUserName} isFollowing={data.isFollowing} />}
     </>
   );
 };
