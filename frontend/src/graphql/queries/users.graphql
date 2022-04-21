@@ -10,9 +10,10 @@ query UserFromID($userId: String!) {
   }
 }
 
-query UserFromUserName($userName: String!) {
+query UserProfile($userName: String!) {
   userFromUserName(userName: $userName) {
     accountName
     userName
   }
+  isFollowing(userName: $userName)
 }
