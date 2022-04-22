@@ -1,17 +1,27 @@
+type Follow {
+  followerId: String!
+  followingId: String!
+}
+
+type Query {
+  isFollowing(userName: String!): Boolean!
+  timeline(take: Int!, cursor: String): [Post!]!
+  postDetail(id: String!, userName: String!): Post
+  userFromToken: User!
+  userFromUserName(userName: String!): User
+  user(id: String!): User
+}
+
+type Mutation {
+  followToggle(userName: String!): Follow!
+  createUser(username: UserName!): User!
+}
+
 type Post {
   id: String!
   content: String!
   user: User!
   userId: String!
-}
-
-type Query {
-  timeline(take: Int!, cursor: String): [Post!]!
-  postDetail(id: String!, userName: String!): Post
-  isFollowing(userName: String!): Boolean!
-  userFromToken: User!
-  userFromUserName(userName: String!): User
-  user(id: String!): User
 }
 
 type User {
@@ -20,19 +30,9 @@ type User {
   userName: String!
 }
 
-type Follow {
-  followerId: String!
-  followingId: String!
-}
-
 input UserName {
   accountName: String!
   userName: String!
-}
-
-type Mutation {
-  createUser(username: UserName!): User!
-  followToggle(userName: String!): Follow!
 }
 
 schema {
