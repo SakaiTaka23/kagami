@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Button, Modal } from '@mui/material';
 import { Box } from '@mui/system';
+
+import { useFollowToggleMutation } from '@/graphql/generated';
+
+type Props = {
+  isFollowing: boolean;
+  userName: string;
+};
 
 const style = {
   position: 'absolute',
@@ -15,8 +22,9 @@ const style = {
   p: 4,
 };
 
-const FollowButton = () => {
-  const [following, setFollowing] = useState(false);
+const FollowButton: FC<Props> = ({ isFollowing, userName }) => {
+  const [followToggleMutation] = useFollowToggleMutation();
+  const [following, setFollowing] = useState(isFollowing);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -25,6 +33,11 @@ const FollowButton = () => {
   const handleFollow = () => {
     setFollowing(!following);
     setOpen(false);
+    followToggleMutation({
+      variables: {
+        userName,
+      },
+    });
   };
 
   return (
