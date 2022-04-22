@@ -12,19 +12,17 @@ export class UserName {
     userName: string;
 }
 
-export class Post {
-    id: string;
-    content: string;
-    user: User;
-    userId: string;
+export class Follow {
+    followerId: string;
+    followingId: string;
 }
 
 export abstract class IQuery {
+    abstract isFollowing(userName: string): boolean | Promise<boolean>;
+
     abstract timeline(take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
 
     abstract postDetail(id: string, userName: string): Nullable<Post> | Promise<Nullable<Post>>;
-
-    abstract isFollowing(userName: string): boolean | Promise<boolean>;
 
     abstract userFromToken(): User | Promise<User>;
 
@@ -33,21 +31,23 @@ export abstract class IQuery {
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
+export abstract class IMutation {
+    abstract followToggle(userName: string): Follow | Promise<Follow>;
+
+    abstract createUser(username: UserName): User | Promise<User>;
+}
+
+export class Post {
+    id: string;
+    content: string;
+    user: User;
+    userId: string;
+}
+
 export class User {
     id: string;
     accountName: string;
     userName: string;
-}
-
-export class Follow {
-    followerId: string;
-    followingId: string;
-}
-
-export abstract class IMutation {
-    abstract createUser(username: UserName): User | Promise<User>;
-
-    abstract followToggle(userName: string): Follow | Promise<Follow>;
 }
 
 type Nullable<T> = T | null;
