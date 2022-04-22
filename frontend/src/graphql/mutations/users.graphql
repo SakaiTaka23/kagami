@@ -4,8 +4,8 @@ mutation CreateUser($username: UserName!) {
   }
 }
 
-mutation FollowToggle($followingId: String!) {
-  followToggle(followingId: $followingId) {
+mutation FollowToggle($userName: String!) {
+  followToggle(userName: $userName) {
     followingId
   }
 }
