@@ -23,5 +23,5 @@ type Query {
 
 type Mutation {
   createUser(username: UserName!): User!
-  followToggle(followingId: String!): Follow!
+  followToggle(userName: String!): Follow!
 }

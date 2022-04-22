@@ -47,7 +47,7 @@ export class Follow {
 export abstract class IMutation {
     abstract createUser(username: UserName): User | Promise<User>;
 
-    abstract followToggle(followingId: string): Follow | Promise<Follow>;
+    abstract followToggle(userName: string): Follow | Promise<Follow>;
 }
 
 type Nullable<T> = T | null;

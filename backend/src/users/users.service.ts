@@ -51,12 +51,12 @@ export class UsersService {
     });
   }
 
-  unFollow(followerId: string, followingId: string) {
+  unFollow(userID: string, followingId: string) {
     return this.prisma.follow.delete({
       where: {
         followerId_followingId: {
+          followerId: userID,
           followingId,
-          followerId,
         },
       },
     });

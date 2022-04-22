@@ -41,10 +41,10 @@ export class UsersResolver {
 
   @UseGuards(FirebaseAuthGuard)
   @Mutation('followToggle')
-  async toggle(@CurrentUserID() id: string, @Args('followingId') followingId: string) {
-    const isFollowing = await this.usersService.isFollowing(id, followingId);
+  async toggle(@CurrentUserID() id: string, @Args('userName') userName: string) {
+    const isFollowing = await this.usersService.isFollowing(id, userName);
     if (isFollowing === 0) {
-      return this.usersService.follow(id, followingId).catch((e) => {
+      return this.usersService.follow(id, userName).catch((e) => {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
           if (e.code === 'P2003') {
             throw new HttpException('BadRequest', HttpStatus.BAD_REQUEST);
@@ -52,6 +52,7 @@ export class UsersResolver {
         }
       });
     }
-    return this.usersService.unFollow(id, followingId);
+    const user = await this.usersService.findOne(userName);
+    return this.usersService.unFollow(id, user.id);
   }
 }
