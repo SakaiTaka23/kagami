@@ -43,8 +43,9 @@ export class UsersResolver {
   @Mutation('followToggle')
   async toggle(@CurrentUserID() id: string, @Args('userName') userName: string) {
     const isFollowing = await this.usersService.isFollowing(id, userName);
+    const user = await this.usersService.fromUserName(userName);
     if (isFollowing === 0) {
-      return this.usersService.follow(id, userName).catch((e) => {
+      return this.usersService.follow(id, user.id).catch((e) => {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
           if (e.code === 'P2003') {
             throw new HttpException('BadRequest', HttpStatus.BAD_REQUEST);
@@ -52,7 +53,6 @@ export class UsersResolver {
         }
       });
     }
-    const user = await this.usersService.findOne(userName);
     return this.usersService.unFollow(id, user.id);
   }
 }
