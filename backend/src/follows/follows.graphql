@@ -1,0 +1,12 @@
+type Follow {
+  followerId: String!
+  followingId: String!
+}
+
+type Query {
+  isFollowing(userName: String!): Boolean!
+}
+
+type Mutation {
+  followToggle(userName: String!): Follow!
+}
