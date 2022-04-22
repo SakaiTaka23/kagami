@@ -1,5 +1,6 @@
-import { UseGuards } from '@nestjs/common';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
 import { UserName } from 'src/graphql';
@@ -30,5 +31,28 @@ export class UsersResolver {
   @Query('userFromUserName')
   findFromUserName(@Args('userName') userName: string) {
     return this.usersService.fromUserName(userName);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Query('isFollowing')
+  following(@CurrentUserID() id: string, @Args('userName') userName: string) {
+    return this.usersService.isFollowing(id, userName);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Mutation('followToggle')
+  async toggle(@CurrentUserID() id: string, @Args('userName') userName: string) {
+    const isFollowing = await this.usersService.isFollowing(id, userName);
+    const user = await this.usersService.fromUserName(userName);
+    if (isFollowing === 0) {
+      return this.usersService.follow(id, user.id).catch((e) => {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === 'P2003') {
+            throw new HttpException('BadRequest', HttpStatus.BAD_REQUEST);
+          }
+        }
+      });
+    }
+    return this.usersService.unFollow(id, user.id);
   }
 }

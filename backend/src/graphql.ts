@@ -24,6 +24,8 @@ export abstract class IQuery {
 
     abstract postDetail(id: string, userName: string): Nullable<Post> | Promise<Nullable<Post>>;
 
+    abstract isFollowing(userName: string): boolean | Promise<boolean>;
+
     abstract userFromToken(): User | Promise<User>;
 
     abstract userFromUserName(userName: string): Nullable<User> | Promise<Nullable<User>>;
@@ -37,8 +39,15 @@ export class User {
     userName: string;
 }
 
+export class Follow {
+    followerId: string;
+    followingId: string;
+}
+
 export abstract class IMutation {
     abstract createUser(username: UserName): User | Promise<User>;
+
+    abstract followToggle(userName: string): Follow | Promise<Follow>;
 }
 
 type Nullable<T> = T | null;

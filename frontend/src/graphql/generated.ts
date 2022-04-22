@@ -15,14 +15,26 @@ export type Scalars = {
   Float: number;
 };
 
+export type Follow = {
+  __typename?: 'Follow';
+  followerId: Scalars['String'];
+  followingId: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
+  followToggle: Follow;
 };
 
 
 export type MutationCreateUserArgs = {
   username: UserName;
+};
+
+
+export type MutationFollowToggleArgs = {
+  userName: Scalars['String'];
 };
 
 export type Post = {
@@ -35,11 +47,17 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+  isFollowing: Scalars['Boolean'];
   postDetail?: Maybe<Post>;
   timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
   userFromUserName?: Maybe<User>;
+};
+
+
+export type QueryIsFollowingArgs = {
+  userName: Scalars['String'];
 };
 
 
@@ -83,6 +101,13 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string } };
 
+export type FollowToggleMutationVariables = Exact<{
+  userName: Scalars['String'];
+}>;
+
+
+export type FollowToggleMutation = { __typename?: 'Mutation', followToggle: { __typename?: 'Follow', followingId: string } };
+
 export type TimeLineQueryVariables = Exact<{
   take: Scalars['Int'];
   cursor?: InputMaybe<Scalars['String']>;
@@ -111,12 +136,12 @@ export type UserFromIdQueryVariables = Exact<{
 
 export type UserFromIdQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string } | null };
 
-export type UserFromUserNameQueryVariables = Exact<{
+export type UserProfileQueryVariables = Exact<{
   userName: Scalars['String'];
 }>;
 
 
-export type UserFromUserNameQuery = { __typename?: 'Query', userFromUserName?: { __typename?: 'User', accountName: string, userName: string } | null };
+export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string } | null };
 
 
 export const CreateUserDocument = gql`
@@ -152,6 +177,39 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const FollowToggleDocument = gql`
+    mutation FollowToggle($userName: String!) {
+  followToggle(userName: $userName) {
+    followingId
+  }
+}
+    `;
+export type FollowToggleMutationFn = Apollo.MutationFunction<FollowToggleMutation, FollowToggleMutationVariables>;
+
+/**
+ * __useFollowToggleMutation__
+ *
+ * To run a mutation, you first call `useFollowToggleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowToggleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [followToggleMutation, { data, loading, error }] = useFollowToggleMutation({
+ *   variables: {
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function useFollowToggleMutation(baseOptions?: Apollo.MutationHookOptions<FollowToggleMutation, FollowToggleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FollowToggleMutation, FollowToggleMutationVariables>(FollowToggleDocument, options);
+      }
+export type FollowToggleMutationHookResult = ReturnType<typeof useFollowToggleMutation>;
+export type FollowToggleMutationResult = Apollo.MutationResult<FollowToggleMutation>;
+export type FollowToggleMutationOptions = Apollo.BaseMutationOptions<FollowToggleMutation, FollowToggleMutationVariables>;
 export const TimeLineDocument = gql`
     query TimeLine($take: Int!, $cursor: String) {
   timeline(take: $take, cursor: $cursor) {
@@ -303,39 +361,40 @@ export function useUserFromIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type UserFromIdQueryHookResult = ReturnType<typeof useUserFromIdQuery>;
 export type UserFromIdLazyQueryHookResult = ReturnType<typeof useUserFromIdLazyQuery>;
 export type UserFromIdQueryResult = Apollo.QueryResult<UserFromIdQuery, UserFromIdQueryVariables>;
-export const UserFromUserNameDocument = gql`
-    query UserFromUserName($userName: String!) {
+export const UserProfileDocument = gql`
+    query UserProfile($userName: String!) {
   userFromUserName(userName: $userName) {
     accountName
     userName
   }
+  isFollowing(userName: $userName)
 }
     `;
 
 /**
- * __useUserFromUserNameQuery__
+ * __useUserProfileQuery__
  *
- * To run a query within a React component, call `useUserFromUserNameQuery` and pass it any options that fit your needs.
- * When your component renders, `useUserFromUserNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useUserProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useUserFromUserNameQuery({
+ * const { data, loading, error } = useUserProfileQuery({
  *   variables: {
  *      userName: // value for 'userName'
  *   },
  * });
  */
-export function useUserFromUserNameQuery(baseOptions: Apollo.QueryHookOptions<UserFromUserNameQuery, UserFromUserNameQueryVariables>) {
+export function useUserProfileQuery(baseOptions: Apollo.QueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UserFromUserNameQuery, UserFromUserNameQueryVariables>(UserFromUserNameDocument, options);
+        return Apollo.useQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, options);
       }
-export function useUserFromUserNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserFromUserNameQuery, UserFromUserNameQueryVariables>) {
+export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UserFromUserNameQuery, UserFromUserNameQueryVariables>(UserFromUserNameDocument, options);
+          return Apollo.useLazyQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, options);
         }
-export type UserFromUserNameQueryHookResult = ReturnType<typeof useUserFromUserNameQuery>;
-export type UserFromUserNameLazyQueryHookResult = ReturnType<typeof useUserFromUserNameLazyQuery>;
-export type UserFromUserNameQueryResult = Apollo.QueryResult<UserFromUserNameQuery, UserFromUserNameQueryVariables>;
+export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
+export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
+export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;

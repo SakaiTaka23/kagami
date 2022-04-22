@@ -8,6 +8,7 @@ type Post {
 type Query {
   timeline(take: Int!, cursor: String): [Post!]!
   postDetail(id: String!, userName: String!): Post
+  isFollowing(userName: String!): Boolean!
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User
@@ -19,6 +20,11 @@ type User {
   userName: String!
 }
 
+type Follow {
+  followerId: String!
+  followingId: String!
+}
+
 input UserName {
   accountName: String!
   userName: String!
@@ -26,6 +32,7 @@ input UserName {
 
 type Mutation {
   createUser(username: UserName!): User!
+  followToggle(userName: String!): Follow!
 }
 
 schema {
