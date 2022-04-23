@@ -6,6 +6,7 @@ type Follow {
 type Query {
   isFollowing(userName: String!): Boolean!
   timeline(take: Int!, cursor: String): [Post!]!
+  postUser(userName: String!, take: Int!, cursor: String): [Post!]!
   postDetail(id: String!, userName: String!): Post
   userFromToken: User!
   userFromUserName(userName: String!): User
