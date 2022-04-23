@@ -2,15 +2,24 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+type Following = {
+  followingId: string;
+}[];
+
 @Injectable()
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  getMany(take: number, cursor?: Prisma.PostWhereUniqueInput) {
+  getMany(userId: string, following: Following, take: number, cursor?: Prisma.PostWhereUniqueInput) {
     return this.prisma.post.findMany({
       take,
       skip: 1,
       cursor,
+      where: {
+        userId: {
+          in: [...following.map((user) => user.followingId), userId],
+        },
+      },
       include: {
         user: true,
       },

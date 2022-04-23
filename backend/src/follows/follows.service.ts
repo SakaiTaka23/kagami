@@ -14,6 +14,17 @@ export class FollowsService {
     });
   }
 
+  async follows(id: string) {
+    return this.prisma.follow.findMany({
+      select: {
+        followingId: true,
+      },
+      where: {
+        followerId: id,
+      },
+    });
+  }
+
   async isFollowing(userID: string, userName: string) {
     return this.prisma.follow.count({
       where: {
