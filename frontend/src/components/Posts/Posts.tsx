@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import Post from './Post';
 
 type Props = {
-  timeline: {
+  posts: {
     id: string;
     content: string;
     user: {
@@ -16,7 +16,7 @@ type Props = {
 const Posts: FC<Props> = (props) => {
   return (
     <>
-      {props.timeline?.map((post, i) => {
+      {props.posts?.map((post, i) => {
         return <Post key={i} {...post} />;
       })}
     </>
