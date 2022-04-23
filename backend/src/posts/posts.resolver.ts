@@ -22,4 +22,10 @@ export class PostsResolver {
   detail(@Args('id') id: string, @Args('userName') userName: string) {
     return this.postsService.findDetail(id, userName);
   }
+
+  @Query('postUser')
+  user(@Args('userName') userName: string, @Args('take') take: number, @Args('cursor') cursor?: string) {
+    const cursorObj = cursor === undefined ? undefined : { id: cursor };
+    return this.postsService.user(userName, take, cursorObj);
+  }
 }

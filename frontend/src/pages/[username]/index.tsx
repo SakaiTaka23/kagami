@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
+import Posts from '@/components/Posts/Posts';
 import Profile from '@/components/Profile/Profile';
 import { useUserProfileQuery } from '@/graphql/generated';
 
@@ -12,6 +13,7 @@ const UserProfile = () => {
   const { data, loading, error } = useUserProfileQuery({
     skip: !router.isReady,
     variables: {
+      take: 20,
       userName: String(username),
     },
   });
@@ -29,6 +31,7 @@ const UserProfile = () => {
     <>
       <Typography variant='h3'>Profile</Typography>
       {data?.userFromUserName && <Profile {...data.userFromUserName} isFollowing={data.isFollowing} />}
+      {data?.postUser && <Posts posts={data.postUser} />}
     </>
   );
 };

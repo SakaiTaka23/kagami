@@ -11,9 +11,9 @@ import { FollowsService } from './follows.service';
 export class FollowsResolver {
   constructor(private readonly followsService: FollowsService, private readonly usersService: UsersService) {}
 
-  @UseGuards(FirebaseAuthGuard)
   @Query('isFollowing')
   following(@CurrentUserID() id: string, @Args('userName') userName: string) {
+    if (id === undefined) return false;
     return this.followsService.isFollowing(id, userName);
   }
 
