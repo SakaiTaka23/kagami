@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <div>{data && <Posts {...data} />}</div>;
+  return <div>{data && <Posts posts={data.timeline} />}</div>;
 };
 
 export default Home;
