@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { ParamsDictionary } from 'express-serve-static-core';
-import * as admin from 'firebase-admin';
+import firebase, { auth, credential, ServiceAccount } from 'firebase-admin';
+import { getApps } from 'firebase-admin/app';
+import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 import { ExtractJwt, JwtFromRequestFunction } from 'passport-jwt';
 import { Strategy } from 'passport-strategy';
 import { ParsedQs } from 'qs';
@@ -11,29 +13,28 @@ import * as serviceAccount from './firebase-adminsdk.json';
 
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(Strategy, 'firebase') {
-  private admin: admin.app.App;
-
   private extractor: JwtFromRequestFunction;
 
   constructor() {
     super();
-    this.admin = admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-    });
+    if (getApps().length === 0) {
+      firebase.initializeApp({
+        credential: credential.cert(serviceAccount as ServiceAccount),
+      });
+    }
     this.extractor = ExtractJwt.fromAuthHeaderAsBearerToken();
   }
 
-  async validate(payload: admin.auth.DecodedIdToken): Promise<string> {
+  async validate(payload: DecodedIdToken): Promise<string> {
     return payload.uid;
   }
 
-  authenticate(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): void {
+  authenticate(req: Request<ParamsDictionary, unknown, unknown, ParsedQs, Record<string, unknown>>): void {
     const idToken = this.extractor(req);
     if (!idToken) {
       this.fail('Unauthorized', 401);
     }
-    this.admin
-      .auth()
+    auth()
       .verifyIdToken(idToken)
       .then((res) => this.validateDecodedIdToken(res))
       .catch(() => {
@@ -41,7 +42,7 @@ export class FirebaseStrategy extends PassportStrategy(Strategy, 'firebase') {
       });
   }
 
-  private async validateDecodedIdToken(decodedIdToken: admin.auth.DecodedIdToken) {
+  private async validateDecodedIdToken(decodedIdToken: DecodedIdToken) {
     const result = await this.validate(decodedIdToken);
 
     if (result) {
