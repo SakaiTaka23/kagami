@@ -49,6 +49,7 @@ export type Query = {
   __typename?: 'Query';
   isFollowing: Scalars['Boolean'];
   postDetail?: Maybe<Post>;
+  postUser: Array<Post>;
   timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
@@ -63,6 +64,13 @@ export type QueryIsFollowingArgs = {
 
 export type QueryPostDetailArgs = {
   id: Scalars['String'];
+  userName: Scalars['String'];
+};
+
+
+export type QueryPostUserArgs = {
+  cursor?: InputMaybe<Scalars['String']>;
+  take: Scalars['Int'];
   userName: Scalars['String'];
 };
 
@@ -138,10 +146,12 @@ export type UserFromIdQuery = { __typename?: 'Query', user?: { __typename?: 'Use
 
 export type UserProfileQueryVariables = Exact<{
   userName: Scalars['String'];
+  take: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string } | null };
+export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 
 export const CreateUserDocument = gql`
@@ -362,12 +372,20 @@ export type UserFromIdQueryHookResult = ReturnType<typeof useUserFromIdQuery>;
 export type UserFromIdLazyQueryHookResult = ReturnType<typeof useUserFromIdLazyQuery>;
 export type UserFromIdQueryResult = Apollo.QueryResult<UserFromIdQuery, UserFromIdQueryVariables>;
 export const UserProfileDocument = gql`
-    query UserProfile($userName: String!) {
+    query UserProfile($userName: String!, $take: Int!, $cursor: String) {
   userFromUserName(userName: $userName) {
     accountName
     userName
   }
   isFollowing(userName: $userName)
+  postUser(userName: $userName, take: $take, cursor: $cursor) {
+    id
+    content
+    user {
+      accountName
+      userName
+    }
+  }
 }
     `;
 
@@ -384,6 +402,8 @@ export const UserProfileDocument = gql`
  * const { data, loading, error } = useUserProfileQuery({
  *   variables: {
  *      userName: // value for 'userName'
+ *      take: // value for 'take'
+ *      cursor: // value for 'cursor'
  *   },
  * });
  */
