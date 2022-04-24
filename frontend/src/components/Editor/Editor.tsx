@@ -1,41 +1,44 @@
-import { convertToRaw, ContentState } from 'draft-js';
-import { useForm, Controller } from 'react-hook-form';
+import { Container, CssBaseline } from '@mui/material';
+import { Box } from '@mui/system';
+import { FormProvider, useForm } from 'react-hook-form';
 
-import DraftEditor from './DraftEditor';
+import SubmitButton from '../Forms/Button/SubmitButton';
+import PostInput from './PostInput';
 
-const styles = {
-  editor: {
-    border: '1px solid #ddd',
-    cursor: 'text',
-    fontSize: 16,
-    minHeight: 40,
-    padding: 10,
-  },
+type SubmitData = {
+  post: string;
 };
 
-const Editor: React.FC = () => {
-  const { control, handleSubmit } = useForm();
+const Editor = () => {
+  const methods = useForm({
+    defaultValues: {
+      post: '',
+    },
+  });
 
-  const onSubmit = async (data: any) => {
-    const contentState: ContentState = data.body.getCurrentContent();
-    console.log(JSON.stringify(convertToRaw(contentState)));
+  const submit = (data: SubmitData) => {
+    console.log(data);
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div style={styles.editor}>
-          <Controller
-            name='body'
-            control={control}
-            render={({ field: { onChange } }) => {
-              return <DraftEditor onChange={onChange} />;
-            }}
-          />
-        </div>
-        <button type='submit'>submit</button>
-      </form>
-    </>
+    <Container component='main' maxWidth='xs'>
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <FormProvider {...methods}>
+          <Box component='form' onSubmit={methods.handleSubmit(submit)} sx={{ mt: 3 }}>
+            <PostInput />
+            <SubmitButton />
+          </Box>
+        </FormProvider>
+      </Box>
+    </Container>
   );
 };
 

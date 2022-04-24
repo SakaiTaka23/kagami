@@ -7,7 +7,6 @@ const Editor = dynamic(import('@/components/Editor/Editor'), { ssr: false });
 const NewPost = () => {
   return (
     <>
-      NewPost
       <Editor />
     </>
   );
