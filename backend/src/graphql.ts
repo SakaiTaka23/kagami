@@ -36,6 +36,8 @@ export abstract class IQuery {
 export abstract class IMutation {
     abstract followToggle(userName: string): Follow | Promise<Follow>;
 
+    abstract postCreate(content: string): Post | Promise<Post>;
+
     abstract createUser(username: UserName): User | Promise<User>;
 }
 

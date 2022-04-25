@@ -15,6 +15,7 @@ type Query {
 
 type Mutation {
   followToggle(userName: String!): Follow!
+  postCreate(content: String!): Post!
   createUser(username: UserName!): User!
 }
 
