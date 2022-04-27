@@ -1,15 +1,25 @@
 import React from 'react';
 
-import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 
-const Editor = dynamic(import('@/components/Editor/Editor'), { ssr: false });
+import Editor from '@/components/Editor/Editor';
+import { SubmitData } from '@/components/Editor/types';
+import { usePostCreateMutation } from '@/graphql/generated';
 
 const NewPost = () => {
-  return (
-    <>
-      <Editor />
-    </>
-  );
+  const router = useRouter();
+  const [postCreateMutation] = usePostCreateMutation();
+  const submit = (data: SubmitData) => {
+    postCreateMutation({
+      variables: {
+        content: data.post,
+      },
+    }).then((res) => {
+      router.replace(`${res.data?.postCreate.user.userName}/${res.data?.postCreate.id}`);
+    });
+  };
+
+  return <Editor submit={submit} />;
 };
 
 export default NewPost;
