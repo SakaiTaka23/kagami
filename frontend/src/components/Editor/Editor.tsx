@@ -1,23 +1,22 @@
+import { FC } from 'react';
+
 import { Box } from '@mui/system';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import SubmitButton from '../Forms/Button/SubmitButton';
 import PostInput from './PostInput';
+import { SubmitData } from './types';
 
-type SubmitData = {
-  post: string;
+type Props = {
+  submit(data: SubmitData): void;
 };
 
-const Editor = () => {
+const Editor: FC<Props> = ({ submit }) => {
   const methods = useForm({
     defaultValues: {
       post: '',
     },
   });
-
-  const submit = (data: SubmitData) => {
-    console.log(data);
-  };
 
   return (
     <>
