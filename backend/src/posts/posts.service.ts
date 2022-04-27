@@ -16,6 +16,9 @@ export class PostsService {
         userId,
         content,
       },
+      include: {
+        user: true,
+      },
     });
   }
 
