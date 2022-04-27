@@ -10,6 +10,18 @@ type Following = {
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
+  create(userId: string, content: string) {
+    return this.prisma.post.create({
+      data: {
+        userId,
+        content,
+      },
+      include: {
+        user: true,
+      },
+    });
+  }
+
   getMany(userId: string, following: Following, take: number, cursor?: Prisma.PostWhereUniqueInput) {
     return this.prisma.post.findMany({
       take,

@@ -1,0 +1,8 @@
+mutation PostCreate($content: String!) {
+  postCreate(content: $content) {
+    id
+    user {
+      userName
+    }
+  }
+}

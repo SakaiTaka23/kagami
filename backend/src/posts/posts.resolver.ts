@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
 import { FollowsService } from 'src/follows/follows.service';
@@ -9,6 +9,12 @@ import { PostsService } from './posts.service';
 @Resolver('Post')
 export class PostsResolver {
   constructor(private readonly postsService: PostsService, private readonly followsService: FollowsService) {}
+
+  @UseGuards(FirebaseAuthGuard)
+  @Mutation('postCreate')
+  create(@CurrentUserID() id: string, @Args('content') content: string) {
+    return this.postsService.create(id, content);
+  }
 
   @UseGuards(FirebaseAuthGuard)
   @Query('timeline')
