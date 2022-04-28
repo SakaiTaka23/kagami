@@ -10,6 +10,7 @@ export const users = async (count: number) => {
         id: faker.datatype.uuid(),
         accountName: faker.name.firstName(),
         userName: faker.name.middleName(),
+        profile: faker.lorem.text(),
       })),
   });
 };
