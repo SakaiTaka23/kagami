@@ -32,6 +32,7 @@ model User {
   id          String   @id
   accountName String
   userName    String   @unique
+  profile String @default("")
   posts       Post[]
   followers   Follow[] @relation("follower")
   following   Follow[] @relation("following")
