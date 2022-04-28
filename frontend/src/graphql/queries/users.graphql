@@ -14,6 +14,7 @@ query UserProfile($userName: String!, $take: Int!, $cursor: String) {
   userFromUserName(userName: $userName) {
     accountName
     userName
+    profile
   }
   isFollowing(userName: $userName)
   postUser(userName: $userName, take: $take, cursor: $cursor) {

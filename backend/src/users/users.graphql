@@ -2,6 +2,7 @@ type User {
   id: String!
   accountName: String!
   userName: String!
+  profile: String!
 }
 
 input UserName {
