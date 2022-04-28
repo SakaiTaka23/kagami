@@ -25,7 +25,7 @@ export class PostsService {
   getMany(userId: string, following: Following, take: number, cursor?: Prisma.PostWhereUniqueInput) {
     return this.prisma.post.findMany({
       take,
-      skip: 1,
+      skip: cursor === undefined ? 0 : 1,
       cursor,
       where: {
         userId: {
@@ -58,7 +58,7 @@ export class PostsService {
   user(userName: string, take: number, cursor?: Prisma.PostWhereUniqueInput) {
     return this.prisma.post.findMany({
       take,
-      skip: 1,
+      skip: cursor === undefined ? 0 : 1,
       cursor,
       where: {
         user: {
