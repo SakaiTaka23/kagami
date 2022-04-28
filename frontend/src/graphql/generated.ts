@@ -100,6 +100,7 @@ export type User = {
   __typename?: 'User';
   accountName: Scalars['String'];
   id: Scalars['String'];
+  profile: Scalars['String'];
   userName: Scalars['String'];
 };
 
@@ -164,7 +165,7 @@ export type UserProfileQueryVariables = Exact<{
 }>;
 
 
-export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
+export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 
 export const PostCreateDocument = gql`
@@ -425,6 +426,7 @@ export const UserProfileDocument = gql`
   userFromUserName(userName: $userName) {
     accountName
     userName
+    profile
   }
   isFollowing(userName: $userName)
   postUser(userName: $userName, take: $take, cursor: $cursor) {
