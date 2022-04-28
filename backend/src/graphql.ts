@@ -52,6 +52,7 @@ export class User {
     id: string;
     accountName: string;
     userName: string;
+    profile: string;
 }
 
 type Nullable<T> = T | null;
