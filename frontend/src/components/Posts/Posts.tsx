@@ -17,7 +17,7 @@ type Props = {
 
 const Posts: FC<Props> = (props) => {
   return (
-    <List sx={{ width: '100%', bgcolor: 'Background.paper' }}>
+    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       {props.posts?.map((post, i) => {
         return <Post key={i} {...post} />;
       })}
