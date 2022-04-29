@@ -3,6 +3,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
+import { OptionalAuthGuard } from 'src/auth/optional-auth.guard';
 import { UsersService } from 'src/users/users.service';
 
 import { FollowsService } from './follows.service';
@@ -11,6 +12,7 @@ import { FollowsService } from './follows.service';
 export class FollowsResolver {
   constructor(private readonly followsService: FollowsService, private readonly usersService: UsersService) {}
 
+  @UseGuards(OptionalAuthGuard)
   @Query('isFollowing')
   following(@CurrentUserID() id: string, @Args('userName') userName: string) {
     if (id === undefined) return false;
