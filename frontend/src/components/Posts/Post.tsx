@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ListItem, ListItemText, Typography } from '@mui/material';
+import { Grid, ListItem, ListItemText, Typography } from '@mui/material';
 import Link from 'next/link';
 
 type Props = {
@@ -19,10 +19,14 @@ const Post: FC<Props> = (post) => {
     <ListItem>
       <ListItemText
         primary={
-          <>
-            <Typography>{accountName}</Typography>
-            <Typography>{userName}</Typography>
-          </>
+          <Link href={`/${userName}`} passHref>
+            <Grid container>
+              <Typography component='span' variant='subtitle1'>
+                {accountName}
+              </Typography>
+              <Typography component='span' variant='subtitle1' color='gray'>{`@${userName}`}</Typography>
+            </Grid>
+          </Link>
         }
         secondary={
           <Link href={`/${userName}/${id}`} passHref>
