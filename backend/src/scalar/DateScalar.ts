@@ -1,4 +1,5 @@
 import { Scalar, CustomScalar } from '@nestjs/graphql';
+import * as dayjs from 'dayjs';
 import { Kind, ValueNode } from 'graphql';
 
 @Scalar('Date')
@@ -9,14 +10,9 @@ export class DateScalar implements CustomScalar<string, Date> {
     return new Date(value); // value from the client
   }
 
-  serialize(value: Date): string {
-    return `${value.getFullYear()}-${(value.getMonth() + 1).toString().padStart(2, '0')}-${value
-      .getDate()
-      .toString()
-      .padStart(2, '0')}T${value.getHours().toString().padStart(2, '0')}:${value
-      .getMinutes()
-      .toString()
-      .padStart(2, '0')}`;
+  serialize(value: string): string {
+    const day = dayjs(value);
+    return `${day.year()}-${day.format('MM')}-${day.format('DD')}T${day.format('hh')}:${day.format('mm')}`;
   }
 
   parseLiteral(ast: ValueNode): Date {
