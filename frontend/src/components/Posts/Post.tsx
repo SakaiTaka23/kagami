@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { Paper, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 const Post: FC<Props> = (post) => {
   const { accountName, userName } = post.user;
   const { id, content } = post;
-  const createdAt = new Date(post.createdAt);
+  const createdAt = dayjs(post.createdAt).add(1, 'month');
 
   return (
     <Link href={`/${userName}/${id}`} passHref>
@@ -24,7 +25,7 @@ const Post: FC<Props> = (post) => {
         <Typography>{accountName}</Typography>
         <Typography>{userName}</Typography>
         <Typography>{content}</Typography>
-        <Typography>{`${createdAt.getMonth()}-${createdAt.getDate()}`}</Typography>
+        <Typography>{`${createdAt.year()}-${createdAt.month()}`}</Typography>
       </Paper>
     </Link>
   );
