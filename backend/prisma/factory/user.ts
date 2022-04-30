@@ -11,7 +11,7 @@ export const users = async (count: number) => {
         id: faker.datatype.uuid(),
         accountName: faker.name.firstName(),
         userName: `${faker.name.middleName()}${i}`,
-        profile: faker.lorem.sentences(2),
+        profile: faker.lorem.words(35),
       })),
   });
 };
