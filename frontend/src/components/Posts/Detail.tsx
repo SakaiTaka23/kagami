@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import dayjs from 'dayjs';
 
 type Props = {
   content: string;
@@ -13,12 +15,20 @@ type Props = {
 
 const Detail: FC<Props> = (post) => {
   const { accountName, userName } = post.user;
-  const { content, createdAt } = post;
+  const { content } = post;
+  const createdAt = dayjs(post.createdAt);
   return (
     <>
-      <Typography>{`${accountName} / ${userName}`}</Typography>
-      <Typography>{content}</Typography>
-      <Typography>{createdAt}</Typography>
+      <Grid container direction='column'>
+        <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{`${accountName}`}</Typography>
+        <Typography variant='subtitle1' color='gray'>{`@${userName}`}</Typography>
+      </Grid>
+      <Box sx={{ my: 2 }}>
+        <Typography>{content}</Typography>
+      </Box>
+      <Typography color='gray' sx={{ mb: 2 }}>{`${createdAt.format('HH')}:${createdAt.format(
+        'mm'
+      )}・${createdAt.year()}/${createdAt.format('MM')}/${createdAt.format('DD')}`}</Typography>
     </>
   );
 };
