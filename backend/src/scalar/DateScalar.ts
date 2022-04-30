@@ -12,7 +12,7 @@ export class DateScalar implements CustomScalar<string, Date> {
 
   serialize(value: string): string {
     const day = dayjs(value);
-    return `${day.year()}-${day.format('MM')}-${day.format('DD')}T${day.format('hh')}:${day.format('mm')}`;
+    return `${day.year()}-${day.format('MM')}-${day.format('DD')}T${day.format('HH')}:${day.format('mm')}`;
   }
 
   parseLiteral(ast: ValueNode): Date {
