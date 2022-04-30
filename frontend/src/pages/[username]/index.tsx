@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import Posts from '@/components/Posts/Posts';
@@ -29,7 +28,6 @@ const UserProfile = () => {
 
   return (
     <>
-      <Typography variant='h3'>Profile</Typography>
       {data?.userFromUserName && <Profile {...data.userFromUserName} isFollowing={data.isFollowing} />}
       {data?.postUser && <Posts posts={data.postUser} />}
     </>

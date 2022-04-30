@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 
 import FollowButton from './FollowButton';
 
@@ -14,10 +15,14 @@ type Props = {
 const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => {
   return (
     <>
-      <FollowButton isFollowing={isFollowing} userName={userName} />
-      <Typography variant='h5'>{`${userName}`}</Typography>
-      <Typography variant='h5'>{`${accountName}`}</Typography>
-      <Typography variant='h5'>{`${profile}`}</Typography>
+      <Grid container justifyContent='flex-end' alignItems='flex-start'>
+        <FollowButton isFollowing={isFollowing} userName={userName} />
+      </Grid>
+      <Box sx={{ mb: 2 }}>
+        <Typography variant='h4' sx={{ fontWeight: 'bold' }}>{`${accountName}`}</Typography>
+        <Typography variant='subtitle1' color='gray'>{`@${userName}`}</Typography>
+      </Box>
+      <Typography variant='subtitle1'>{`${profile}`}</Typography>
     </>
   );
 };
