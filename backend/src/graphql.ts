@@ -44,7 +44,7 @@ export abstract class IMutation {
 export class Post {
     id: string;
     content: string;
-    createdAt: string;
+    createdAt: Date;
     user: User;
     userId: string;
 }
