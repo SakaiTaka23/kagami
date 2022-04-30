@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { Divider, Grid, ListItem, ListItemText, Typography } from '@mui/material';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 
 type Props = {
@@ -15,9 +16,10 @@ type Props = {
 };
 
 const Post: FC<Props> = (post) => {
+  dayjs.extend(relativeTime);
   const { accountName, userName } = post.user;
   const { id, content } = post;
-  const createdAt = dayjs(post.createdAt).add(1, 'month');
+  const past = dayjs(post.createdAt).fromNow(true);
 
   return (
     <>
@@ -26,21 +28,16 @@ const Post: FC<Props> = (post) => {
           primary={
             <Link href={`/${userName}`} passHref>
               <Grid container>
-                <Typography component='span' variant='subtitle1'>
-                  {accountName}
+                <Typography component='span' variant='subtitle1' sx={{ fontWeight: 'bold' }}>
+                  {`${accountName} `}
                 </Typography>
-                <Typography component='span' variant='subtitle1' color='gray'>{`@${userName}`}</Typography>
+                <Typography component='span' variant='subtitle1' color='gray'>{`@${userName} ${past}`}</Typography>
               </Grid>
             </Link>
           }
           secondary={
             <Link href={`/${userName}/${id}`} passHref>
-              <>
-                <Typography component='span'>{content}</Typography>
-                <Typography component='span' color='info'>
-                  {createdAt.year()}
-                </Typography>
-              </>
+              <Typography component='span'>{content}</Typography>
             </Link>
           }
         />
