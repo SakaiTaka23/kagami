@@ -38,6 +38,7 @@
     "@types/passport-jwt": "^3.0.6",
     "apollo-server-core": "^3.6.7",
     "apollo-server-express": "^3.6.7",
+    "dayjs": "^1.11.1",
     "express": "^4.17.3",
     "firebase-admin": "^10.0.0",
     "graphql": "16.3.0",

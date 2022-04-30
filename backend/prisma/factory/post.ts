@@ -2,6 +2,7 @@ import faker from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+faker.locale = 'ja';
 export const posts = async (count: number) => {
   const users = await prisma.user.findMany();
 
@@ -11,7 +12,7 @@ export const posts = async (count: number) => {
         .fill(0)
         .map(() => ({
           userId: user.id,
-          content: faker.datatype.string(Math.floor(Math.random() * (140 + 1 - 10) + 10)),
+          content: faker.lorem.words(35),
         })),
     });
   });

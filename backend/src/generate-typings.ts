@@ -7,4 +7,7 @@ definitionsFactory.generate({
   typePaths: [`${__dirname}/**/*.graphql`],
   path: join(process.cwd(), 'src/graphql.ts'),
   outputAs: 'class',
+  customScalarTypeMapping: {
+    DateTime: 'Date',
+  },
 });

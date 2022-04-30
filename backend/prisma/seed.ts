@@ -10,7 +10,7 @@ async function main() {
   await prisma.user.deleteMany();
 
   await users(10);
-  await posts(5);
+  await posts(20);
 }
 
 main()
