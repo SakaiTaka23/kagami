@@ -8,6 +8,7 @@ type Props = {
   posts: {
     id: string;
     content: string;
+    createdAt: string;
     user: {
       accountName: string;
       userName: string;

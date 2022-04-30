@@ -1,6 +1,7 @@
 type Post {
   id: String!
   content: String!
+  createdAt: Date!
   user: User!
   userId: String!
 }

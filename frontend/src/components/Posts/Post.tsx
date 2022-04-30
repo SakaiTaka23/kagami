@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 
 import { Divider, Grid, ListItem, ListItemText, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 
 type Props = {
   id: string;
   content: string;
+  createdAt: string;
   user: {
     accountName: string;
     userName: string;
@@ -15,6 +17,8 @@ type Props = {
 const Post: FC<Props> = (post) => {
   const { accountName, userName } = post.user;
   const { id, content } = post;
+  const createdAt = dayjs(post.createdAt).add(1, 'month');
+
   return (
     <>
       <ListItem>
@@ -31,7 +35,12 @@ const Post: FC<Props> = (post) => {
           }
           secondary={
             <Link href={`/${userName}/${id}`} passHref>
-              <Typography component='span'>{content}</Typography>
+              <>
+                <Typography component='span'>{content}</Typography>
+                <Typography component='span' color='info'>
+                  {createdAt.year()}
+                </Typography>
+              </>
             </Link>
           }
         />

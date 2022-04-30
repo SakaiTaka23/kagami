@@ -2,6 +2,7 @@ query TimeLine($take: Int!, $cursor: String) {
   timeline(take: $take, cursor: $cursor) {
     id
     content
+    createdAt
     userId
     user {
       accountName
@@ -13,6 +14,7 @@ query TimeLine($take: Int!, $cursor: String) {
 query PostDetail($postDetailId: String!, $userName: String!) {
   postDetail(id: $postDetailId, userName: $userName) {
     content
+    createdAt
     user {
       accountName
       userName
