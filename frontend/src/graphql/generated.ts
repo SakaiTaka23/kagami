@@ -46,6 +46,7 @@ export type MutationPostCreateArgs = {
 export type Post = {
   __typename?: 'Post';
   content: Scalars['String'];
+  createdAt: Scalars['String'];
   id: Scalars['String'];
   user: User;
   userId: Scalars['String'];
@@ -136,7 +137,7 @@ export type TimeLineQueryVariables = Exact<{
 }>;
 
 
-export type TimeLineQuery = { __typename?: 'Query', timeline: Array<{ __typename?: 'Post', id: string, content: string, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
+export type TimeLineQuery = { __typename?: 'Query', timeline: Array<{ __typename?: 'Post', id: string, content: string, createdAt: string, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 export type PostDetailQueryVariables = Exact<{
   postDetailId: Scalars['String'];
@@ -144,7 +145,7 @@ export type PostDetailQueryVariables = Exact<{
 }>;
 
 
-export type PostDetailQuery = { __typename?: 'Query', postDetail?: { __typename?: 'Post', content: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+export type PostDetailQuery = { __typename?: 'Query', postDetail?: { __typename?: 'Post', content: string, createdAt: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -275,6 +276,7 @@ export const TimeLineDocument = gql`
   timeline(take: $take, cursor: $cursor) {
     id
     content
+    createdAt
     userId
     user {
       accountName
@@ -316,6 +318,7 @@ export const PostDetailDocument = gql`
     query PostDetail($postDetailId: String!, $userName: String!) {
   postDetail(id: $postDetailId, userName: $userName) {
     content
+    createdAt
     user {
       accountName
       userName
