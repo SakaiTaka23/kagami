@@ -13,6 +13,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** Date custom scalar type */
+  Date: any;
 };
 
 export type Follow = {
@@ -46,7 +48,7 @@ export type MutationPostCreateArgs = {
 export type Post = {
   __typename?: 'Post';
   content: Scalars['String'];
-  createdAt: Scalars['String'];
+  createdAt: Scalars['Date'];
   id: Scalars['String'];
   user: User;
   userId: Scalars['String'];
@@ -137,7 +139,7 @@ export type TimeLineQueryVariables = Exact<{
 }>;
 
 
-export type TimeLineQuery = { __typename?: 'Query', timeline: Array<{ __typename?: 'Post', id: string, content: string, createdAt: string, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
+export type TimeLineQuery = { __typename?: 'Query', timeline: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 export type PostDetailQueryVariables = Exact<{
   postDetailId: Scalars['String'];
@@ -145,7 +147,7 @@ export type PostDetailQueryVariables = Exact<{
 }>;
 
 
-export type PostDetailQuery = { __typename?: 'Query', postDetail?: { __typename?: 'Post', content: string, createdAt: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+export type PostDetailQuery = { __typename?: 'Query', postDetail?: { __typename?: 'Post', content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -166,7 +168,7 @@ export type UserProfileQueryVariables = Exact<{
 }>;
 
 
-export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
+export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 
 export const PostCreateDocument = gql`
@@ -435,6 +437,7 @@ export const UserProfileDocument = gql`
   postUser(userName: $userName, take: $take, cursor: $cursor) {
     id
     content
+    createdAt
     user {
       accountName
       userName

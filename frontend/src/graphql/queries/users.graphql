@@ -20,6 +20,7 @@ query UserProfile($userName: String!, $take: Int!, $cursor: String) {
   postUser(userName: $userName, take: $take, cursor: $cursor) {
     id
     content
+    createdAt
     user {
       accountName
       userName
