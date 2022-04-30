@@ -6,6 +6,7 @@ import { users } from './factory/user';
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.follow.deleteMany();
   await prisma.post.deleteMany();
   await prisma.user.deleteMany();
 
