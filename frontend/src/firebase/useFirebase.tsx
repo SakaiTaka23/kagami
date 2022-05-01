@@ -23,19 +23,16 @@ const useFirebase = () => {
   };
 
   const SignUp = async (accountName: string, userName: string, email: string, password: string) => {
-    await createUserWithEmailAndPassword(firebaseAuth, email, password).then((user_credential) => {
-      user_credential.user.getIdToken(true).then(() => {
-        createUserMutation({
-          variables: {
-            username: {
-              accountName,
-              userName,
-            },
-          },
-        });
-        router.replace('/private');
-      });
+    await (await createUserWithEmailAndPassword(firebaseAuth, email, password)).user.getIdToken(true);
+    await createUserMutation({
+      variables: {
+        username: {
+          accountName,
+          userName,
+        },
+      },
     });
+    router.replace('/private');
   };
 
   const SignIn = async (email: string, password: string) => {
