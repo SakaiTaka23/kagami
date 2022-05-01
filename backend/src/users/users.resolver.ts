@@ -13,8 +13,8 @@ export class UsersResolver {
 
   @UseGuards(FirebaseAuthGuard)
   @Mutation('createUser')
-  create(@CurrentUserID() id: string, @Args('username') username: UserName) {
-    this.authService.createCustomToken(id, username.accountName, username.userName);
+  async create(@CurrentUserID() id: string, @Args('username') username: UserName) {
+    await this.authService.createCustomToken(id, username.accountName, username.userName);
     return this.usersService.create(id, username.accountName, username.userName);
   }
 

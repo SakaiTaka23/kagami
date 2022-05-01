@@ -10,8 +10,8 @@ export class AuthService {
     this.auth = getAuth();
   }
 
-  createCustomToken(uid: string, accountName: string, userName: string) {
-    this.auth.setCustomUserClaims(uid, {
+  async createCustomToken(uid: string, accountName: string, userName: string) {
+    return this.auth.setCustomUserClaims(uid, {
       accountName,
       userName,
     });
