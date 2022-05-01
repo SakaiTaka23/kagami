@@ -10,6 +10,7 @@
 ```mermaid
 erDiagram
 user ||--o{post : "" 
+user ||--o{follow: ""
 
 user {
  char id
@@ -20,6 +21,12 @@ post {
  char id
  char user_id
  text content
+}
+
+
+follow {
+    char followerId
+    char followingId
 }
 ```
 
