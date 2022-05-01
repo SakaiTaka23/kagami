@@ -18,7 +18,7 @@ const useFirebase = () => {
 
   const Logout = () => {
     firebaseAuth.signOut().then(() => {
-      window.location.reload();
+      router.replace('/signin');
     });
   };
 
@@ -32,7 +32,7 @@ const useFirebase = () => {
         },
       },
     });
-    router.replace('/private');
+    Logout();
   };
 
   const SignIn = async (email: string, password: string) => {
