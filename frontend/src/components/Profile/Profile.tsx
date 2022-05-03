@@ -1,19 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
+import { AuthContext } from '@/firebase/authContext';
+
 import FollowButton from './FollowButton';
 
 type Props = {
-  loginUser: string;
   userName: string;
   accountName: string;
   isFollowing: boolean;
   profile: string;
 };
 
-const Profile: FC<Props> = ({ loginUser, userName, accountName, isFollowing, profile }) => {
+const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => {
+  const { userName: loginUser } = useContext(AuthContext);
+
   return (
     <>
       {userName === loginUser ? (
