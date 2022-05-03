@@ -1,15 +1,57 @@
-import React from 'react';
+import { MouseEvent, useContext, useState } from 'react';
 
-import { AppBar, Button, Container, MenuItem, Toolbar, Typography } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import {
+  AppBar,
+  Avatar,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { Box } from '@mui/system';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const title = 'Kagami';
+import { AuthContext } from '@/firebase/authContext';
 
-const Header = () => {
+import stringAvatar from './utils';
+
+const logo = 'Kagami';
+const pages: string[] = [];
+const authPages = ['new'];
+
+const ResponsiveAppBar = () => {
+  const { accountName, userName } = useContext(AuthContext);
+  const settings = [
+    { name: 'Profile', route: `/${userName}` },
+    { name: 'Logout', route: '/logout' },
+  ];
   const router = useRouter();
-  const handlePage = (page: string) => {
-    router.replace(`/${page}`);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const redirectIndex = () => {
+    router.push('/');
   };
 
   return (
@@ -18,39 +60,123 @@ const Header = () => {
         <Toolbar disableGutters>
           <Typography
             variant='h6'
-            onClick={() => handlePage('')}
             noWrap
             component='div'
+            onClick={redirectIndex}
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            {title}
+            {logo}
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <MenuItem key='New'>
-              <Typography textAlign='center' onClick={() => handlePage('new')}>
-                New
-              </Typography>
-            </MenuItem>
+            <IconButton
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
+              onClick={handleOpenNavMenu}
+              color='inherit'
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id='menu-appbar'
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Link href={`/${page}`} passHref>
+                    <Typography textAlign='center'>{page}</Typography>
+                  </Link>
+                </MenuItem>
+              ))}
+              {userName &&
+                authPages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Link href={`/${page}`} passHref>
+                      <Typography textAlign='center'>{page}</Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+            </Menu>
           </Box>
-          {/* size */}
           <Typography
             variant='h6'
-            onClick={() => handlePage('')}
             noWrap
             component='div'
+            onClick={redirectIndex}
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            {title}
+            {logo}
           </Typography>
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-            <Button key='New' onClick={() => handlePage('new')} sx={{ my: 2, color: 'white', display: 'block' }}>
-              New
-            </Button>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Link key={page} href={`/${page}`} passHref>
+                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {page}
+                </Button>
+              </Link>
+            ))}
+            {userName &&
+              authPages.map((page) => (
+                <Link key={page} href={`/${page}`} passHref>
+                  <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                    {authPages}
+                  </Button>
+                </Link>
+              ))}
           </Box>
+
+          {userName && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title='Open settings'>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar {...stringAvatar(accountName)} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id='menu-appbar'
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                    <Link href={setting.route} passHref>
+                      <Typography textAlign='center'>{setting.name}</Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
   );
 };
-
-export default Header;
+export default ResponsiveAppBar;

@@ -10,4 +10,4 @@ prisma/*.db
 prisma/*.db-journal
 
 # Firebase
-src/auth/firebase-adminsdk.json
+src/firebase-adminsdk.json

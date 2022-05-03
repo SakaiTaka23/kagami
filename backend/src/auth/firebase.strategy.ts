@@ -2,14 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { ParamsDictionary } from 'express-serve-static-core';
-import firebase, { auth, credential, ServiceAccount } from 'firebase-admin';
-import { getApps } from 'firebase-admin/app';
+import { auth } from 'firebase-admin';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 import { ExtractJwt, JwtFromRequestFunction } from 'passport-jwt';
 import { Strategy } from 'passport-strategy';
 import { ParsedQs } from 'qs';
-
-import * as serviceAccount from './firebase-adminsdk.json';
 
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(Strategy, 'firebase') {
@@ -17,11 +14,6 @@ export class FirebaseStrategy extends PassportStrategy(Strategy, 'firebase') {
 
   constructor() {
     super();
-    if (getApps().length === 0) {
-      firebase.initializeApp({
-        credential: credential.cert(serviceAccount as ServiceAccount),
-      });
-    }
     this.extractor = ExtractJwt.fromAuthHeaderAsBearerToken();
   }
 
