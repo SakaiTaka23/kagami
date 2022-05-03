@@ -1,107 +1,157 @@
-import React, { MouseEvent, useContext, useState } from 'react';
+import * as React from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
 
-import { AuthContext } from '@/firebase/authContext';
+const logo = 'Kagami';
+const pages: string[] = [];
+const authPages = ['new'];
+const settings = ['Profile', 'Logout'];
 
-const title = 'Kagami';
+const ResponsiveAppBar = () => {
+  const router = useRouter();
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-const Header = () => {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const { accountName, userName } = useContext(AuthContext);
-  const router = useRouter();
-  const handlePage = (page: string) => {
-    router.replace(`/${page}`);
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const redirectIndex = () => {
+    router.push('/');
   };
 
   return (
-    <AppBar position='static' sx={{ mb: 3 }}>
+    <AppBar position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
             variant='h6'
-            onClick={() => handlePage('')}
             noWrap
             component='div'
+            onClick={redirectIndex}
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            {title}
+            {logo}
           </Typography>
-          {accountName ?? (
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size='large'
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
-                onClick={handleOpenNavMenu}
-                color='inherit'
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id='menu-appbar'
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'node' },
-                }}
-              >
-                <MenuItem key='New' onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>New</Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
+              onClick={handleOpenNavMenu}
+              color='inherit'
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id='menu-appbar'
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign='center'>{page}</Typography>
                 </MenuItem>
-                <MenuItem key='AccountName' onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{accountName}</Typography>
+              ))}
+              {authPages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign='center'>{page}</Typography>
                 </MenuItem>
-              </Menu>
-            </Box>
-          )}
-          {/* size */}
+              ))}
+            </Menu>
+          </Box>
           <Typography
             variant='h6'
-            onClick={() => handlePage('')}
             noWrap
             component='div'
+            onClick={redirectIndex}
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            {title}
+            {logo}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button key='New' onClick={() => handlePage('new')} sx={{ my: 2, color: 'white', display: 'block' }}>
-              New
-            </Button>
-            <Button
-              key='AccountName'
-              onClick={() => handlePage(userName)}
-              sx={{ my: 2, color: 'white', display: 'block' }}
+            {pages.map((page) => (
+              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                {page}
+              </Button>
+            ))}
+            {authPages.map((page) => (
+              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                {authPages}
+              </Button>
+            ))}
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title='Open settings'>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt='Remy Sharp' />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id='menu-appbar'
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              {accountName}
-            </Button>
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign='center'>{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 };
-
-export default Header;
+export default ResponsiveAppBar;
