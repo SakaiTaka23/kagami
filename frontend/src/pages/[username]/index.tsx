@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
 import Posts from '@/components/Posts/Posts';
 import Profile from '@/components/Profile/Profile';
+import { AuthContext } from '@/firebase/authContext';
 import { useUserProfileQuery } from '@/graphql/generated';
 
 const UserProfile = () => {
+  const { userName } = useContext(AuthContext);
   const router = useRouter();
   const { username } = router.query;
   const { data, loading, error } = useUserProfileQuery({
@@ -28,7 +30,9 @@ const UserProfile = () => {
 
   return (
     <>
-      {data?.userFromUserName && <Profile {...data.userFromUserName} isFollowing={data.isFollowing} />}
+      {data?.userFromUserName && (
+        <Profile loginUser={userName} {...data.userFromUserName} isFollowing={data.isFollowing} />
+      )}
       {data?.postUser && <Posts posts={data.postUser} />}
     </>
   );

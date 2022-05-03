@@ -6,18 +6,23 @@ import { Box } from '@mui/system';
 import FollowButton from './FollowButton';
 
 type Props = {
+  loginUser: string;
   userName: string;
   accountName: string;
   isFollowing: boolean;
   profile: string;
 };
 
-const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => {
+const Profile: FC<Props> = ({ loginUser, userName, accountName, isFollowing, profile }) => {
   return (
     <>
-      <Grid container justifyContent='flex-end' alignItems='flex-start'>
-        <FollowButton isFollowing={isFollowing} userName={userName} />
-      </Grid>
+      {userName === loginUser ? (
+        ''
+      ) : (
+        <Grid container justifyContent='flex-end' alignItems='flex-start'>
+          <FollowButton isFollowing={isFollowing} userName={userName} />
+        </Grid>
+      )}
       <Box sx={{ mb: 2 }}>
         <Typography variant='h4' sx={{ fontWeight: 'bold' }}>{`${accountName}`}</Typography>
         <Typography variant='subtitle1' color='gray'>{`@${userName}`}</Typography>
