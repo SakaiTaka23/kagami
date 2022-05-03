@@ -1,7 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+
+import { AuthContext } from '@/firebase/authContext';
 
 import FollowButton from './FollowButton';
 
@@ -13,11 +15,17 @@ type Props = {
 };
 
 const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => {
+  const { userName: loginUser } = useContext(AuthContext);
+
   return (
     <>
-      <Grid container justifyContent='flex-end' alignItems='flex-start'>
-        <FollowButton isFollowing={isFollowing} userName={userName} />
-      </Grid>
+      {userName === loginUser ? (
+        ''
+      ) : (
+        <Grid container justifyContent='flex-end' alignItems='flex-start'>
+          <FollowButton isFollowing={isFollowing} userName={userName} />
+        </Grid>
+      )}
       <Box sx={{ mb: 2 }}>
         <Typography variant='h4' sx={{ fontWeight: 'bold' }}>{`${accountName}`}</Typography>
         <Typography variant='subtitle1' color='gray'>{`@${userName}`}</Typography>
