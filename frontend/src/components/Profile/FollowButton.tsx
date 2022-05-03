@@ -1,8 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 
 import { Button, Modal } from '@mui/material';
 import { Box } from '@mui/system';
+import { useRouter } from 'next/router';
 
+import { AuthContext } from '@/firebase/authContext';
 import { useFollowToggleMutation } from '@/graphql/generated';
 
 type Props = {
@@ -23,6 +25,8 @@ const style = {
 };
 
 const FollowButton: FC<Props> = ({ isFollowing, userName }) => {
+  const { userID } = useContext(AuthContext);
+  const router = useRouter();
   const [followToggleMutation] = useFollowToggleMutation();
   const [following, setFollowing] = useState(isFollowing);
   const [open, setOpen] = useState(false);
@@ -31,6 +35,10 @@ const FollowButton: FC<Props> = ({ isFollowing, userName }) => {
   const handleClose = () => setOpen(false);
 
   const handleFollow = () => {
+    if (userID === '') {
+      router.push('/signin');
+      return;
+    }
     setFollowing(!following);
     setOpen(false);
     followToggleMutation({
