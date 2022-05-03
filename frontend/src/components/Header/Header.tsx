@@ -19,12 +19,14 @@ import { useRouter } from 'next/router';
 
 import { AuthContext } from '@/firebase/authContext';
 
+import stringAvatar from './utils';
+
 const logo = 'Kagami';
 const pages: string[] = [];
 const authPages = ['new'];
 
 const ResponsiveAppBar = () => {
-  const { userName } = useContext(AuthContext);
+  const { accountName, userName } = useContext(AuthContext);
   const settings = [
     { name: 'Profile', route: `/${userName}` },
     { name: 'Logout', route: '/logout' },
@@ -53,7 +55,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position='static'>
+    <AppBar position='static' sx={{ mb: 3 }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
@@ -143,7 +145,7 @@ const ResponsiveAppBar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt='Remy Sharp' />
+                  <Avatar {...stringAvatar(accountName)} />
                 </IconButton>
               </Tooltip>
               <Menu
