@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import { TextField, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -8,6 +8,13 @@ const ProfileInput = () => {
     control,
     formState: { errors },
   } = useFormContext();
+  // eslint-disable-next-line no-underscore-dangle
+  const [count, setCount] = useState(String(control._defaultValues.profile).length);
+  const maxLength = 140;
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCount(e.target.value.length);
+  };
 
   return (
     <>
@@ -17,14 +24,17 @@ const ProfileInput = () => {
         name='profile'
         rules={{
           required: true,
-          minLength: 1,
-          maxLength: 140,
+          maxLength,
+          onChange,
         }}
-        render={({ field }) => <TextField {...field} margin='normal' placeholder='Profile *' fullWidth />}
+        render={({ field }) => (
+          <TextField {...field} margin='normal' rows={5} placeholder='Profile *' fullWidth multiline />
+        )}
       />
+      <Typography color={count > maxLength ? 'error' : 'black'}>{count}</Typography>
       {errors.profile && (
         <Typography color='error' variant='overline'>
-          required and must be less than 140 words
+          {`required and must be less than ${maxLength} characters`}
         </Typography>
       )}
     </>
