@@ -2,7 +2,10 @@ import React, { FC } from 'react';
 
 import { Container, CssBaseline, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
+
+import { useUpdateUserProfileMutation } from '@/graphql/generated';
 
 import SubmitButton from '../Button/SubmitButton';
 import AccountNameInput from '../Inputs/AccountNameInput';
@@ -14,6 +17,8 @@ type Props = {
 };
 
 const ProfileEdit: FC<Props> = ({ accountName, profile }) => {
+  const router = useRouter();
+  const [updateUserProfile] = useUpdateUserProfileMutation();
   const methods = useForm({
     defaultValues: {
       accountName,
@@ -22,7 +27,16 @@ const ProfileEdit: FC<Props> = ({ accountName, profile }) => {
   });
 
   const submit = (data: Props) => {
-    console.log(data);
+    updateUserProfile({
+      variables: {
+        profileEditInput: {
+          accountName: data.accountName,
+          profile: data.profile,
+        },
+      },
+    }).then((res) => {
+      router.push(`/${res.data?.updateUserProfile.userName}`);
+    });
   };
 
   return (
