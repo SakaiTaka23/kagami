@@ -17,6 +17,7 @@ type Mutation {
   followToggle(userName: String!): Follow!
   postCreate(content: String!): Post!
   createUser(username: UserName!): User!
+  editUserProfile(profileEditInput: ProfileEditInput!): User!
 }
 
 type Post {
@@ -39,6 +40,11 @@ type User {
 input UserName {
   accountName: String!
   userName: String!
+}
+
+input ProfileEditInput {
+  accountName: String!
+  profile: String!
 }
 
 schema {

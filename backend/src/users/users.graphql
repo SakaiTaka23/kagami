@@ -10,6 +10,11 @@ input UserName {
   userName: String!
 }
 
+input ProfileEditInput {
+  accountName: String!
+  profile: String!
+}
+
 type Query {
   userFromToken: User!
   userFromUserName(userName: String!): User
@@ -18,4 +23,5 @@ type Query {
 
 type Mutation {
   createUser(username: UserName!): User!
+  editUserProfile(profileEditInput: ProfileEditInput!): User!
 }
