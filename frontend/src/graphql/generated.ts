@@ -184,7 +184,7 @@ export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, use
 export type EditProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EditProfileQuery = { __typename?: 'Query', userFromToken: { __typename?: 'User', accountName: string, userName: string, profile: string } };
+export type EditProfileQuery = { __typename?: 'Query', userFromToken: { __typename?: 'User', accountName: string, profile: string } };
 
 
 export const PostCreateDocument = gql`
@@ -495,7 +495,6 @@ export const EditProfileDocument = gql`
     query EditProfile {
   userFromToken {
     accountName
-    userName
     profile
   }
 }
