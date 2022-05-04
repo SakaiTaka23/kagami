@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Box } from '@mui/system';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import SubmitButton from '../Forms/Button/SubmitButton';
+import SubmitButton from '../Button/SubmitButton';
 import PostInput from './PostInput';
 import { SubmitData } from './types';
 

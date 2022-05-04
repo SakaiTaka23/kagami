@@ -7,11 +7,11 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useFirebase } from '@/firebase/useFirebase';
 
-import SubmitButton from './Button/SubmitButton';
-import AccountNameInput from './Inputs/AccountNameInput';
-import EmailInput from './Inputs/EmailInput';
-import PasswordInput from './Inputs/PasswordInput';
-import UserNameInput from './Inputs/UserNameInput';
+import SubmitButton from '../Button/SubmitButton';
+import AccountNameInput from '../Inputs/AccountNameInput';
+import EmailInput from '../Inputs/EmailInput';
+import PasswordInput from '../Inputs/PasswordInput';
+import UserNameInput from '../Inputs/UserNameInput';
 
 type SubmitData = {
   accountName: string;
