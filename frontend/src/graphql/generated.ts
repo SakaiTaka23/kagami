@@ -26,6 +26,7 @@ export type Follow = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
+  editUserProfile: User;
   followToggle: Follow;
   postCreate: Post;
 };
@@ -33,6 +34,11 @@ export type Mutation = {
 
 export type MutationCreateUserArgs = {
   username: UserName;
+};
+
+
+export type MutationEditUserProfileArgs = {
+  profileEditInput: ProfileEditInput;
 };
 
 
@@ -52,6 +58,11 @@ export type Post = {
   id: Scalars['String'];
   user: User;
   userId: Scalars['String'];
+};
+
+export type ProfileEditInput = {
+  accountName: Scalars['String'];
+  profile: Scalars['String'];
 };
 
 export type Query = {
@@ -169,6 +180,11 @@ export type UserProfileQueryVariables = Exact<{
 
 
 export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } }> };
+
+export type EditProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EditProfileQuery = { __typename?: 'Query', userFromToken: { __typename?: 'User', accountName: string, userName: string, profile: string } };
 
 
 export const PostCreateDocument = gql`
@@ -475,3 +491,39 @@ export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
 export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
 export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
+export const EditProfileDocument = gql`
+    query EditProfile {
+  userFromToken {
+    accountName
+    userName
+    profile
+  }
+}
+    `;
+
+/**
+ * __useEditProfileQuery__
+ *
+ * To run a query within a React component, call `useEditProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEditProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEditProfileQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEditProfileQuery(baseOptions?: Apollo.QueryHookOptions<EditProfileQuery, EditProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EditProfileQuery, EditProfileQueryVariables>(EditProfileDocument, options);
+      }
+export function useEditProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EditProfileQuery, EditProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EditProfileQuery, EditProfileQueryVariables>(EditProfileDocument, options);
+        }
+export type EditProfileQueryHookResult = ReturnType<typeof useEditProfileQuery>;
+export type EditProfileLazyQueryHookResult = ReturnType<typeof useEditProfileLazyQuery>;
+export type EditProfileQueryResult = Apollo.QueryResult<EditProfileQuery, EditProfileQueryVariables>;

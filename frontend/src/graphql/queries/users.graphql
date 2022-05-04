@@ -27,3 +27,11 @@ query UserProfile($userName: String!, $take: Int!, $cursor: String) {
     }
   }
 }
+
+query EditProfile {
+  userFromToken {
+    accountName
+    userName
+    profile
+  }
+}
