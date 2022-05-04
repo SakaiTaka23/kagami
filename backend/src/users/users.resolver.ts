@@ -19,7 +19,7 @@ export class UsersResolver {
   }
 
   @UseGuards(FirebaseAuthGuard)
-  @Mutation('editUserProfile')
+  @Mutation('updateUserProfile')
   edit(@CurrentUserID() id: string, @Args('profileEditInput') profileEditInput: ProfileEditInput) {
     return this.usersService.edit(id, profileEditInput.accountName, profileEditInput.profile);
   }

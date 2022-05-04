@@ -23,5 +23,5 @@ type Query {
 
 type Mutation {
   createUser(username: UserName!): User!
-  editUserProfile(profileEditInput: ProfileEditInput!): User!
+  updateUserProfile(profileEditInput: ProfileEditInput!): User!
 }

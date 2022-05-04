@@ -26,19 +26,14 @@ export type Follow = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
-  editUserProfile: User;
   followToggle: Follow;
   postCreate: Post;
+  updateUserProfile: User;
 };
 
 
 export type MutationCreateUserArgs = {
   username: UserName;
-};
-
-
-export type MutationEditUserProfileArgs = {
-  profileEditInput: ProfileEditInput;
 };
 
 
@@ -49,6 +44,11 @@ export type MutationFollowToggleArgs = {
 
 export type MutationPostCreateArgs = {
   content: Scalars['String'];
+};
+
+
+export type MutationUpdateUserProfileArgs = {
+  profileEditInput: ProfileEditInput;
 };
 
 export type Post = {
@@ -143,6 +143,13 @@ export type FollowToggleMutationVariables = Exact<{
 
 
 export type FollowToggleMutation = { __typename?: 'Mutation', followToggle: { __typename?: 'Follow', followingId: string } };
+
+export type UpdateUserProfileMutationVariables = Exact<{
+  profileEditInput: ProfileEditInput;
+}>;
+
+
+export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUserProfile: { __typename?: 'User', userName: string } };
 
 export type TimeLineQueryVariables = Exact<{
   take: Scalars['Int'];
@@ -289,6 +296,39 @@ export function useFollowToggleMutation(baseOptions?: Apollo.MutationHookOptions
 export type FollowToggleMutationHookResult = ReturnType<typeof useFollowToggleMutation>;
 export type FollowToggleMutationResult = Apollo.MutationResult<FollowToggleMutation>;
 export type FollowToggleMutationOptions = Apollo.BaseMutationOptions<FollowToggleMutation, FollowToggleMutationVariables>;
+export const UpdateUserProfileDocument = gql`
+    mutation UpdateUserProfile($profileEditInput: ProfileEditInput!) {
+  updateUserProfile(profileEditInput: $profileEditInput) {
+    userName
+  }
+}
+    `;
+export type UpdateUserProfileMutationFn = Apollo.MutationFunction<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
+
+/**
+ * __useUpdateUserProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserProfileMutation, { data, loading, error }] = useUpdateUserProfileMutation({
+ *   variables: {
+ *      profileEditInput: // value for 'profileEditInput'
+ *   },
+ * });
+ */
+export function useUpdateUserProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>(UpdateUserProfileDocument, options);
+      }
+export type UpdateUserProfileMutationHookResult = ReturnType<typeof useUpdateUserProfileMutation>;
+export type UpdateUserProfileMutationResult = Apollo.MutationResult<UpdateUserProfileMutation>;
+export type UpdateUserProfileMutationOptions = Apollo.BaseMutationOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
 export const TimeLineDocument = gql`
     query TimeLine($take: Int!, $cursor: String) {
   timeline(take: $take, cursor: $cursor) {

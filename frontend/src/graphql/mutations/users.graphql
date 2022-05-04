@@ -9,3 +9,9 @@ mutation FollowToggle($userName: String!) {
     followingId
   }
 }
+
+mutation UpdateUserProfile($profileEditInput: ProfileEditInput!) {
+  updateUserProfile(profileEditInput: $profileEditInput) {
+    userName
+  }
+}

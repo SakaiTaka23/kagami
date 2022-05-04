@@ -45,7 +45,7 @@ export abstract class IMutation {
 
     abstract createUser(username: UserName): User | Promise<User>;
 
-    abstract editUserProfile(profileEditInput: ProfileEditInput): User | Promise<User>;
+    abstract updateUserProfile(profileEditInput: ProfileEditInput): User | Promise<User>;
 }
 
 export class Post {
