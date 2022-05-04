@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -17,14 +17,10 @@ const UserProfile = () => {
     },
   });
 
-  useEffect(() => {
-    if (loading === false && data?.userFromUserName === null) {
-      router.replace('/404');
-    }
-  }, [loading, data, router]);
-
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (error || data?.userFromUserName === null) {
+    router.replace('/404');
+  }
 
   return (
     <>
