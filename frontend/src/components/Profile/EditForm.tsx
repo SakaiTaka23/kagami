@@ -4,6 +4,7 @@ import { Container, CssBaseline, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import SubmitButton from '../Button/SubmitButton';
 import AccountNameInput from '../Inputs/AccountNameInput';
 import ProfileInput from '../Inputs/ProfileInput';
 
@@ -42,6 +43,7 @@ const ProfileEdit: FC<Props> = ({ accountName, profile }) => {
           <Box component='form' onSubmit={methods.handleSubmit(submit)} sx={{ mt: 3 }}>
             <AccountNameInput />
             <ProfileInput />
+            <SubmitButton />
           </Box>
         </FormProvider>
       </Box>
