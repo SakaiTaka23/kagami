@@ -15,7 +15,7 @@ const EditProfile = () => {
 
   if (loading || isLoading || !router.isReady) return <p>Loading...</p>;
   if (userName !== router.query.username) {
-    router.push('/404');
+    router.replace('/404');
   }
   if (error) return <p>Error</p>;
 
