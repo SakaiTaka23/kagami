@@ -7,9 +7,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useFirebase } from '@/firebase/useFirebase';
 
-import SubmitButton from './Button/SubmitButton';
-import EmailInput from './Inputs/EmailInput';
-import PasswordInput from './Inputs/PasswordInput';
+import SubmitButton from '../Button/SubmitButton';
+import EmailInput from '../Inputs/EmailInput';
+import PasswordInput from '../Inputs/PasswordInput';
 import AuthLinks from './Providers/AuthLinks';
 
 type SubmitData = {

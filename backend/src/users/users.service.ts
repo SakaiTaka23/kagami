@@ -15,6 +15,18 @@ export class UsersService {
     });
   }
 
+  edit(id: string, accountName: string, profile: string) {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        accountName,
+        profile,
+      },
+    });
+  }
+
   findOne(id: string) {
     return this.prisma.user.findUnique({
       where: {

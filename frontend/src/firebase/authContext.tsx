@@ -10,6 +10,7 @@ type Props = {
 };
 
 type AuthContextState = {
+  isLoading: boolean;
   useAuthGuard: () => void;
   userID: string;
   accountName: string;
@@ -55,7 +56,9 @@ const AuthProvider: FC<Props> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ useAuthGuard, userID, accountName, userName }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isLoading, useAuthGuard, userID, accountName, userName }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

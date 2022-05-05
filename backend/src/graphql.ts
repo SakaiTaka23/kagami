@@ -12,6 +12,11 @@ export class UserName {
     userName: string;
 }
 
+export class ProfileEditInput {
+    accountName: string;
+    profile: string;
+}
+
 export class Follow {
     followerId: string;
     followingId: string;
@@ -39,6 +44,8 @@ export abstract class IMutation {
     abstract postCreate(content: string): Post | Promise<Post>;
 
     abstract createUser(username: UserName): User | Promise<User>;
+
+    abstract updateUserProfile(profileEditInput: ProfileEditInput): User | Promise<User>;
 }
 
 export class Post {

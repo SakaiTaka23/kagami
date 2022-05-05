@@ -1,7 +1,8 @@
 import React, { FC, useContext } from 'react';
 
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import Link from 'next/link';
 
 import { AuthContext } from '@/firebase/authContext';
 
@@ -20,7 +21,11 @@ const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => 
   return (
     <>
       {userName === loginUser ? (
-        ''
+        <Grid container justifyContent='flex-end' alignItems='flex-start'>
+          <Link href={`/${userName}/edit`} passHref>
+            <Button>Edit</Button>
+          </Link>
+        </Grid>
       ) : (
         <Grid container justifyContent='flex-end' alignItems='flex-start'>
           <FollowButton isFollowing={isFollowing} userName={userName} />

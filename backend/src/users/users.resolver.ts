@@ -3,7 +3,7 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { AuthService } from 'src/auth/auth.service';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
-import { UserName } from 'src/graphql';
+import { ProfileEditInput, UserName } from 'src/graphql';
 
 import { UsersService } from './users.service';
 
@@ -16,6 +16,12 @@ export class UsersResolver {
   async create(@CurrentUserID() id: string, @Args('username') username: UserName) {
     await this.authService.createCustomToken(id, username.accountName, username.userName);
     return this.usersService.create(id, username.accountName, username.userName);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Mutation('updateUserProfile')
+  edit(@CurrentUserID() id: string, @Args('profileEditInput') profileEditInput: ProfileEditInput) {
+    return this.usersService.edit(id, profileEditInput.accountName, profileEditInput.profile);
   }
 
   @Query('user')

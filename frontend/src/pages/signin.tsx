@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SignInForm from '@/components/Forms/SigninForm';
+import SignInForm from '@/components/AuthForms/SigninForm';
 
 const signin = () => {
   return <SignInForm />;
