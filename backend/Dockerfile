@@ -32,10 +32,8 @@ WORKDIR /app
 ENV NODE_ENV production
 COPY .env .
 COPY wait-db.sh . 
-RUN yarn install --frozen-lockfile \
-    && yarn prisma generate \
-    && yarn cache clean
-COPY --from=builder /app/dist ./dist
 COPY joined.graphql ./dist/joined.graphql
+COPY --from=builder /app/dist ./dist
+COPY --from=deps /app/node_modules ./node_modules
 EXPOSE 5000
-CMD ["bash", "./wait-db.sh", "node", "dist/main" ]
+CMD ["bash", "./wait-db.sh", "node", "dist/src/main" ]
