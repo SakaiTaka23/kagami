@@ -15,20 +15,26 @@ const UserNameInput = () => {
     formState: { errors },
   } = useFormContext();
 
-  const changeName = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    UserUniqueQuery({
+  const isUniqueUserName = async (userName: string) => {
+    return UserUniqueQuery({
       variables: {
-        userName: e.target.value,
+        userName,
       },
     }).then((res) => {
-      if (res.data?.userFromUserName?.id !== undefined) {
-        setError('userName', { message: 'This username is already used' });
-      } else {
+      return res.data?.userFromUserName?.id === undefined;
+    });
+  };
+
+  const changeName = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    isUniqueUserName(e.target.value).then((isUnique) => {
+      if (isUnique) {
         trigger('userName').then((isValid) => {
           if (isValid) {
             clearErrors('userName');
           }
         });
+      } else {
+        setError('userName', { message: 'This username is already used' });
       }
     });
   };
@@ -45,6 +51,7 @@ const UserNameInput = () => {
             value: /^[0-9a-zA-Z_]{1,15}$/,
             message: 'required and must be 1 to 16 long \n only number alphabet and underscores',
           },
+          validate: async (v) => (await isUniqueUserName(v)) || 'This username is already used',
         }}
         render={({ field }) => (
           <TextField
