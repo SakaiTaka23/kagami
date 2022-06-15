@@ -28,6 +28,12 @@ query UserProfile($userName: String!, $take: Int!, $cursor: String) {
   }
 }
 
+query UserUnique($userName: String!) {
+  userFromUserName(userName: $userName) {
+    id
+  }
+}
+
 query EditProfile {
   userFromToken {
     accountName
