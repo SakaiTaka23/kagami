@@ -4,9 +4,9 @@
 cd `pwd`
 
 cd backend
-yarn build
+yarn lint-staged
 cd ..
 
 cd frontend
-yarn build
+yarn lint-staged
 cd ..
