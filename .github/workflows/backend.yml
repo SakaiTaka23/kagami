@@ -1,0 +1,46 @@
+name: Check backend
+
+on:
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./backend
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 17.x
+    steps:
+      - uses: actions/checkout@main
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+          cache-dependency-path: ./backend/yarn.lock
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-backend-path
+        run: echo "::set-output name=backend::$(yarn cache backend)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache-backend
+        with:
+          path: ${{ steps.yarn-cache-backend-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - name: Add adminsdk.json
+        run: touch src/firebase-adminsdk.json
+
+      - run: yarn install
+      - run: yarn format
+      - run: yarn lint
+      - run: yarn build
