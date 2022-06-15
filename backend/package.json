@@ -8,7 +8,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format": "prettier --check \"src/**/*.ts\"",
+    "format:fix": "prettier --write \"src/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -79,8 +80,7 @@
   },
   "lint-staged": {
     "src/*.ts": [
-      "yarn lint",
-      "yarn format",
+      "yarn format:fix",
       "yarn lint:fix"
     ]
   }
