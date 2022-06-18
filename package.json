@@ -5,7 +5,11 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@types/react-infinite-scroller": "^1.2.3",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7"
+  },
+  "dependencies": {
+    "react-infinite-scroller": "^1.2.6"
   }
 }
