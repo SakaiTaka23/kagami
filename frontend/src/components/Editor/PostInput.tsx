@@ -1,42 +1,25 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { FC } from 'react';
 
-import { TextField, Typography } from '@mui/material';
-import { Controller, useFormContext } from 'react-hook-form';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin';
+import { EditorState } from 'lexical';
 
-const PostInput = () => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
-  const [count, setCount] = useState(0);
-  const maxLength = 140;
+type Props = {
+  onChange: (editorState: EditorState) => void;
+};
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCount(e.target.value.length);
-  };
-
+const PostInput: FC<Props> = ({ onChange }) => {
   return (
-    <>
-      <Controller
-        control={control}
-        defaultValue=''
-        name='post'
-        rules={{
-          required: true,
-          maxLength,
-          onChange,
-        }}
-        render={({ field }) => (
-          <TextField {...field} margin='normal' rows={5} placeholder='How Was Your Day Today?' fullWidth multiline />
-        )}
+    <div className='editor-container'>
+      <PlainTextPlugin
+        contentEditable={<ContentEditable className='editor-input' />}
+        placeholder={<div className='editor-placeholder'>Enter some plain text...</div>}
       />
-      <Typography color={count > maxLength ? 'error' : 'black'}>{count}</Typography>
-      {errors.post && (
-        <Typography color='error' variant='overline'>
-          {`required must be less than ${maxLength} characters`}
-        </Typography>
-      )}
-    </>
+      <OnChangePlugin ignoreSelectionChange={true} onChange={onChange} />
+      <HashtagPlugin />
+    </div>
   );
 };
 
