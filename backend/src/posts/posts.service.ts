@@ -6,15 +6,22 @@ type Following = {
   followingId: string;
 }[];
 
+type Tags = {
+  name: string;
+}[];
+
 @Injectable()
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  create(userId: string, content: string) {
+  create(userId: string, content: string, tags: Tags) {
     return this.prisma.post.create({
       data: {
         userId,
         content,
+        tags: {
+          create: tags,
+        },
       },
       include: {
         user: true,
