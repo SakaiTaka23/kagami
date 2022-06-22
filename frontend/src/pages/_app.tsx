@@ -10,6 +10,7 @@ import createEmotionCache from '@/cache/createEmotionCache';
 import Header from '@/components/Header/Header';
 import { AuthProvider } from '@/firebase/authContext';
 import theme from '@/styles/theme/theme';
+import '../styles/globals.css';
 
 const clientSideEmotionCache = createEmotionCache();
 interface MyAppProps extends AppProps {
