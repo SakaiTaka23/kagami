@@ -20,7 +20,12 @@ export class PostsService {
         userId,
         content,
         tags: {
-          create: tags,
+          connectOrCreate: tags.map((tag) => {
+            return {
+              where: tag,
+              create: tag,
+            };
+          }),
         },
       },
       include: {
