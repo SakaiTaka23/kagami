@@ -9,6 +9,7 @@ import { PostsModule } from './posts/posts.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ScalarModule } from './scalar/scalar.module';
 import { UsersModule } from './users/users.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UsersModule } from './users/users.module';
     PrismaModule,
     PostsModule,
     ScalarModule,
+    TagsModule,
   ],
 })
 export class AppModule {}
