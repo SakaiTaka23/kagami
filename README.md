@@ -11,6 +11,7 @@
 erDiagram
 user ||--o{post : "" 
 user ||--o{follow: ""
+post }|..|{hashtag: ""
 
 user {
  char id
@@ -23,10 +24,13 @@ post {
  text content
 }
 
-
 follow {
     char followerId
     char followingId
+}
+
+hashtag {
+    char id
 }
 ```
 

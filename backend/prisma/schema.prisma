@@ -20,12 +20,19 @@ model Follow {
   @@id([followerId, followingId])
 }
 
+model Tag {
+  id String @id @default(uuid())
+  name String @unique
+  posts Post[]
+}
+
 model Post {
   id        String   @id @default(cuid())
   content   String
   createdAt DateTime @default(dbgenerated("NOW()")) @db.Timestamp(0)
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+  tags Tag[]
 }
 
 model User {
