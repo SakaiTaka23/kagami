@@ -4,6 +4,7 @@ import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
 import { FollowsService } from 'src/follows/follows.service';
 
+import { PostsContentValidationPipe } from './posts-content-validation.pipe';
 import { PostsService } from './posts.service';
 
 @Resolver('Post')
@@ -12,7 +13,7 @@ export class PostsResolver {
 
   @UseGuards(FirebaseAuthGuard)
   @Mutation('postCreate')
-  create(@CurrentUserID() id: string, @Args('content') content: string) {
+  create(@CurrentUserID() id: string, @Args('content', PostsContentValidationPipe) content: string) {
     return this.postsService.create(id, content);
   }
 
