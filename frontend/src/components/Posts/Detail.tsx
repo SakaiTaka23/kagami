@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 
 type Props = {
   content: string;
@@ -11,6 +12,22 @@ type Props = {
     accountName: string;
     userName: string;
   };
+};
+
+const toHashtagLink = (txt: string) => {
+  return txt.split(/(\n|\s)/g).map((t, i) => {
+    if (t === '\n') {
+      return <br key={i} />;
+    }
+    if (t.startsWith('#')) {
+      return (
+        <Link key={i} href={`${t}`}>
+          <a>{t}</a>
+        </Link>
+      );
+    }
+    return `${t} `;
+  });
 };
 
 const Detail: FC<Props> = (post) => {
@@ -24,7 +41,7 @@ const Detail: FC<Props> = (post) => {
         <Typography variant='subtitle1' color='gray'>{`@${userName}`}</Typography>
       </Grid>
       <Box sx={{ my: 2 }}>
-        <Typography>{content}</Typography>
+        <Typography>{toHashtagLink(content)}</Typography>
       </Box>
       <Typography color='gray' sx={{ mb: 2 }}>{`${createdAt.format('HH')}:${createdAt.format(
         'mm'
