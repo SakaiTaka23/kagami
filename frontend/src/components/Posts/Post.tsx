@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 
+import toHashtagLink from './ToHashtagLink';
+
 type Props = {
   id: string;
   content: string;
@@ -37,7 +39,7 @@ const Post: FC<Props> = (post) => {
           }
           secondary={
             <Link href={`/${userName}/${id}`} passHref>
-              <Typography component='span'>{content}</Typography>
+              <Typography component='span'>{toHashtagLink(content)}</Typography>
             </Link>
           }
         />

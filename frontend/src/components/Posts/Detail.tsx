@@ -3,7 +3,8 @@ import React, { FC } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import dayjs from 'dayjs';
-import Link from 'next/link';
+
+import toHashtagLink from './ToHashtagLink';
 
 type Props = {
   content: string;
@@ -12,22 +13,6 @@ type Props = {
     accountName: string;
     userName: string;
   };
-};
-
-const toHashtagLink = (txt: string) => {
-  return txt.split(/(\n|\s)/g).map((t, i) => {
-    if (t === '\n') {
-      return <br key={i} />;
-    }
-    if (t.startsWith('#')) {
-      return (
-        <Link key={i} href={`${t}`}>
-          <a>{t}</a>
-        </Link>
-      );
-    }
-    return `${t} `;
-  });
 };
 
 const Detail: FC<Props> = (post) => {
