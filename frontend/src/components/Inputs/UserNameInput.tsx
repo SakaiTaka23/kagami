@@ -68,7 +68,7 @@ const UserNameInput = () => {
       />
       {errors.userName && (
         <Typography color='error' variant='overline'>
-          {errors.userName.message}
+          {`${errors.userName.message}`}
         </Typography>
       )}
     </>
