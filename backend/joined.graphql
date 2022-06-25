@@ -8,6 +8,7 @@ type Query {
   timeline(take: Int!, cursor: String): [Post!]!
   postUser(userName: String!, take: Int!, cursor: String): [Post!]!
   postDetail(id: String!, userName: String!): Post
+  postsFromTag(tag: String!, take: Int!, cursor: String): [Post!]!
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User
