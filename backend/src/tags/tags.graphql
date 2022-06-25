@@ -1,0 +1,3 @@
+type Query {
+  postsFromTag(tag: String!, take: Int!, cursor: String): [Post!]!
+}

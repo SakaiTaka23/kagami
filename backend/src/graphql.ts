@@ -31,6 +31,8 @@ export abstract class IQuery {
 
     abstract postDetail(id: string, userName: string): Nullable<Post> | Promise<Nullable<Post>>;
 
+    abstract postsFromTag(tag: string, take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
+
     abstract userFromToken(): User | Promise<User>;
 
     abstract userFromUserName(userName: string): Nullable<User> | Promise<Nullable<User>>;
