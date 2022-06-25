@@ -1,11 +1,24 @@
 import { LoggerService } from '@nestjs/common';
 import { createLogger, format, Logger, transports } from 'winston';
 
+const setLogLevel = () => {
+  const env = process.env.LOG_LEVEL;
+  switch (env) {
+    case 'dev':
+      return 'debug';
+    case 'prod':
+      return 'warn';
+    default:
+      return 'warn';
+  }
+};
+
 export class CustomLoggerService implements LoggerService {
   logger: Logger;
 
   constructor() {
     this.logger = createLogger({
+      level: setLogLevel(),
       format: format.combine(format.colorize(), format.json(), format.simple()),
       transports: [new transports.Console()],
     });
