@@ -70,6 +70,7 @@ export type Query = {
   isFollowing: Scalars['Boolean'];
   postDetail?: Maybe<Post>;
   postUser: Array<Post>;
+  postsFromTag: Array<Post>;
   timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
@@ -92,6 +93,13 @@ export type QueryPostUserArgs = {
   cursor?: InputMaybe<Scalars['String']>;
   take: Scalars['Int'];
   userName: Scalars['String'];
+};
+
+
+export type QueryPostsFromTagArgs = {
+  cursor?: InputMaybe<Scalars['String']>;
+  tag: Scalars['String'];
+  take: Scalars['Int'];
 };
 
 
@@ -166,6 +174,15 @@ export type PostDetailQueryVariables = Exact<{
 
 
 export type PostDetailQuery = { __typename?: 'Query', postDetail?: { __typename?: 'Post', content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+
+export type PostsFromTagQueryVariables = Exact<{
+  tag: Scalars['String'];
+  take: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type PostsFromTagQuery = { __typename?: 'Query', postsFromTag: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -420,6 +437,50 @@ export function usePostDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type PostDetailQueryHookResult = ReturnType<typeof usePostDetailQuery>;
 export type PostDetailLazyQueryHookResult = ReturnType<typeof usePostDetailLazyQuery>;
 export type PostDetailQueryResult = Apollo.QueryResult<PostDetailQuery, PostDetailQueryVariables>;
+export const PostsFromTagDocument = gql`
+    query PostsFromTag($tag: String!, $take: Int!, $cursor: String) {
+  postsFromTag(tag: $tag, take: $take, cursor: $cursor) {
+    id
+    content
+    createdAt
+    userId
+    user {
+      accountName
+      userName
+    }
+  }
+}
+    `;
+
+/**
+ * __usePostsFromTagQuery__
+ *
+ * To run a query within a React component, call `usePostsFromTagQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostsFromTagQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostsFromTagQuery({
+ *   variables: {
+ *      tag: // value for 'tag'
+ *      take: // value for 'take'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function usePostsFromTagQuery(baseOptions: Apollo.QueryHookOptions<PostsFromTagQuery, PostsFromTagQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostsFromTagQuery, PostsFromTagQueryVariables>(PostsFromTagDocument, options);
+      }
+export function usePostsFromTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostsFromTagQuery, PostsFromTagQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostsFromTagQuery, PostsFromTagQueryVariables>(PostsFromTagDocument, options);
+        }
+export type PostsFromTagQueryHookResult = ReturnType<typeof usePostsFromTagQuery>;
+export type PostsFromTagLazyQueryHookResult = ReturnType<typeof usePostsFromTagLazyQuery>;
+export type PostsFromTagQueryResult = Apollo.QueryResult<PostsFromTagQuery, PostsFromTagQueryVariables>;
 export const UserFromTokenDocument = gql`
     query UserFromToken {
   userFromToken {

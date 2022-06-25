@@ -21,3 +21,16 @@ query PostDetail($postDetailId: String!, $userName: String!) {
     }
   }
 }
+
+query PostsFromTag($tag: String!, $take: Int!, $cursor: String) {
+  postsFromTag(tag: $tag, take: $take, cursor: $cursor) {
+    id
+    content
+    createdAt
+    userId
+    user {
+      accountName
+      userName
+    }
+  }
+}
