@@ -32,6 +32,7 @@ export class TagsService {
       },
       include: {
         tags: true,
+        user: true,
       },
       orderBy: {
         id: 'desc',
