@@ -4,6 +4,7 @@ import { initializeApp } from 'firebase-admin/app';
 
 import { AppModule } from './app.module';
 import * as serviceAccount from './firebase-adminsdk.json';
+import { CustomLoggerService } from './logger/logger.service';
 
 async function bootstrap() {
   initializeApp({
@@ -11,6 +12,7 @@ async function bootstrap() {
   });
 
   const app = await NestFactory.create(AppModule);
+  app.useLogger(app.get(CustomLoggerService));
   await app.listen(5000);
 }
 bootstrap();
