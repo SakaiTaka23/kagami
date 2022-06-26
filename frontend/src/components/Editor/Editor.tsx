@@ -5,10 +5,7 @@ import { $getRoot, EditorState } from 'lexical';
 
 import SubmitButton from '../Button/SubmitButton';
 import PostInput from '../Inputs/PostInput';
-
-type SubmitData = {
-  post: string;
-};
+import { SubmitData } from './types';
 
 type Props = {
   submit(data: SubmitData): void;
