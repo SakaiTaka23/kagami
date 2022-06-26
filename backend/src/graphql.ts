@@ -9,6 +9,7 @@
 /* eslint-disable */
 export class CreateTemplateInput {
     content: string;
+    detail: string;
 }
 
 export class UserName {

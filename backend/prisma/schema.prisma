@@ -38,6 +38,7 @@ model Tag {
 model Template {
   id        String   @id @default(cuid())
   content   String
+  detail    String
   createdAt DateTime @default(dbgenerated("NOW()")) @db.Timestamp(0)
   updatedAt DateTime @default(dbgenerated("NOW()")) @updatedAt @db.Timestamp(0)
   user      User     @relation(fields: [userId], references: [id])
