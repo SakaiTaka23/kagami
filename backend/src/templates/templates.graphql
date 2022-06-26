@@ -1,0 +1,16 @@
+input CreateTemplateInput {
+  content: String!
+}
+
+type Template {
+  id: String!
+  content: String!
+  createdAt: Date!
+  updatedAt: Date!
+  user: User!
+  userId: String!
+}
+
+type Mutation {
+  createTemplate(template: CreateTemplateInput): Template
+}

@@ -7,6 +7,10 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export class CreateTemplateInput {
+    content: string;
+}
+
 export class UserName {
     accountName: string;
     userName: string;
@@ -45,6 +49,8 @@ export abstract class IMutation {
 
     abstract postCreate(content: string): Post | Promise<Post>;
 
+    abstract createTemplate(template?: Nullable<CreateTemplateInput>): Nullable<Template> | Promise<Nullable<Template>>;
+
     abstract createUser(username: UserName): User | Promise<User>;
 
     abstract updateUserProfile(profileEditInput: ProfileEditInput): User | Promise<User>;
@@ -54,6 +60,15 @@ export class Post {
     id: string;
     content: string;
     createdAt: Date;
+    user: User;
+    userId: string;
+}
+
+export class Template {
+    id: string;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
     user: User;
     userId: string;
 }
