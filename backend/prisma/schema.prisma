@@ -20,27 +20,37 @@ model Follow {
   @@id([followerId, followingId])
 }
 
-model Tag {
-  id String @id @default(uuid())
-  name String @unique
-  posts Post[]
-}
-
 model Post {
   id        String   @id @default(cuid())
   content   String
   createdAt DateTime @default(dbgenerated("NOW()")) @db.Timestamp(0)
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  tags Tag[]
+  tags      Tag[]
+}
+
+model Tag {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[]
+}
+
+model Template {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(dbgenerated("NOW()")) @db.Timestamp(0)
+  updatedAt DateTime @default(dbgenerated("NOW()")) @updatedAt @db.Timestamp(0)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model User {
-  id          String   @id
+  id          String     @id
   accountName String
-  userName    String   @unique
-  profile String @default("")
+  profile     String     @default("")
+  userName    String     @unique
+  followers   Follow[]   @relation("follower")
+  following   Follow[]   @relation("following")
   posts       Post[]
-  followers   Follow[] @relation("follower")
-  following   Follow[] @relation("following")
+  templates   Template[]
 }
