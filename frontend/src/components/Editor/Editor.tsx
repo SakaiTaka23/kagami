@@ -37,13 +37,13 @@ const Editor: FC<Props> = ({ submit }) => {
   };
 
   return (
-    <LexicalComposer initialConfig={editorConfig}>
-      <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
+    <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
+      <LexicalComposer initialConfig={editorConfig}>
         <PostInput onChange={onChange} />
         <Counter count={count} maxLength={maxLength} />
-        <SubmitButton />
-      </Box>
-    </LexicalComposer>
+      </LexicalComposer>
+      <SubmitButton />
+    </Box>
   );
 };
 
