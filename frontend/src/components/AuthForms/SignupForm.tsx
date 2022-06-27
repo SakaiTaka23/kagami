@@ -17,7 +17,7 @@ type SubmitData = {
   password: string;
 };
 
-export default function SignUpForm() {
+export const SignUpForm = () => {
   const methods = useForm<SubmitData>();
   const { SignUp } = useFirebase();
 
@@ -52,4 +52,4 @@ export default function SignUpForm() {
       </Box>
     </Container>
   );
-}
+};

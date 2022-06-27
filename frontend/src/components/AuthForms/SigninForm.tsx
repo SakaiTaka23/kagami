@@ -9,14 +9,14 @@ import { useFirebase } from '@/firebase/useFirebase';
 
 import SubmitButton from '../Button/SubmitButton';
 import { EmailInput, PasswordInput } from '../Inputs';
-import AuthLinks from './Providers/AuthLinks';
+import { AuthLinks } from './Providers';
 
 type SubmitData = {
   email: string;
   password: string;
 };
 
-export default function SignInForm() {
+export const SignInForm = () => {
   const methods = useForm({
     defaultValues: {
       email: '',
@@ -55,4 +55,4 @@ export default function SignInForm() {
       </Box>
     </Container>
   );
-}
+};
