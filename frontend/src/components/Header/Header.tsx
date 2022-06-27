@@ -25,7 +25,7 @@ const logo = 'Kagami';
 const pages: string[] = [];
 const authPages = ['new'];
 
-const ResponsiveAppBar = () => {
+export const ResponsiveAppBar = () => {
   const { accountName, userName } = useContext(AuthContext);
   const settings = [
     { name: 'Profile', route: `/${userName}` },
@@ -179,4 +179,3 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;

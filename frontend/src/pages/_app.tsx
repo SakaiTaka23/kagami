@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { AppProps } from 'next/app';
 
 import createEmotionCache from '@/cache/createEmotionCache';
-import Header from '@/components/Header/Header';
+import { ResponsiveAppBar } from '@/components/Header';
 import { AuthProvider } from '@/firebase/authContext';
 import theme from '@/styles/theme/theme';
 import '../styles/globals.css';
@@ -46,7 +46,7 @@ function App(props: MyAppProps) {
         <AuthProvider>
           <ApolloProvider client={client}>
             <CssBaseline />
-            <Header />
+            <ResponsiveAppBar />
             <Container maxWidth='sm'>
               <Component {...pageProps} />
             </Container>
