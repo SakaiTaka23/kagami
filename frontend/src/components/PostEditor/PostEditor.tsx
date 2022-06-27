@@ -3,7 +3,7 @@ import { FC, FormEvent, useState } from 'react';
 import { Box } from '@mui/system';
 import { $getRoot, EditorState } from 'lexical';
 
-import SubmitButton from '../Button/SubmitButton';
+import { SubmitButton } from '../Button';
 import { PostInput } from '../Inputs';
 import { SubmitData } from './types';
 

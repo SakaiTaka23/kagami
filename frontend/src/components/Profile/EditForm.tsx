@@ -7,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useUpdateUserProfileMutation } from '@/graphql/generated';
 
-import SubmitButton from '../Button/SubmitButton';
+import { SubmitButton } from '../Button';
 import { AccountNameInput, ProfileInput } from '../Inputs';
 
 type Props = {
