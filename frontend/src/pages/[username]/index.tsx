@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import Posts from '@/components/Posts/Posts';
+import { Posts } from '@/components/Posts';
 import Profile from '@/components/Profile/Profile';
 import { useUserProfileQuery } from '@/graphql/generated';
 

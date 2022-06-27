@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
-import Detail from '@/components/Posts/Detail';
+import { Detail } from '@/components/Posts';
 import { usePostDetailQuery } from '@/graphql/generated';
 
 const PostDetail = () => {
