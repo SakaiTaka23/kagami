@@ -1,13 +1,10 @@
 import { FC, FormEvent, useState } from 'react';
 
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { Box } from '@mui/system';
 import { $getRoot, EditorState } from 'lexical';
 
 import SubmitButton from '../Button/SubmitButton';
-import editorConfig from './config/editorConfig';
-import Counter from './Counter';
-import PostInput from './PostInput';
+import PostInput from '../Inputs/PostInput';
 import { SubmitData } from './types';
 
 type Props = {
@@ -37,13 +34,10 @@ const Editor: FC<Props> = ({ submit }) => {
   };
 
   return (
-    <LexicalComposer initialConfig={editorConfig}>
-      <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
-        <PostInput onChange={onChange} />
-        <Counter count={count} maxLength={maxLength} />
-        <SubmitButton />
-      </Box>
-    </LexicalComposer>
+    <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
+      <PostInput count={count} onChange={onChange} />
+      <SubmitButton />
+    </Box>
   );
 };
 

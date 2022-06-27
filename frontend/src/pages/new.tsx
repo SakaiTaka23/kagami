@@ -2,8 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import Editor from '@/components/Editor';
-import { SubmitData } from '@/components/Editor/types';
+import Editor, { SubmitData } from '@/components/Editor';
 import { usePostCreateMutation } from '@/graphql/generated';
 
 const NewPost = () => {

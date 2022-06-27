@@ -17,6 +17,11 @@ export type Scalars = {
   Date: any;
 };
 
+export type CreateTemplateInput = {
+  content: Scalars['String'];
+  detail: Scalars['String'];
+};
+
 export type Follow = {
   __typename?: 'Follow';
   followerId: Scalars['String'];
@@ -25,10 +30,16 @@ export type Follow = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createTemplate?: Maybe<Template>;
   createUser: User;
   followToggle: Follow;
   postCreate: Post;
   updateUserProfile: User;
+};
+
+
+export type MutationCreateTemplateArgs = {
+  template?: InputMaybe<CreateTemplateInput>;
 };
 
 
@@ -118,6 +129,16 @@ export type QueryUserFromUserNameArgs = {
   userName: Scalars['String'];
 };
 
+export type Template = {
+  __typename?: 'Template';
+  content: Scalars['String'];
+  createdAt: Scalars['Date'];
+  id: Scalars['String'];
+  updatedAt: Scalars['Date'];
+  user: User;
+  userId: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   accountName: Scalars['String'];
@@ -137,6 +158,13 @@ export type PostCreateMutationVariables = Exact<{
 
 
 export type PostCreateMutation = { __typename?: 'Mutation', postCreate: { __typename?: 'Post', id: string, user: { __typename?: 'User', userName: string } } };
+
+export type CreateTemplateMutationVariables = Exact<{
+  template?: InputMaybe<CreateTemplateInput>;
+}>;
+
+
+export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate?: { __typename?: 'Template', id: string, content: string, createdAt: any, updatedAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type CreateUserMutationVariables = Exact<{
   username: UserName;
@@ -254,6 +282,47 @@ export function usePostCreateMutation(baseOptions?: Apollo.MutationHookOptions<P
 export type PostCreateMutationHookResult = ReturnType<typeof usePostCreateMutation>;
 export type PostCreateMutationResult = Apollo.MutationResult<PostCreateMutation>;
 export type PostCreateMutationOptions = Apollo.BaseMutationOptions<PostCreateMutation, PostCreateMutationVariables>;
+export const CreateTemplateDocument = gql`
+    mutation CreateTemplate($template: CreateTemplateInput) {
+  createTemplate(template: $template) {
+    id
+    content
+    createdAt
+    updatedAt
+    user {
+      accountName
+      userName
+    }
+    userId
+  }
+}
+    `;
+export type CreateTemplateMutationFn = Apollo.MutationFunction<CreateTemplateMutation, CreateTemplateMutationVariables>;
+
+/**
+ * __useCreateTemplateMutation__
+ *
+ * To run a mutation, you first call `useCreateTemplateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTemplateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTemplateMutation, { data, loading, error }] = useCreateTemplateMutation({
+ *   variables: {
+ *      template: // value for 'template'
+ *   },
+ * });
+ */
+export function useCreateTemplateMutation(baseOptions?: Apollo.MutationHookOptions<CreateTemplateMutation, CreateTemplateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTemplateMutation, CreateTemplateMutationVariables>(CreateTemplateDocument, options);
+      }
+export type CreateTemplateMutationHookResult = ReturnType<typeof useCreateTemplateMutation>;
+export type CreateTemplateMutationResult = Apollo.MutationResult<CreateTemplateMutation>;
+export type CreateTemplateMutationOptions = Apollo.BaseMutationOptions<CreateTemplateMutation, CreateTemplateMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($username: UserName!) {
   createUser(username: $username) {
