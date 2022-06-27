@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const toHashtagLink = (txt: string) => {
+export const toHashtagLink = (txt: string) => {
   return txt.split(/(\n|\s)/g).map((t, i) => {
     if (t === '\n') {
       return <br key={i} />;
@@ -15,5 +15,3 @@ const toHashtagLink = (txt: string) => {
     return `${t} `;
   });
 };
-
-export default toHashtagLink;

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { List } from '@mui/material';
 
-import Post from './Post';
+import { Post } from './Post';
 
 type Props = {
   posts: {
@@ -16,7 +16,7 @@ type Props = {
   }[];
 };
 
-const Posts: FC<Props> = (props) => {
+export const Posts: FC<Props> = (props) => {
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       {props.posts?.map((post, i) => {
@@ -25,5 +25,3 @@ const Posts: FC<Props> = (props) => {
     </List>
   );
 };
-
-export default Posts;
