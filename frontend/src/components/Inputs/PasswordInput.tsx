@@ -3,7 +3,7 @@ import React from 'react';
 import { TextField, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
-const PasswordInput = () => {
+export const PasswordInput = () => {
   const {
     control,
     formState: { errors },
@@ -30,5 +30,3 @@ const PasswordInput = () => {
     </>
   );
 };
-
-export default PasswordInput;

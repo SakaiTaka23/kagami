@@ -3,7 +3,7 @@ import React from 'react';
 import { TextField, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
-const AccountNameInput = () => {
+export const AccountNameInput = () => {
   const {
     control,
     formState: { errors },
@@ -29,5 +29,3 @@ const AccountNameInput = () => {
     </>
   );
 };
-
-export default AccountNameInput;

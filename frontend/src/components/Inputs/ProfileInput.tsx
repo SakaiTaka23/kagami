@@ -3,13 +3,12 @@ import React, { ChangeEvent, useState } from 'react';
 import { TextField, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
-const ProfileInput = () => {
+export const ProfileInput = () => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
-  // eslint-disable-next-line no-underscore-dangle
-  const [count, setCount] = useState(String(control._defaultValues.profile).length);
+  const [count, setCount] = useState(0);
   const maxLength = 140;
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,5 +39,3 @@ const ProfileInput = () => {
     </>
   );
 };
-
-export default ProfileInput;

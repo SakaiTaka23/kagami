@@ -17,7 +17,7 @@ type Props = {
 
 const maxLength = 140;
 
-const PostInput: FC<Props> = ({ count, onChange }) => {
+export const PostInput: FC<Props> = ({ count, onChange }) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className='editor-container'>
@@ -32,5 +32,3 @@ const PostInput: FC<Props> = ({ count, onChange }) => {
     </LexicalComposer>
   );
 };
-
-export default PostInput;

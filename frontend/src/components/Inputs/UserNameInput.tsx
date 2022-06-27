@@ -5,7 +5,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { useUserUniqueLazyQuery } from '@/graphql/generated';
 
-const UserNameInput = () => {
+export const UserNameInput = () => {
   const [UserUniqueQuery] = useUserUniqueLazyQuery();
   const {
     control,
@@ -74,5 +74,3 @@ const UserNameInput = () => {
     </>
   );
 };
-
-export default UserNameInput;
