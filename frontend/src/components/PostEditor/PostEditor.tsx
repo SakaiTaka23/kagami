@@ -12,7 +12,7 @@ type Props = {
 };
 const maxLength = 140;
 
-const Editor: FC<Props> = ({ submit }) => {
+export const PostEditor: FC<Props> = ({ submit }) => {
   const [elements, setElements] = useState<string>('');
   const [count, setCount] = useState(0);
 
@@ -40,5 +40,3 @@ const Editor: FC<Props> = ({ submit }) => {
     </Box>
   );
 };
-
-export default Editor;
