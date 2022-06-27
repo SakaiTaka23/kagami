@@ -15,7 +15,7 @@ type Props = {
   profile: string;
 };
 
-const ProfileEdit: FC<Props> = ({ accountName, profile }) => {
+export const ProfileEdit: FC<Props> = ({ accountName, profile }) => {
   const router = useRouter();
   const [updateUserProfile] = useUpdateUserProfileMutation();
   const methods = useForm({
@@ -63,5 +63,3 @@ const ProfileEdit: FC<Props> = ({ accountName, profile }) => {
     </Container>
   );
 };
-
-export default ProfileEdit;

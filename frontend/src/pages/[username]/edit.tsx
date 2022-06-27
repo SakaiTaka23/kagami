@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useRouter } from 'next/router';
 
-import ProfileEdit from '@/components/Profile/EditForm';
+import { ProfileEdit } from '@/components/Profile';
 import { AuthContext } from '@/firebase/authContext';
 import { useEditProfileQuery } from '@/graphql/generated';
 

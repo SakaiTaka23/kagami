@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { Posts } from '@/components/Posts';
-import Profile from '@/components/Profile/Profile';
+import { Profile } from '@/components/Profile';
 import { useUserProfileQuery } from '@/graphql/generated';
 
 const UserProfile = () => {
