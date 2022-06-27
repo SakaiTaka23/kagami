@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 import { $getRoot, EditorState } from 'lexical';
 
 import SubmitButton from '../Button/SubmitButton';
-import PostInput from '../Inputs/PostInput';
+import { PostInput } from '../Inputs';
 import { SubmitData } from './types';
 
 type Props = {
