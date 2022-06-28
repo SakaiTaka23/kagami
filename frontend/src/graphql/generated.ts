@@ -139,6 +139,7 @@ export type Template = {
   __typename?: 'Template';
   content: Scalars['String'];
   createdAt: Scalars['Date'];
+  detail: Scalars['String'];
   id: Scalars['String'];
   updatedAt: Scalars['Date'];
   user: User;
@@ -223,7 +224,7 @@ export type TemplateDetailQueryVariables = Exact<{
 }>;
 
 
-export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', content: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', content: string, detail: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -559,6 +560,7 @@ export const TemplateDetailDocument = gql`
     query TemplateDetail($templateDetailId: String!) {
   templateDetail(id: $templateDetailId) {
     content
+    detail
     createdAt
     updatedAt
     user {
