@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { Detail } from '@/components/Posts';
-import { TemplateDetail } from '@/components/Templates/TemplateDetail';
+import { TemplateDetail } from '@/components/Templates';
 import { useTemplateDetailQuery } from '@/graphql/generated';
 
 const TemplateDetailPage = () => {
