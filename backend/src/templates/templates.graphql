@@ -7,6 +7,7 @@ type Template {
   id: String!
   content: String!
   createdAt: Date!
+  detail: String!
   updatedAt: Date!
   user: User!
   userId: String!

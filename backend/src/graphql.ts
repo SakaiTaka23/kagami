@@ -71,6 +71,7 @@ export class Template {
     id: string;
     content: string;
     createdAt: Date;
+    detail: string;
     updatedAt: Date;
     user: User;
     userId: string;
