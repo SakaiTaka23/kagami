@@ -24,7 +24,7 @@ const style = {
   p: 4,
 };
 
-const FollowButton: FC<Props> = ({ isFollowing, userName }) => {
+export const FollowButton: FC<Props> = ({ isFollowing, userName }) => {
   const { userID } = useContext(AuthContext);
   const router = useRouter();
   const [followToggleMutation] = useFollowToggleMutation();
@@ -59,5 +59,3 @@ const FollowButton: FC<Props> = ({ isFollowing, userName }) => {
     </>
   );
 };
-
-export default FollowButton;

@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import Posts from '@/components/Posts/Posts';
+import { Posts } from '@/components/Posts';
 import { usePostsFromTagQuery } from '@/graphql/generated';
 
 const HashTagPage = () => {

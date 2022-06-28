@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 
-import Posts from '@/components/Posts/Posts';
+import { Posts } from '@/components/Posts';
 import { useTimeLineQuery } from '@/graphql/generated';
 
 const Home: NextPage = () => {

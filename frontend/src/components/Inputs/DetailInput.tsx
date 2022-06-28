@@ -12,7 +12,7 @@ type Props = {
 
 const maxLength = 140;
 
-const DetailInput: FC<Props> = ({ count, detail, onChange }) => {
+export const DetailInput: FC<Props> = ({ count, detail, onChange }) => {
   return (
     <>
       <TextField
@@ -27,5 +27,3 @@ const DetailInput: FC<Props> = ({ count, detail, onChange }) => {
     </>
   );
 };
-
-export default DetailInput;

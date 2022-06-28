@@ -4,7 +4,7 @@ import { Button, Grid } from '@mui/material';
 
 import { useFirebase } from '@/firebase/useFirebase';
 
-const AuthLinks = () => {
+export const AuthLinks = () => {
   const { SignInGoogle } = useFirebase();
 
   return (
@@ -15,5 +15,3 @@ const AuthLinks = () => {
     </Grid>
   );
 };
-
-export default AuthLinks;

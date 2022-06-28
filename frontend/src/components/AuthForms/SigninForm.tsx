@@ -7,17 +7,16 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useFirebase } from '@/firebase/useFirebase';
 
-import SubmitButton from '../Button/SubmitButton';
-import EmailInput from '../Inputs/EmailInput';
-import PasswordInput from '../Inputs/PasswordInput';
-import AuthLinks from './Providers/AuthLinks';
+import { SubmitButton } from '../Button';
+import { EmailInput, PasswordInput } from '../Inputs';
+import { AuthLinks } from './Providers';
 
 type SubmitData = {
   email: string;
   password: string;
 };
 
-export default function SignInForm() {
+export const SignInForm = () => {
   const methods = useForm({
     defaultValues: {
       email: '',
@@ -56,4 +55,4 @@ export default function SignInForm() {
       </Box>
     </Container>
   );
-}
+};

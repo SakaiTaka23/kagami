@@ -3,9 +3,8 @@ import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { Box } from '@mui/system';
 import { $getRoot, EditorState } from 'lexical';
 
-import SubmitButton from '../Button/SubmitButton';
-import DetailInput from '../Inputs/DetailInput';
-import PostInput from '../Inputs/PostInput';
+import { SubmitButton } from '../Button';
+import { DetailInput, PostInput } from '../Inputs';
 import { SubmitData } from './types';
 
 type Props = {

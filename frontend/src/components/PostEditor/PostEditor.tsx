@@ -3,8 +3,8 @@ import { FC, FormEvent, useState } from 'react';
 import { Box } from '@mui/system';
 import { $getRoot, EditorState } from 'lexical';
 
-import SubmitButton from '../Button/SubmitButton';
-import PostInput from '../Inputs/PostInput';
+import { SubmitButton } from '../Button';
+import { PostInput } from '../Inputs';
 import { SubmitData } from './types';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 };
 const maxLength = 140;
 
-const Editor: FC<Props> = ({ submit }) => {
+export const PostEditor: FC<Props> = ({ submit }) => {
   const [elements, setElements] = useState<string>('');
   const [count, setCount] = useState(0);
 
@@ -40,5 +40,3 @@ const Editor: FC<Props> = ({ submit }) => {
     </Box>
   );
 };
-
-export default Editor;

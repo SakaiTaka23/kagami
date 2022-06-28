@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import Editor, { SubmitData } from '@/components/Editor';
+import { PostEditor, SubmitData } from '@/components/PostEditor';
 import { usePostCreateMutation } from '@/graphql/generated';
 
 const NewPost = () => {
@@ -18,7 +18,7 @@ const NewPost = () => {
     });
   };
 
-  return <Editor submit={submit} />;
+  return <PostEditor submit={submit} />;
 };
 
 export default NewPost;

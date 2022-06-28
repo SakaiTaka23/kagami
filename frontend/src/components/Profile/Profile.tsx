@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import { AuthContext } from '@/firebase/authContext';
 
-import FollowButton from './FollowButton';
+import { FollowButton } from './FollowButton';
 
 type Props = {
   userName: string;
@@ -15,7 +15,7 @@ type Props = {
   profile: string;
 };
 
-const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => {
+export const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => {
   const { userName: loginUser } = useContext(AuthContext);
 
   return (
@@ -39,5 +39,3 @@ const Profile: FC<Props> = ({ userName, accountName, isFollowing, profile }) => 
     </>
   );
 };
-
-export default Profile;

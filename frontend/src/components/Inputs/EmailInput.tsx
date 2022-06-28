@@ -3,7 +3,7 @@ import React from 'react';
 import { TextField, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
-const EmailInput = () => {
+export const EmailInput = () => {
   const {
     control,
     formState: { errors },
@@ -29,5 +29,3 @@ const EmailInput = () => {
     </>
   );
 };
-
-export default EmailInput;

@@ -4,7 +4,7 @@ import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import dayjs from 'dayjs';
 
-import toHashtagLink from './ToHashtagLink';
+import { toHashtagLink } from './ToHashtagLink';
 
 type Props = {
   content: string;
@@ -15,7 +15,7 @@ type Props = {
   };
 };
 
-const Detail: FC<Props> = (post) => {
+export const Detail: FC<Props> = (post) => {
   const { accountName, userName } = post.user;
   const { content } = post;
   const createdAt = dayjs(post.createdAt);
@@ -34,5 +34,3 @@ const Detail: FC<Props> = (post) => {
     </>
   );
 };
-
-export default Detail;

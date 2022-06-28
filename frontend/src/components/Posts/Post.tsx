@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 
-import toHashtagLink from './ToHashtagLink';
+import { toHashtagLink } from './ToHashtagLink';
 
 type Props = {
   id: string;
@@ -17,7 +17,7 @@ type Props = {
   };
 };
 
-const Post: FC<Props> = (post) => {
+export const Post: FC<Props> = (post) => {
   dayjs.extend(relativeTime);
   const { accountName, userName } = post.user;
   const { id, content } = post;
@@ -48,5 +48,3 @@ const Post: FC<Props> = (post) => {
     </>
   );
 };
-
-export default Post;
