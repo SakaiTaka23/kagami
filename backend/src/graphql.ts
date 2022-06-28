@@ -52,7 +52,7 @@ export abstract class IMutation {
 
     abstract postCreate(content: string): Post | Promise<Post>;
 
-    abstract createTemplate(template?: Nullable<CreateTemplateInput>): Nullable<Template> | Promise<Nullable<Template>>;
+    abstract createTemplate(template?: Nullable<CreateTemplateInput>): Template | Promise<Template>;
 
     abstract createUser(username: UserName): User | Promise<User>;
 

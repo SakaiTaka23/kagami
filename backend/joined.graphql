@@ -18,7 +18,7 @@ type Query {
 type Mutation {
   followToggle(userName: String!): Follow!
   postCreate(content: String!): Post!
-  createTemplate(template: CreateTemplateInput): Template
+  createTemplate(template: CreateTemplateInput): Template!
   createUser(username: UserName!): User!
   updateUserProfile(profileEditInput: ProfileEditInput!): User!
 }

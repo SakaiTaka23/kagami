@@ -17,5 +17,5 @@ type Query {
 }
 
 type Mutation {
-  createTemplate(template: CreateTemplateInput): Template
+  createTemplate(template: CreateTemplateInput): Template!
 }
