@@ -12,6 +12,10 @@ type Template {
   userId: String!
 }
 
+type Query {
+  templateDetail(id: String!): Template
+}
+
 type Mutation {
   createTemplate(template: CreateTemplateInput): Template
 }

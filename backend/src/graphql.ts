@@ -38,6 +38,8 @@ export abstract class IQuery {
 
     abstract postsFromTag(tag: string, take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
 
+    abstract templateDetail(id: string): Nullable<Template> | Promise<Nullable<Template>>;
+
     abstract userFromToken(): User | Promise<User>;
 
     abstract userFromUserName(userName: string): Nullable<User> | Promise<Nullable<User>>;
