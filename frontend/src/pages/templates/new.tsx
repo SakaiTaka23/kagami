@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TemplateEditor, { SubmitData } from '@/components/Templates';
+import { SubmitData, TemplatesEditor } from '@/components/Templates';
 import { useCreateTemplateMutation } from '@/graphql/generated';
 
 const NewTemplate = () => {
@@ -17,7 +17,7 @@ const NewTemplate = () => {
       console.log(res.data?.createTemplate?.id);
     });
   };
-  return <TemplateEditor submit={submit} />;
+  return <TemplatesEditor submit={submit} />;
 };
 
 export default NewTemplate;
