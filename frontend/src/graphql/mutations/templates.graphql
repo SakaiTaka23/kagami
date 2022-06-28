@@ -1,13 +1,5 @@
 mutation CreateTemplate($template: CreateTemplateInput) {
   createTemplate(template: $template) {
     id
-    content
-    createdAt
-    updatedAt
-    user {
-      accountName
-      userName
-    }
-    userId
   }
 }

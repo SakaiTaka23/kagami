@@ -1,0 +1,11 @@
+query TemplateDetail($templateDetailId: String!) {
+  templateDetail(id: $templateDetailId) {
+    content
+    createdAt
+    updatedAt
+    user {
+      accountName
+      userName
+    }
+  }
+}
