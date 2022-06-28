@@ -38,6 +38,8 @@ export abstract class IQuery {
 
     abstract postsFromTag(tag: string, take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
 
+    abstract templateDetail(id: string): Nullable<Template> | Promise<Nullable<Template>>;
+
     abstract userFromToken(): User | Promise<User>;
 
     abstract userFromUserName(userName: string): Nullable<User> | Promise<Nullable<User>>;
@@ -50,7 +52,7 @@ export abstract class IMutation {
 
     abstract postCreate(content: string): Post | Promise<Post>;
 
-    abstract createTemplate(template?: Nullable<CreateTemplateInput>): Nullable<Template> | Promise<Nullable<Template>>;
+    abstract createTemplate(template?: Nullable<CreateTemplateInput>): Template | Promise<Template>;
 
     abstract createUser(username: UserName): User | Promise<User>;
 
@@ -69,6 +71,7 @@ export class Template {
     id: string;
     content: string;
     createdAt: Date;
+    detail: string;
     updatedAt: Date;
     user: User;
     userId: string;

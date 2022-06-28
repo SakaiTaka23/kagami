@@ -23,7 +23,7 @@ type DetailState = {
 
 const maxLength = 140;
 
-const TemplatesEditor: FC<Props> = ({ submit }) => {
+export const TemplatesEditor: FC<Props> = ({ submit }) => {
   const [post, setPost] = useState<PostState>({
     post: '',
     postCount: 0,
@@ -69,5 +69,3 @@ const TemplatesEditor: FC<Props> = ({ submit }) => {
     </Box>
   );
 };
-
-export default TemplatesEditor;

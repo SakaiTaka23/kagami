@@ -9,6 +9,7 @@ type Query {
   postUser(userName: String!, take: Int!, cursor: String): [Post!]!
   postDetail(id: String!, userName: String!): Post
   postsFromTag(tag: String!, take: Int!, cursor: String): [Post!]!
+  templateDetail(id: String!): Template
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User
@@ -17,7 +18,7 @@ type Query {
 type Mutation {
   followToggle(userName: String!): Follow!
   postCreate(content: String!): Post!
-  createTemplate(template: CreateTemplateInput): Template
+  createTemplate(template: CreateTemplateInput): Template!
   createUser(username: UserName!): User!
   updateUserProfile(profileEditInput: ProfileEditInput!): User!
 }
@@ -41,6 +42,7 @@ type Template {
   id: String!
   content: String!
   createdAt: Date!
+  detail: String!
   updatedAt: Date!
   user: User!
   userId: String!

@@ -1,5 +1,3 @@
-import TemplateEditor from './TemplateEditor';
-import { SubmitData } from './types';
-
-export default TemplateEditor;
-export type { SubmitData };
+export * from './TemplateEditor';
+export * from './TemplateDetail';
+export type { SubmitData } from './types';

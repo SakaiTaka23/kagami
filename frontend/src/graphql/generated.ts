@@ -30,7 +30,7 @@ export type Follow = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createTemplate?: Maybe<Template>;
+  createTemplate: Template;
   createUser: User;
   followToggle: Follow;
   postCreate: Post;
@@ -82,6 +82,7 @@ export type Query = {
   postDetail?: Maybe<Post>;
   postUser: Array<Post>;
   postsFromTag: Array<Post>;
+  templateDetail?: Maybe<Template>;
   timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
@@ -114,6 +115,11 @@ export type QueryPostsFromTagArgs = {
 };
 
 
+export type QueryTemplateDetailArgs = {
+  id: Scalars['String'];
+};
+
+
 export type QueryTimelineArgs = {
   cursor?: InputMaybe<Scalars['String']>;
   take: Scalars['Int'];
@@ -133,6 +139,7 @@ export type Template = {
   __typename?: 'Template';
   content: Scalars['String'];
   createdAt: Scalars['Date'];
+  detail: Scalars['String'];
   id: Scalars['String'];
   updatedAt: Scalars['Date'];
   user: User;
@@ -164,7 +171,7 @@ export type CreateTemplateMutationVariables = Exact<{
 }>;
 
 
-export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate?: { __typename?: 'Template', id: string, content: string, createdAt: any, updatedAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate: { __typename?: 'Template', id: string } };
 
 export type CreateUserMutationVariables = Exact<{
   username: UserName;
@@ -211,6 +218,13 @@ export type PostsFromTagQueryVariables = Exact<{
 
 
 export type PostsFromTagQuery = { __typename?: 'Query', postsFromTag: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
+
+export type TemplateDetailQueryVariables = Exact<{
+  templateDetailId: Scalars['String'];
+}>;
+
+
+export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', content: string, detail: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -286,14 +300,6 @@ export const CreateTemplateDocument = gql`
     mutation CreateTemplate($template: CreateTemplateInput) {
   createTemplate(template: $template) {
     id
-    content
-    createdAt
-    updatedAt
-    user {
-      accountName
-      userName
-    }
-    userId
   }
 }
     `;
@@ -550,6 +556,48 @@ export function usePostsFromTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type PostsFromTagQueryHookResult = ReturnType<typeof usePostsFromTagQuery>;
 export type PostsFromTagLazyQueryHookResult = ReturnType<typeof usePostsFromTagLazyQuery>;
 export type PostsFromTagQueryResult = Apollo.QueryResult<PostsFromTagQuery, PostsFromTagQueryVariables>;
+export const TemplateDetailDocument = gql`
+    query TemplateDetail($templateDetailId: String!) {
+  templateDetail(id: $templateDetailId) {
+    content
+    detail
+    createdAt
+    updatedAt
+    user {
+      accountName
+      userName
+    }
+  }
+}
+    `;
+
+/**
+ * __useTemplateDetailQuery__
+ *
+ * To run a query within a React component, call `useTemplateDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTemplateDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTemplateDetailQuery({
+ *   variables: {
+ *      templateDetailId: // value for 'templateDetailId'
+ *   },
+ * });
+ */
+export function useTemplateDetailQuery(baseOptions: Apollo.QueryHookOptions<TemplateDetailQuery, TemplateDetailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TemplateDetailQuery, TemplateDetailQueryVariables>(TemplateDetailDocument, options);
+      }
+export function useTemplateDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TemplateDetailQuery, TemplateDetailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TemplateDetailQuery, TemplateDetailQueryVariables>(TemplateDetailDocument, options);
+        }
+export type TemplateDetailQueryHookResult = ReturnType<typeof useTemplateDetailQuery>;
+export type TemplateDetailLazyQueryHookResult = ReturnType<typeof useTemplateDetailLazyQuery>;
+export type TemplateDetailQueryResult = Apollo.QueryResult<TemplateDetailQuery, TemplateDetailQueryVariables>;
 export const UserFromTokenDocument = gql`
     query UserFromToken {
   userFromToken {

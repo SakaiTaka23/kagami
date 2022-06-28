@@ -17,4 +17,15 @@ export class TemplatesService {
       },
     });
   }
+
+  findOne(id: string) {
+    return this.prisma.template.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user: true,
+      },
+    });
+  }
 }
