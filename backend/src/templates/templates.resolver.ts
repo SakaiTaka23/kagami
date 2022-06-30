@@ -21,4 +21,10 @@ export class TemplatesResolver {
   detail(@Args('id') id: string) {
     return this.templatesService.findOne(id);
   }
+
+  @Query('templateList')
+  list(@Args('take') take: number, @Args('cursor') cursor: string) {
+    const cursorObj = cursor === undefined ? undefined : { id: cursor };
+    return this.templatesService.findMany(take, cursorObj);
+  }
 }

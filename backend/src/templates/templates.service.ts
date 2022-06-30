@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -25,6 +26,20 @@ export class TemplatesService {
       },
       include: {
         user: true,
+      },
+    });
+  }
+
+  findMany(take: number, cursor?: Prisma.TemplateWhereUniqueInput) {
+    return this.prisma.template.findMany({
+      take,
+      skip: cursor === undefined ? 0 : 1,
+      cursor,
+      include: {
+        user: true,
+      },
+      orderBy: {
+        id: 'desc',
       },
     });
   }
