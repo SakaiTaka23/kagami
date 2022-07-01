@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 
-import Templates from '@/components/Templates/Templates';
+import { Templates } from '@/components/Templates';
 import { useTemplateListQuery } from '@/graphql/generated';
 
 const TemplateList = () => {

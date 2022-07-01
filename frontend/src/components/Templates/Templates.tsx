@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { List } from '@mui/material';
 
-import Template from './Template';
+import { Template } from './Template';
 
 type Props = {
   templates: {
@@ -17,14 +17,12 @@ type Props = {
   }[];
 };
 
-const Templates: FC<Props> = (props) => {
+export const Templates: FC<Props> = (props) => {
   return (
     <List sx={{ width: '100%', bgcolor: 'background.color' }}>
       {props.templates?.map((template, i) => {
-        return <Template key={i} />;
+        return <Template key={i} {...template} />;
       })}
     </List>
   );
 };
-
-export default Templates;
