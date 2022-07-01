@@ -40,6 +40,8 @@ export abstract class IQuery {
 
     abstract templateDetail(id: string): Nullable<Template> | Promise<Nullable<Template>>;
 
+    abstract templateList(take: number, cursor?: Nullable<string>): Template[] | Promise<Template[]>;
+
     abstract userFromToken(): User | Promise<User>;
 
     abstract userFromUserName(userName: string): Nullable<User> | Promise<Nullable<User>>;

@@ -10,6 +10,7 @@ type Query {
   postDetail(id: String!, userName: String!): Post
   postsFromTag(tag: String!, take: Int!, cursor: String): [Post!]!
   templateDetail(id: String!): Template
+  templateList(take: Int!, cursor: String): [Template!]!
   userFromToken: User!
   userFromUserName(userName: String!): User
   user(id: String!): User
