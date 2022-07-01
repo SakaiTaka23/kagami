@@ -10,3 +10,16 @@ query TemplateDetail($templateDetailId: String!) {
     }
   }
 }
+
+query TemplateList($take: Int!, $cursor: String) {
+  templateList(take: $take, cursor: $cursor) {
+    id
+    content
+    createdAt
+    updatedAt
+    user {
+      userName
+      accountName
+    }
+  }
+}
