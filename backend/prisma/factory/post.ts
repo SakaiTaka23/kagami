@@ -12,13 +12,12 @@ export const posts = async (count: number) => {
   const users = await prisma.user.findMany();
 
   users.map(async (user) => {
-    const hashtags = [getRandomInt(maxNumber), getRandomInt(maxNumber)];
     await prisma.post.createMany({
       data: Array(count)
         .fill(0)
         .map(() => ({
           userId: user.id,
-          content: `${faker.lorem.words(35)} \n #${hashtags[1]} #${hashtags[2]}`,
+          content: `${faker.lorem.words(35)} \n #${getRandomInt(maxNumber)}`,
         })),
     });
   });
