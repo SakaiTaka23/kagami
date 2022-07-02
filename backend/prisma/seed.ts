@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 import { posts } from './factory/post';
+import { postTags } from './factory/post_tags';
 import { tags } from './factory/tags';
 import { templates } from './factory/templates';
 import { users } from './factory/user';
@@ -16,8 +17,9 @@ async function main() {
 
   await users(10);
   await posts(20);
-  await templates(5);
   await tags();
+  await postTags();
+  await templates(5);
 }
 
 main()
