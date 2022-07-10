@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { Detail } from '@/components/Posts';
-import { TemplateDetail } from '@/components/Templates';
+import { TemplateDetail, TemplateUse } from '@/components/Templates';
 import { useTemplateDetailQuery } from '@/graphql/generated';
 
 const TemplateDetailPage = () => {
@@ -15,6 +15,10 @@ const TemplateDetailPage = () => {
       templateDetailId: String(id),
     },
   });
+
+  const useTemplate = () => {
+    router.replace(`/new?${id}`);
+  };
 
   useEffect(() => {
     if (loading === false && data?.templateDetail === null) {
@@ -28,6 +32,7 @@ const TemplateDetailPage = () => {
   return (
     <>
       <div>TemplateDetail</div>
+      <TemplateUse useTemplate={useTemplate} />
       {data?.templateDetail && <Detail {...data.templateDetail} />}
       {data?.templateDetail?.detail && <TemplateDetail detail={data.templateDetail.detail} />}
     </>
