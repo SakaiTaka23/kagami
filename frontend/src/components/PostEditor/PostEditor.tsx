@@ -14,8 +14,8 @@ type Props = {
 const maxLength = 140;
 
 export const PostEditor: FC<Props> = ({ content, submit }) => {
-  const [elements, setElements] = useState<string>('');
-  const [count, setCount] = useState(0);
+  const [elements, setElements] = useState<string>(content ?? '');
+  const [count, setCount] = useState(content?.length ?? 0);
 
   const onChange = (editorState: EditorState) => {
     editorState.read(() => {
