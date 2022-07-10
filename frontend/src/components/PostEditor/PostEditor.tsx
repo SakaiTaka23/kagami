@@ -8,19 +8,20 @@ import { PostInput } from '../Inputs';
 import { SubmitData } from './types';
 
 type Props = {
+  content?: string;
   submit(data: SubmitData): void;
 };
 const maxLength = 140;
 
-export const PostEditor: FC<Props> = ({ submit }) => {
-  const [elements, setElements] = useState<string>('');
-  const [count, setCount] = useState(0);
+export const PostEditor: FC<Props> = ({ content, submit }) => {
+  const [elements, setElements] = useState<string>(content ?? '');
+  const [count, setCount] = useState(content?.length ?? 0);
 
   const onChange = (editorState: EditorState) => {
     editorState.read(() => {
-      const content = $getRoot()?.getTextContent();
+      const text = $getRoot()?.getTextContent();
       setElements($getRoot()?.getTextContent());
-      setCount(content.length);
+      setCount(text.length);
     });
   };
 
@@ -35,7 +36,7 @@ export const PostEditor: FC<Props> = ({ submit }) => {
 
   return (
     <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
-      <PostInput count={count} onChange={onChange} />
+      <PostInput content={content} count={count} onChange={onChange} />
       <SubmitButton />
     </Box>
   );

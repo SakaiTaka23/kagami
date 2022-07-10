@@ -8,10 +8,10 @@ type Props = {
 
 export const TemplateDetail: FC<Props> = ({ detail }) => {
   return (
-    <Typography>
+    <>
       {detail.split('\n').map((v, i) => {
-        return <div key={i}>{v}</div>;
+        return <Typography key={i}>{v}</Typography>;
       })}
-    </Typography>
+    </>
   );
 };
