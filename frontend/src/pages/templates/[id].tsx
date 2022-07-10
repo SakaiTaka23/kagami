@@ -17,7 +17,7 @@ const TemplateDetailPage = () => {
   });
 
   const useTemplate = () => {
-    router.replace(`/new?${id}`);
+    router.replace(`/new?template=${id}`);
   };
 
   useEffect(() => {

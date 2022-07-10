@@ -1,5 +1,5 @@
 import { HashtagNode } from '@lexical/hashtag';
-import type { EditorThemeClasses } from 'lexical';
+import { EditorThemeClasses } from 'lexical';
 
 const theme: EditorThemeClasses = {
   hashtag: 'editor-hashtag',
