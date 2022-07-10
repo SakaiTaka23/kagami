@@ -23,3 +23,9 @@ query TemplateList($take: Int!, $cursor: String) {
     }
   }
 }
+
+query TemplateUse($templateDetailId: String!) {
+  templateDetail(id: $templateDetailId) {
+    content
+  }
+}

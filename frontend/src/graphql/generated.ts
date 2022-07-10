@@ -241,6 +241,13 @@ export type TemplateListQueryVariables = Exact<{
 
 export type TemplateListQuery = { __typename?: 'Query', templateList: Array<{ __typename?: 'Template', id: string, content: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', userName: string, accountName: string } }> };
 
+export type TemplateUseQueryVariables = Exact<{
+  templateDetailId: Scalars['String'];
+}>;
+
+
+export type TemplateUseQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', content: string } | null };
+
 export type UserFromTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -656,6 +663,41 @@ export function useTemplateListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type TemplateListQueryHookResult = ReturnType<typeof useTemplateListQuery>;
 export type TemplateListLazyQueryHookResult = ReturnType<typeof useTemplateListLazyQuery>;
 export type TemplateListQueryResult = Apollo.QueryResult<TemplateListQuery, TemplateListQueryVariables>;
+export const TemplateUseDocument = gql`
+    query TemplateUse($templateDetailId: String!) {
+  templateDetail(id: $templateDetailId) {
+    content
+  }
+}
+    `;
+
+/**
+ * __useTemplateUseQuery__
+ *
+ * To run a query within a React component, call `useTemplateUseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTemplateUseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTemplateUseQuery({
+ *   variables: {
+ *      templateDetailId: // value for 'templateDetailId'
+ *   },
+ * });
+ */
+export function useTemplateUseQuery(baseOptions: Apollo.QueryHookOptions<TemplateUseQuery, TemplateUseQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TemplateUseQuery, TemplateUseQueryVariables>(TemplateUseDocument, options);
+      }
+export function useTemplateUseLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TemplateUseQuery, TemplateUseQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TemplateUseQuery, TemplateUseQueryVariables>(TemplateUseDocument, options);
+        }
+export type TemplateUseQueryHookResult = ReturnType<typeof useTemplateUseQuery>;
+export type TemplateUseLazyQueryHookResult = ReturnType<typeof useTemplateUseLazyQuery>;
+export type TemplateUseQueryResult = Apollo.QueryResult<TemplateUseQuery, TemplateUseQueryVariables>;
 export const UserFromTokenDocument = gql`
     query UserFromToken {
   userFromToken {
