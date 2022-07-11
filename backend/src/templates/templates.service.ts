@@ -6,6 +6,18 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TemplatesService {
   constructor(private prisma: PrismaService) {}
 
+  edit(id: string, userId: string) {
+    return this.prisma.template.findFirst({
+      where: {
+        id,
+        userId,
+      },
+      include: {
+        user: true,
+      },
+    });
+  }
+
   create(id: string, content: string, detail: string) {
     return this.prisma.template.create({
       data: {

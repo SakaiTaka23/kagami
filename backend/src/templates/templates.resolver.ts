@@ -22,6 +22,12 @@ export class TemplatesResolver {
     return this.templatesService.findOne(id);
   }
 
+  @UseGuards(FirebaseAuthGuard)
+  @Query('templateEdit')
+  edit(@CurrentUserID() userId: string, @Args('id') templateId: string) {
+    return this.templatesService.edit(templateId, userId);
+  }
+
   @Query('templateList')
   list(@Args('take') take: number, @Args('cursor') cursor: string) {
     const cursorObj = cursor === undefined ? undefined : { id: cursor };
