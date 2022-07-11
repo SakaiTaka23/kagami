@@ -16,6 +16,7 @@ type Template {
 type Query {
   templateDetail(id: String!): Template
   templateList(take: Int!, cursor: String): [Template!]!
+  templateUser(userName: String!, take: Int!, cursor: String): [Template!]!
 }
 
 type Mutation {

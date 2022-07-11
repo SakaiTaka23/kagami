@@ -26,6 +26,16 @@ query UserProfile($userName: String!, $take: Int!, $cursor: String) {
       userName
     }
   }
+  templateUser(userName: $userName, take: $take, cursor: $cursor) {
+    id
+    content
+    createdAt
+    updatedAt
+    user {
+      accountName
+      userName
+    }
+  }
 }
 
 query UserUnique($userName: String!) {

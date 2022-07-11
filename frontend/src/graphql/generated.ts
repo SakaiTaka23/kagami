@@ -13,7 +13,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Date custom scalar type */
   Date: any;
 };
 
@@ -84,6 +83,7 @@ export type Query = {
   postsFromTag: Array<Post>;
   templateDetail?: Maybe<Template>;
   templateList: Array<Template>;
+  templateUser: Array<Template>;
   timeline: Array<Post>;
   user?: Maybe<User>;
   userFromToken: User;
@@ -124,6 +124,13 @@ export type QueryTemplateDetailArgs = {
 export type QueryTemplateListArgs = {
   cursor?: InputMaybe<Scalars['String']>;
   take: Scalars['Int'];
+};
+
+
+export type QueryTemplateUserArgs = {
+  cursor?: InputMaybe<Scalars['String']>;
+  take: Scalars['Int'];
+  userName: Scalars['String'];
 };
 
 
@@ -267,7 +274,7 @@ export type UserProfileQueryVariables = Exact<{
 }>;
 
 
-export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } }> };
+export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } }>, templateUser: Array<{ __typename?: 'Template', id: string, content: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 export type UserUniqueQueryVariables = Exact<{
   userName: Scalars['String'];
@@ -779,6 +786,16 @@ export const UserProfileDocument = gql`
     id
     content
     createdAt
+    user {
+      accountName
+      userName
+    }
+  }
+  templateUser(userName: $userName, take: $take, cursor: $cursor) {
+    id
+    content
+    createdAt
+    updatedAt
     user {
       accountName
       userName
