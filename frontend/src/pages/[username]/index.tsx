@@ -2,8 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import { Posts } from '@/components/Posts';
-import { Profile } from '@/components/Profile';
+import { Profile, ProfileTabs } from '@/components/Profile';
 import { useUserProfileQuery } from '@/graphql/generated';
 
 const UserProfile = () => {
@@ -25,7 +24,7 @@ const UserProfile = () => {
   return (
     <>
       {data?.userFromUserName && <Profile {...data.userFromUserName} isFollowing={data.isFollowing} />}
-      {data?.postUser && <Posts posts={data.postUser} />}
+      {data?.postUser && data.templateUser && <ProfileTabs posts={data.postUser} templates={data.templateUser} />}
     </>
   );
 };
