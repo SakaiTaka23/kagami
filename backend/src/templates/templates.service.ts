@@ -43,4 +43,24 @@ export class TemplatesService {
       },
     });
   }
+
+  user(userName: string, take: number, cursor?: Prisma.TemplateWhereUniqueInput) {
+    return this.prisma.template.findMany({
+      take,
+      skip: cursor === undefined ? 0 : 1,
+      cursor,
+      where: {
+        user: {
+          userName,
+        },
+      },
+
+      include: {
+        user: true,
+      },
+      orderBy: {
+        id: 'desc',
+      },
+    });
+  }
 }

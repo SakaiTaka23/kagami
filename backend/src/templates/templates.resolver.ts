@@ -27,4 +27,10 @@ export class TemplatesResolver {
     const cursorObj = cursor === undefined ? undefined : { id: cursor };
     return this.templatesService.findMany(take, cursorObj);
   }
+
+  @Query('templateUser')
+  user(@Args('userName') userName: string, @Args('take') take: number, @Args('cursor') cursor?: string) {
+    const cursorObj = cursor === undefined ? undefined : { id: cursor };
+    return this.templatesService.user(userName, take, cursorObj);
+  }
 }
