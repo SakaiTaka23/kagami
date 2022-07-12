@@ -82,6 +82,7 @@ export type Query = {
   postUser: Array<Post>;
   postsFromTag: Array<Post>;
   templateDetail?: Maybe<Template>;
+  templateEdit: Template;
   templateList: Array<Template>;
   templateUser: Array<Template>;
   timeline: Array<Post>;
@@ -117,6 +118,11 @@ export type QueryPostsFromTagArgs = {
 
 
 export type QueryTemplateDetailArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryTemplateEditArgs = {
   id: Scalars['String'];
 };
 
@@ -239,6 +245,13 @@ export type TemplateDetailQueryVariables = Exact<{
 
 
 export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', content: string, detail: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+
+export type TemplateEditQueryVariables = Exact<{
+  templateEditId: Scalars['String'];
+}>;
+
+
+export type TemplateEditQuery = { __typename?: 'Query', templateEdit: { __typename?: 'Template', content: string, detail: string } };
 
 export type TemplateListQueryVariables = Exact<{
   take: Scalars['Int'];
@@ -627,6 +640,42 @@ export function useTemplateDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type TemplateDetailQueryHookResult = ReturnType<typeof useTemplateDetailQuery>;
 export type TemplateDetailLazyQueryHookResult = ReturnType<typeof useTemplateDetailLazyQuery>;
 export type TemplateDetailQueryResult = Apollo.QueryResult<TemplateDetailQuery, TemplateDetailQueryVariables>;
+export const TemplateEditDocument = gql`
+    query TemplateEdit($templateEditId: String!) {
+  templateEdit(id: $templateEditId) {
+    content
+    detail
+  }
+}
+    `;
+
+/**
+ * __useTemplateEditQuery__
+ *
+ * To run a query within a React component, call `useTemplateEditQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTemplateEditQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTemplateEditQuery({
+ *   variables: {
+ *      templateEditId: // value for 'templateEditId'
+ *   },
+ * });
+ */
+export function useTemplateEditQuery(baseOptions: Apollo.QueryHookOptions<TemplateEditQuery, TemplateEditQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TemplateEditQuery, TemplateEditQueryVariables>(TemplateEditDocument, options);
+      }
+export function useTemplateEditLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TemplateEditQuery, TemplateEditQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TemplateEditQuery, TemplateEditQueryVariables>(TemplateEditDocument, options);
+        }
+export type TemplateEditQueryHookResult = ReturnType<typeof useTemplateEditQuery>;
+export type TemplateEditLazyQueryHookResult = ReturnType<typeof useTemplateEditLazyQuery>;
+export type TemplateEditQueryResult = Apollo.QueryResult<TemplateEditQuery, TemplateEditQueryVariables>;
 export const TemplateListDocument = gql`
     query TemplateList($take: Int!, $cursor: String) {
   templateList(take: $take, cursor: $cursor) {

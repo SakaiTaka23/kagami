@@ -11,6 +11,13 @@ query TemplateDetail($templateDetailId: String!) {
   }
 }
 
+query TemplateEdit($templateEditId: String!) {
+  templateEdit(id: $templateEditId) {
+    content
+    detail
+  }
+}
+
 query TemplateList($take: Int!, $cursor: String) {
   templateList(take: $take, cursor: $cursor) {
     id
