@@ -8,6 +8,8 @@ import { DetailInput, PostInput } from '../Inputs';
 import { SubmitData } from './types';
 
 type Props = {
+  detailDefault?: string;
+  postDefault?: string;
   submit(data: SubmitData): void;
 };
 
@@ -23,14 +25,14 @@ type DetailState = {
 
 const maxLength = 140;
 
-export const TemplatesEditor: FC<Props> = ({ submit }) => {
+export const TemplatesEditor: FC<Props> = ({ detailDefault, postDefault, submit }) => {
   const [post, setPost] = useState<PostState>({
-    post: '',
-    postCount: 0,
+    post: postDefault === undefined ? '' : postDefault,
+    postCount: postDefault === undefined ? 0 : postDefault.length,
   });
   const [detail, setDetail] = useState<DetailState>({
-    detail: '',
-    detailCount: 0,
+    detail: detailDefault === undefined ? '' : detailDefault,
+    detailCount: detailDefault === undefined ? 0 : detailDefault.length,
   });
 
   const onChangePost = (editorState: EditorState) => {
@@ -63,7 +65,7 @@ export const TemplatesEditor: FC<Props> = ({ submit }) => {
 
   return (
     <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
-      <PostInput count={post.postCount} onChange={onChangePost} />
+      <PostInput content={postDefault} count={post.postCount} onChange={onChangePost} />
       <DetailInput count={detail.detailCount} detail={detail.detail} onChange={onChangeDetail} />
       <SubmitButton />
     </Box>
