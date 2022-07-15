@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 
+import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { SubmitData, TemplatesEditor } from '@/components/Templates';
-import { useTemplateEditQuery } from '@/graphql/generated';
+import { useTemplateEditQuery, useUpdateTemplateMutation } from '@/graphql/generated';
 
 const EditTemplate = () => {
   const router = useRouter();
@@ -15,8 +16,18 @@ const EditTemplate = () => {
     },
   });
 
+  const [update] = useUpdateTemplateMutation();
+
   const submit = (newData: SubmitData) => {
-    console.log(newData);
+    update({
+      variables: {
+        updateTemplateId: String(id),
+        content: newData.post,
+        detail: newData.detail,
+      },
+    }).then((res) => {
+      router.replace(`/templates/${res.data?.updateTemplate}`);
+    });
   };
 
   useEffect(() => {
@@ -29,11 +40,14 @@ const EditTemplate = () => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <TemplatesEditor
-      submit={submit}
-      detailDefault={data?.templateEdit.detail}
-      postDefault={data?.templateEdit.content}
-    />
+    <>
+      <Typography variant='h2'>Edit Template</Typography>
+      <TemplatesEditor
+        submit={submit}
+        detailDefault={data?.templateEdit.detail}
+        postDefault={data?.templateEdit.content}
+      />
+    </>
   );
 };
 

@@ -3,3 +3,7 @@ mutation CreateTemplate($template: CreateTemplateInput) {
     id
   }
 }
+
+mutation UpdateTemplate($updateTemplateId: String!, $content: String!, $detail: String!) {
+  updateTemplate(id: $updateTemplateId, content: $content, detail: $detail)
+}

@@ -33,6 +33,7 @@ export type Mutation = {
   createUser: User;
   followToggle: Follow;
   postCreate: Post;
+  updateTemplate: Scalars['String'];
   updateUserProfile: User;
 };
 
@@ -54,6 +55,13 @@ export type MutationFollowToggleArgs = {
 
 export type MutationPostCreateArgs = {
   content: Scalars['String'];
+};
+
+
+export type MutationUpdateTemplateArgs = {
+  content: Scalars['String'];
+  detail: Scalars['String'];
+  id: Scalars['String'];
 };
 
 
@@ -192,6 +200,15 @@ export type CreateTemplateMutationVariables = Exact<{
 
 
 export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate: { __typename?: 'Template', id: string } };
+
+export type UpdateTemplateMutationVariables = Exact<{
+  updateTemplateId: Scalars['String'];
+  content: Scalars['String'];
+  detail: Scalars['String'];
+}>;
+
+
+export type UpdateTemplateMutation = { __typename?: 'Mutation', updateTemplate: string };
 
 export type CreateUserMutationVariables = Exact<{
   username: UserName;
@@ -371,6 +388,39 @@ export function useCreateTemplateMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateTemplateMutationHookResult = ReturnType<typeof useCreateTemplateMutation>;
 export type CreateTemplateMutationResult = Apollo.MutationResult<CreateTemplateMutation>;
 export type CreateTemplateMutationOptions = Apollo.BaseMutationOptions<CreateTemplateMutation, CreateTemplateMutationVariables>;
+export const UpdateTemplateDocument = gql`
+    mutation UpdateTemplate($updateTemplateId: String!, $content: String!, $detail: String!) {
+  updateTemplate(id: $updateTemplateId, content: $content, detail: $detail)
+}
+    `;
+export type UpdateTemplateMutationFn = Apollo.MutationFunction<UpdateTemplateMutation, UpdateTemplateMutationVariables>;
+
+/**
+ * __useUpdateTemplateMutation__
+ *
+ * To run a mutation, you first call `useUpdateTemplateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTemplateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTemplateMutation, { data, loading, error }] = useUpdateTemplateMutation({
+ *   variables: {
+ *      updateTemplateId: // value for 'updateTemplateId'
+ *      content: // value for 'content'
+ *      detail: // value for 'detail'
+ *   },
+ * });
+ */
+export function useUpdateTemplateMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTemplateMutation, UpdateTemplateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTemplateMutation, UpdateTemplateMutationVariables>(UpdateTemplateDocument, options);
+      }
+export type UpdateTemplateMutationHookResult = ReturnType<typeof useUpdateTemplateMutation>;
+export type UpdateTemplateMutationResult = Apollo.MutationResult<UpdateTemplateMutation>;
+export type UpdateTemplateMutationOptions = Apollo.BaseMutationOptions<UpdateTemplateMutation, UpdateTemplateMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($username: UserName!) {
   createUser(username: $username) {
