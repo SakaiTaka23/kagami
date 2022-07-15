@@ -75,4 +75,17 @@ export class TemplatesService {
       },
     });
   }
+
+  update(userId: string, templateId: string, content: string, detail: string) {
+    return this.prisma.template.updateMany({
+      where: {
+        id: templateId,
+        userId,
+      },
+      data: {
+        content,
+        detail,
+      },
+    });
+  }
 }

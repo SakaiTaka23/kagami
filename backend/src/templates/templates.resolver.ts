@@ -39,4 +39,15 @@ export class TemplatesResolver {
     const cursorObj = cursor === undefined ? undefined : { id: cursor };
     return this.templatesService.user(userName, take, cursorObj);
   }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Query('updateTemplate')
+  update(
+    @CurrentUserID() userId: string,
+    @Args('id') templateId: string,
+    @Args('content') content: string,
+    @Args('detail') detail: string
+  ) {
+    return this.templatesService.update(userId, templateId, content, detail);
+  }
 }
