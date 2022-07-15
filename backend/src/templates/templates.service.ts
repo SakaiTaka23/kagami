@@ -76,11 +76,22 @@ export class TemplatesService {
     });
   }
 
-  update(userId: string, templateId: string, content: string, detail: string) {
-    return this.prisma.template.updateMany({
+  async update(userId: string, templateId: string, content: string, detail: string) {
+    const template = await this.prisma.template.findFirst({
+      select: {
+        id: true,
+      },
       where: {
         id: templateId,
         userId,
+      },
+    });
+    return this.prisma.template.update({
+      select: {
+        id: true,
+      },
+      where: {
+        id: template.id,
       },
       data: {
         content,

@@ -22,7 +22,7 @@ type Mutation {
   followToggle(userName: String!): Follow!
   postCreate(content: String!): Post!
   createTemplate(template: CreateTemplateInput): Template!
-  updateTemplate(id: String!, content: String!, detail: String!): Template!
+  updateTemplate(id: String!, content: String!, detail: String!): String!
   createUser(username: UserName!): User!
   updateUserProfile(profileEditInput: ProfileEditInput!): User!
 }

@@ -41,13 +41,15 @@ export class TemplatesResolver {
   }
 
   @UseGuards(FirebaseAuthGuard)
-  @Query('updateTemplate')
-  update(
+  @Mutation('updateTemplate')
+  async update(
     @CurrentUserID() userId: string,
     @Args('id') templateId: string,
     @Args('content') content: string,
     @Args('detail') detail: string
   ) {
-    return this.templatesService.update(userId, templateId, content, detail);
+    return this.templatesService.update(userId, templateId, content, detail).then((res) => {
+      return res.id;
+    });
   }
 }
