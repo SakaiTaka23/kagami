@@ -261,7 +261,7 @@ export type TemplateDetailQueryVariables = Exact<{
 }>;
 
 
-export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', content: string, detail: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', id: string, content: string, detail: string, createdAt: any, updatedAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type TemplateEditQueryVariables = Exact<{
   templateEditId: Scalars['String'];
@@ -651,10 +651,12 @@ export type PostsFromTagQueryResult = Apollo.QueryResult<PostsFromTagQuery, Post
 export const TemplateDetailDocument = gql`
     query TemplateDetail($templateDetailId: String!) {
   templateDetail(id: $templateDetailId) {
+    id
     content
     detail
     createdAt
     updatedAt
+    userId
     user {
       accountName
       userName
