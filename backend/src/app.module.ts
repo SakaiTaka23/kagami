@@ -13,6 +13,7 @@ import { PostsModule } from './posts/posts.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ScalarModule } from './scalar/scalar.module';
 import { TagsModule } from './tags/tags.module';
+import { TempFavoriteModule } from './temp_favorite/temp_favorite.module';
 import { TemplatesModule } from './templates/templates.module';
 import { UsersModule } from './users/users.module';
 
@@ -35,6 +36,7 @@ import { UsersModule } from './users/users.module';
     TagsModule,
     CustomLoggerModule,
     TemplatesModule,
+    TempFavoriteModule,
   ],
   providers: [
     CustomLoggerService,
