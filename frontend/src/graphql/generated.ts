@@ -33,6 +33,7 @@ export type Mutation = {
   createUser: User;
   followToggle: Follow;
   postCreate: Post;
+  updateTemplate: Scalars['String'];
   updateUserProfile: User;
 };
 
@@ -54,6 +55,13 @@ export type MutationFollowToggleArgs = {
 
 export type MutationPostCreateArgs = {
   content: Scalars['String'];
+};
+
+
+export type MutationUpdateTemplateArgs = {
+  content: Scalars['String'];
+  detail: Scalars['String'];
+  id: Scalars['String'];
 };
 
 
@@ -82,6 +90,7 @@ export type Query = {
   postUser: Array<Post>;
   postsFromTag: Array<Post>;
   templateDetail?: Maybe<Template>;
+  templateEdit: Template;
   templateList: Array<Template>;
   templateUser: Array<Template>;
   timeline: Array<Post>;
@@ -117,6 +126,11 @@ export type QueryPostsFromTagArgs = {
 
 
 export type QueryTemplateDetailArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryTemplateEditArgs = {
   id: Scalars['String'];
 };
 
@@ -187,6 +201,15 @@ export type CreateTemplateMutationVariables = Exact<{
 
 export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate: { __typename?: 'Template', id: string } };
 
+export type UpdateTemplateMutationVariables = Exact<{
+  updateTemplateId: Scalars['String'];
+  content: Scalars['String'];
+  detail: Scalars['String'];
+}>;
+
+
+export type UpdateTemplateMutation = { __typename?: 'Mutation', updateTemplate: string };
+
 export type CreateUserMutationVariables = Exact<{
   username: UserName;
 }>;
@@ -238,7 +261,14 @@ export type TemplateDetailQueryVariables = Exact<{
 }>;
 
 
-export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', content: string, detail: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', id: string, content: string, detail: string, createdAt: any, updatedAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+
+export type TemplateEditQueryVariables = Exact<{
+  templateEditId: Scalars['String'];
+}>;
+
+
+export type TemplateEditQuery = { __typename?: 'Query', templateEdit: { __typename?: 'Template', content: string, detail: string } };
 
 export type TemplateListQueryVariables = Exact<{
   take: Scalars['Int'];
@@ -358,6 +388,39 @@ export function useCreateTemplateMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateTemplateMutationHookResult = ReturnType<typeof useCreateTemplateMutation>;
 export type CreateTemplateMutationResult = Apollo.MutationResult<CreateTemplateMutation>;
 export type CreateTemplateMutationOptions = Apollo.BaseMutationOptions<CreateTemplateMutation, CreateTemplateMutationVariables>;
+export const UpdateTemplateDocument = gql`
+    mutation UpdateTemplate($updateTemplateId: String!, $content: String!, $detail: String!) {
+  updateTemplate(id: $updateTemplateId, content: $content, detail: $detail)
+}
+    `;
+export type UpdateTemplateMutationFn = Apollo.MutationFunction<UpdateTemplateMutation, UpdateTemplateMutationVariables>;
+
+/**
+ * __useUpdateTemplateMutation__
+ *
+ * To run a mutation, you first call `useUpdateTemplateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTemplateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTemplateMutation, { data, loading, error }] = useUpdateTemplateMutation({
+ *   variables: {
+ *      updateTemplateId: // value for 'updateTemplateId'
+ *      content: // value for 'content'
+ *      detail: // value for 'detail'
+ *   },
+ * });
+ */
+export function useUpdateTemplateMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTemplateMutation, UpdateTemplateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTemplateMutation, UpdateTemplateMutationVariables>(UpdateTemplateDocument, options);
+      }
+export type UpdateTemplateMutationHookResult = ReturnType<typeof useUpdateTemplateMutation>;
+export type UpdateTemplateMutationResult = Apollo.MutationResult<UpdateTemplateMutation>;
+export type UpdateTemplateMutationOptions = Apollo.BaseMutationOptions<UpdateTemplateMutation, UpdateTemplateMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($username: UserName!) {
   createUser(username: $username) {
@@ -588,10 +651,12 @@ export type PostsFromTagQueryResult = Apollo.QueryResult<PostsFromTagQuery, Post
 export const TemplateDetailDocument = gql`
     query TemplateDetail($templateDetailId: String!) {
   templateDetail(id: $templateDetailId) {
+    id
     content
     detail
     createdAt
     updatedAt
+    userId
     user {
       accountName
       userName
@@ -627,6 +692,42 @@ export function useTemplateDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type TemplateDetailQueryHookResult = ReturnType<typeof useTemplateDetailQuery>;
 export type TemplateDetailLazyQueryHookResult = ReturnType<typeof useTemplateDetailLazyQuery>;
 export type TemplateDetailQueryResult = Apollo.QueryResult<TemplateDetailQuery, TemplateDetailQueryVariables>;
+export const TemplateEditDocument = gql`
+    query TemplateEdit($templateEditId: String!) {
+  templateEdit(id: $templateEditId) {
+    content
+    detail
+  }
+}
+    `;
+
+/**
+ * __useTemplateEditQuery__
+ *
+ * To run a query within a React component, call `useTemplateEditQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTemplateEditQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTemplateEditQuery({
+ *   variables: {
+ *      templateEditId: // value for 'templateEditId'
+ *   },
+ * });
+ */
+export function useTemplateEditQuery(baseOptions: Apollo.QueryHookOptions<TemplateEditQuery, TemplateEditQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TemplateEditQuery, TemplateEditQueryVariables>(TemplateEditDocument, options);
+      }
+export function useTemplateEditLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TemplateEditQuery, TemplateEditQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TemplateEditQuery, TemplateEditQueryVariables>(TemplateEditDocument, options);
+        }
+export type TemplateEditQueryHookResult = ReturnType<typeof useTemplateEditQuery>;
+export type TemplateEditLazyQueryHookResult = ReturnType<typeof useTemplateEditLazyQuery>;
+export type TemplateEditQueryResult = Apollo.QueryResult<TemplateEditQuery, TemplateEditQueryVariables>;
 export const TemplateListDocument = gql`
     query TemplateList($take: Int!, $cursor: String) {
   templateList(take: $take, cursor: $cursor) {

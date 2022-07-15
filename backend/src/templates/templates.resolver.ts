@@ -22,6 +22,12 @@ export class TemplatesResolver {
     return this.templatesService.findOne(id);
   }
 
+  @UseGuards(FirebaseAuthGuard)
+  @Query('templateEdit')
+  edit(@CurrentUserID() userId: string, @Args('id') templateId: string) {
+    return this.templatesService.edit(templateId, userId);
+  }
+
   @Query('templateList')
   list(@Args('take') take: number, @Args('cursor') cursor: string) {
     const cursorObj = cursor === undefined ? undefined : { id: cursor };
@@ -32,5 +38,18 @@ export class TemplatesResolver {
   user(@Args('userName') userName: string, @Args('take') take: number, @Args('cursor') cursor?: string) {
     const cursorObj = cursor === undefined ? undefined : { id: cursor };
     return this.templatesService.user(userName, take, cursorObj);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Mutation('updateTemplate')
+  async update(
+    @CurrentUserID() userId: string,
+    @Args('id') templateId: string,
+    @Args('content') content: string,
+    @Args('detail') detail: string
+  ) {
+    return this.templatesService.update(userId, templateId, content, detail).then((res) => {
+      return res.id;
+    });
   }
 }

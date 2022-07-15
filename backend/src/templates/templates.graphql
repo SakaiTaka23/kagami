@@ -15,10 +15,12 @@ type Template {
 
 type Query {
   templateDetail(id: String!): Template
+  templateEdit(id: String!): Template!
   templateList(take: Int!, cursor: String): [Template!]!
   templateUser(userName: String!, take: Int!, cursor: String): [Template!]!
 }
 
 type Mutation {
   createTemplate(template: CreateTemplateInput): Template!
+  updateTemplate(id: String!, content: String!, detail: String!): String!
 }

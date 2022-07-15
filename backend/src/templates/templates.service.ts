@@ -6,6 +6,18 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TemplatesService {
   constructor(private prisma: PrismaService) {}
 
+  edit(id: string, userId: string) {
+    return this.prisma.template.findFirst({
+      where: {
+        id,
+        userId,
+      },
+      include: {
+        user: true,
+      },
+    });
+  }
+
   create(id: string, content: string, detail: string) {
     return this.prisma.template.create({
       data: {
@@ -60,6 +72,30 @@ export class TemplatesService {
       },
       orderBy: {
         id: 'desc',
+      },
+    });
+  }
+
+  async update(userId: string, templateId: string, content: string, detail: string) {
+    const template = await this.prisma.template.findFirst({
+      select: {
+        id: true,
+      },
+      where: {
+        id: templateId,
+        userId,
+      },
+    });
+    return this.prisma.template.update({
+      select: {
+        id: true,
+      },
+      where: {
+        id: template.id,
+      },
+      data: {
+        content,
+        detail,
       },
     });
   }

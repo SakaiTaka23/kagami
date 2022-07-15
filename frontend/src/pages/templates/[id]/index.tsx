@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
 import { Detail } from '@/components/Posts';
-import { TemplateDetail, TemplateUse } from '@/components/Templates';
+import { TemplateDetail, TemplateEdit, TemplateUse } from '@/components/Templates';
+import { AuthContext } from '@/firebase/authContext';
 import { useTemplateDetailQuery } from '@/graphql/generated';
 
 const TemplateDetailPage = () => {
+  const { userID } = useContext(AuthContext);
   const router = useRouter();
   const { id } = router.query;
   const { data, loading, error } = useTemplateDetailQuery({
@@ -33,6 +35,7 @@ const TemplateDetailPage = () => {
     <>
       <div>TemplateDetail</div>
       <TemplateUse useTemplate={useTemplate} />
+      {data?.templateDetail?.userId === userID && <TemplateEdit id={String(id)} />}
       {data?.templateDetail && <Detail {...data.templateDetail} />}
       {data?.templateDetail?.detail && <TemplateDetail detail={data.templateDetail.detail} />}
     </>
