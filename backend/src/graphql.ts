@@ -60,6 +60,8 @@ export abstract class IMutation {
 
     abstract createTemplate(template?: Nullable<CreateTemplateInput>): Template | Promise<Template>;
 
+    abstract updateTemplate(id: string, content: string, detail: string): Template | Promise<Template>;
+
     abstract createUser(username: UserName): User | Promise<User>;
 
     abstract updateUserProfile(profileEditInput: ProfileEditInput): User | Promise<User>;
