@@ -58,6 +58,8 @@ export abstract class IMutation {
 
     abstract postCreate(content: string): Post | Promise<Post>;
 
+    abstract likeTemplateToggle(id: string): string | Promise<string>;
+
     abstract createTemplate(template?: Nullable<CreateTemplateInput>): Template | Promise<Template>;
 
     abstract updateTemplate(id: string, content: string, detail: string): string | Promise<string>;
