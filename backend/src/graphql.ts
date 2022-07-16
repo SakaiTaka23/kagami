@@ -38,6 +38,8 @@ export abstract class IQuery {
 
     abstract postsFromTag(tag: string, take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
 
+    abstract likeList(): Template[] | Promise<Template[]>;
+
     abstract templateDetail(id: string): Nullable<Template> | Promise<Nullable<Template>>;
 
     abstract templateEdit(id: string): Template | Promise<Template>;

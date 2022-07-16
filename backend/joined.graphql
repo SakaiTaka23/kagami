@@ -9,6 +9,7 @@ type Query {
   postUser(userName: String!, take: Int!, cursor: String): [Post!]!
   postDetail(id: String!, userName: String!): Post
   postsFromTag(tag: String!, take: Int!, cursor: String): [Post!]!
+  likeList: [Template!]!
   templateDetail(id: String!): Template
   templateEdit(id: String!): Template!
   templateList(take: Int!, cursor: String): [Template!]!
