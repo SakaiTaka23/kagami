@@ -13,6 +13,18 @@ export class TempFavoriteService {
     });
   }
 
+  findUser(userId: string) {
+    return this.prisma.userFavoriteTemplate.findMany({
+      select: {
+        template: true,
+        user: true,
+      },
+      where: {
+        userId,
+      },
+    });
+  }
+
   isLiked(templateId: string, userId: string) {
     return this.prisma.userFavoriteTemplate.count({
       where: {
