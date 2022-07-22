@@ -32,6 +32,7 @@ export type Mutation = {
   createTemplate: Template;
   createUser: User;
   followToggle: Follow;
+  likeTemplateToggle: Scalars['String'];
   postCreate: Post;
   updateTemplate: Scalars['String'];
   updateUserProfile: User;
@@ -50,6 +51,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationFollowToggleArgs = {
   userName: Scalars['String'];
+};
+
+
+export type MutationLikeTemplateToggleArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -86,6 +92,7 @@ export type ProfileEditInput = {
 export type Query = {
   __typename?: 'Query';
   isFollowing: Scalars['Boolean'];
+  likeList: Array<Template>;
   postDetail?: Maybe<Post>;
   postUser: Array<Post>;
   postsFromTag: Array<Post>;
@@ -200,6 +207,13 @@ export type CreateTemplateMutationVariables = Exact<{
 
 
 export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate: { __typename?: 'Template', id: string } };
+
+export type LikeTemplateToggleMutationVariables = Exact<{
+  likeTemplateToggleId: Scalars['String'];
+}>;
+
+
+export type LikeTemplateToggleMutation = { __typename?: 'Mutation', likeTemplateToggle: string };
 
 export type UpdateTemplateMutationVariables = Exact<{
   updateTemplateId: Scalars['String'];
@@ -388,6 +402,37 @@ export function useCreateTemplateMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateTemplateMutationHookResult = ReturnType<typeof useCreateTemplateMutation>;
 export type CreateTemplateMutationResult = Apollo.MutationResult<CreateTemplateMutation>;
 export type CreateTemplateMutationOptions = Apollo.BaseMutationOptions<CreateTemplateMutation, CreateTemplateMutationVariables>;
+export const LikeTemplateToggleDocument = gql`
+    mutation LikeTemplateToggle($likeTemplateToggleId: String!) {
+  likeTemplateToggle(id: $likeTemplateToggleId)
+}
+    `;
+export type LikeTemplateToggleMutationFn = Apollo.MutationFunction<LikeTemplateToggleMutation, LikeTemplateToggleMutationVariables>;
+
+/**
+ * __useLikeTemplateToggleMutation__
+ *
+ * To run a mutation, you first call `useLikeTemplateToggleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikeTemplateToggleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likeTemplateToggleMutation, { data, loading, error }] = useLikeTemplateToggleMutation({
+ *   variables: {
+ *      likeTemplateToggleId: // value for 'likeTemplateToggleId'
+ *   },
+ * });
+ */
+export function useLikeTemplateToggleMutation(baseOptions?: Apollo.MutationHookOptions<LikeTemplateToggleMutation, LikeTemplateToggleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LikeTemplateToggleMutation, LikeTemplateToggleMutationVariables>(LikeTemplateToggleDocument, options);
+      }
+export type LikeTemplateToggleMutationHookResult = ReturnType<typeof useLikeTemplateToggleMutation>;
+export type LikeTemplateToggleMutationResult = Apollo.MutationResult<LikeTemplateToggleMutation>;
+export type LikeTemplateToggleMutationOptions = Apollo.BaseMutationOptions<LikeTemplateToggleMutation, LikeTemplateToggleMutationVariables>;
 export const UpdateTemplateDocument = gql`
     mutation UpdateTemplate($updateTemplateId: String!, $content: String!, $detail: String!) {
   updateTemplate(id: $updateTemplateId, content: $content, detail: $detail)
