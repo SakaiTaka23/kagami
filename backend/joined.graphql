@@ -10,6 +10,7 @@ type Query {
   postDetail(id: String!, userName: String!): Post
   postsFromTag(tag: String!, take: Int!, cursor: String): [Post!]!
   likeList: [Template!]!
+  likeTemplateCheck(id: String!): Boolean!
   templateDetail(id: String!): Template
   templateEdit(id: String!): Template!
   templateList(take: Int!, cursor: String): [Template!]!

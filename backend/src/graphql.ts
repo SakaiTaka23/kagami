@@ -40,6 +40,8 @@ export abstract class IQuery {
 
     abstract likeList(): Template[] | Promise<Template[]>;
 
+    abstract likeTemplateCheck(id: string): boolean | Promise<boolean>;
+
     abstract templateDetail(id: string): Nullable<Template> | Promise<Nullable<Template>>;
 
     abstract templateEdit(id: string): Template | Promise<Template>;

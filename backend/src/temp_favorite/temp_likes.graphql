@@ -1,5 +1,6 @@
 type Query {
   likeList: [Template!]!
+  likeTemplateCheck(id: String!): Boolean!
 }
 
 type Mutation {
