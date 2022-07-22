@@ -17,18 +17,21 @@ export class TempFavoriteResolver {
 
   @UseGuards(FirebaseAuthGuard)
   @Mutation('likeTemplateToggle')
-  async toggle(@CurrentUserID() userId: string, @Args('id') templateId: string) {
+  async toggle(@CurrentUserID() userId: string, @Args('id') id: string) {
     // お気に入りカウント
     const count = await this.tempFavoriteService.count(userId);
+
     if (count >= 10) {
       throw new HttpException('BadRequest', HttpStatus.BAD_REQUEST);
     }
     // お気に入りか判定
-    const isLiked = await this.tempFavoriteService.isLiked(templateId, userId);
+    const isLiked = await this.tempFavoriteService.isLiked(id, userId);
     // 判断して操作
     if (isLiked === 0) {
-      return this.tempFavoriteService.like(templateId, userId);
+      await this.tempFavoriteService.like(id, userId);
+    } else {
+      await this.tempFavoriteService.unLike(id, userId);
     }
-    return this.tempFavoriteService.unLike(templateId, userId);
+    return id;
   }
 }
