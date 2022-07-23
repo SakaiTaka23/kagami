@@ -39,6 +39,15 @@ export class TemplatesService {
     });
   }
 
+  delete(userId: string, templateId: string) {
+    return this.prisma.template.deleteMany({
+      where: {
+        id: templateId,
+        userId,
+      },
+    });
+  }
+
   findOne(id: string) {
     return this.prisma.template.findUnique({
       where: {

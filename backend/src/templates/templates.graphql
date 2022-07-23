@@ -23,5 +23,6 @@ type Query {
 
 type Mutation {
   createTemplate(template: CreateTemplateInput): Template!
+  deleteTemplate(id: String!): String!
   updateTemplate(id: String!, content: String!, detail: String!): String!
 }

@@ -33,6 +33,16 @@ export class TemplatesResolver {
   }
 
   @UseGuards(FirebaseAuthGuard)
+  @Mutation('deleteTemplate')
+  async delete(@CurrentUserID() userId: string, @Args('id') templateId: string) {
+    const { count } = await this.templatesService.delete(userId, templateId);
+    if (count !== 1) {
+      throw new HttpException('BadRequest', HttpStatus.BAD_REQUEST);
+    }
+    return templateId;
+  }
+
+  @UseGuards(FirebaseAuthGuard)
   @Query('templateEdit')
   edit(@CurrentUserID() userId: string, @Args('id') templateId: string) {
     return this.templatesService.edit(templateId, userId);
