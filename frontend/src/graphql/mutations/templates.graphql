@@ -4,6 +4,10 @@ mutation CreateTemplate($template: CreateTemplateInput) {
   }
 }
 
+mutation LikeTemplateToggle($likeTemplateToggleId: String!) {
+  likeTemplateToggle(id: $likeTemplateToggleId)
+}
+
 mutation UpdateTemplate($updateTemplateId: String!, $content: String!, $detail: String!) {
   updateTemplate(id: $updateTemplateId, content: $content, detail: $detail)
 }

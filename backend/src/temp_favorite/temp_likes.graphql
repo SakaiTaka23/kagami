@@ -1,0 +1,8 @@
+type Query {
+  likeList(userName: String!): [Template!]!
+  likeTemplateCheck(id: String!): Boolean!
+}
+
+type Mutation {
+  likeTemplateToggle(id: String!): String!
+}

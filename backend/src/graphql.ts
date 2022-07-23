@@ -38,6 +38,10 @@ export abstract class IQuery {
 
     abstract postsFromTag(tag: string, take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
 
+    abstract likeList(userName: string): Template[] | Promise<Template[]>;
+
+    abstract likeTemplateCheck(id: string): boolean | Promise<boolean>;
+
     abstract templateDetail(id: string): Nullable<Template> | Promise<Nullable<Template>>;
 
     abstract templateEdit(id: string): Template | Promise<Template>;
@@ -57,6 +61,8 @@ export abstract class IMutation {
     abstract followToggle(userName: string): Follow | Promise<Follow>;
 
     abstract postCreate(content: string): Post | Promise<Post>;
+
+    abstract likeTemplateToggle(id: string): string | Promise<string>;
 
     abstract createTemplate(template?: Nullable<CreateTemplateInput>): Template | Promise<Template>;
 

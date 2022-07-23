@@ -36,6 +36,16 @@ query UserProfile($userName: String!, $take: Int!, $cursor: String) {
       userName
     }
   }
+  likeList(userName: $userName) {
+    id
+    content
+    createdAt
+    updatedAt
+    user {
+      accountName
+      userName
+    }
+  }
 }
 
 query UserUnique($userName: String!) {

@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { Detail } from '@/components/Posts';
-import { TemplateDetail, TemplateEdit, TemplateUse } from '@/components/Templates';
+import { TemplateDetail, TemplateEdit, TemplateLike, TemplateUse } from '@/components/Templates';
 import { AuthContext } from '@/firebase/authContext';
 import { useTemplateDetailQuery } from '@/graphql/generated';
 
@@ -34,7 +34,8 @@ const TemplateDetailPage = () => {
   return (
     <>
       <div>TemplateDetail</div>
-      <TemplateUse useTemplate={useTemplate} />
+      {userID && <TemplateUse useTemplate={useTemplate} />}
+      {data && userID && <TemplateLike id={String(id)} isLikedDefault={data.likeTemplateCheck} />}
       {data?.templateDetail?.userId === userID && <TemplateEdit id={String(id)} />}
       {data?.templateDetail && <Detail {...data.templateDetail} />}
       {data?.templateDetail?.detail && <TemplateDetail detail={data.templateDetail.detail} />}

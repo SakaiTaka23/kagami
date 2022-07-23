@@ -11,6 +11,7 @@ query TemplateDetail($templateDetailId: String!) {
       userName
     }
   }
+  likeTemplateCheck(id: $templateDetailId)
 }
 
 query TemplateEdit($templateEditId: String!) {

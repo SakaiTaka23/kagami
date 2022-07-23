@@ -28,12 +28,22 @@ type Props = {
       userName: string;
     };
   }[];
+  likeList: {
+    id: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      accountName: string;
+      userName: string;
+    };
+  }[];
 };
 
-const tabs = { POSTS: 'posts', TEMPLATES: 'templates' } as const;
+const tabs = { POSTS: 'posts', TEMPLATES: 'templates', LIKES: 'likes' } as const;
 type TabKeys = keyof typeof tabs;
 
-export const ProfileTabs: FC<Props> = ({ posts, templates }) => {
+export const ProfileTabs: FC<Props> = ({ posts, templates, likeList }) => {
   const [value, setValue] = useState<string>(tabs.POSTS);
 
   const handleChange = (e: SyntheticEvent, newValue: TabKeys) => {
@@ -47,6 +57,7 @@ export const ProfileTabs: FC<Props> = ({ posts, templates }) => {
           <Tabs value={value} onChange={handleChange} textColor='secondary' indicatorColor='secondary'>
             <Tab icon={<DynamicFeedIcon />} iconPosition='start' value={tabs.POSTS} label='Posts' />
             <Tab icon={<NoteAltIcon />} iconPosition='start' value={tabs.TEMPLATES} label='Templates' />
+            <Tab value={tabs.LIKES} label='Likes' />
           </Tabs>
         </Box>
         <TabPanel value={tabs.POSTS}>
@@ -54,6 +65,9 @@ export const ProfileTabs: FC<Props> = ({ posts, templates }) => {
         </TabPanel>
         <TabPanel value={tabs.TEMPLATES}>
           <Templates templates={templates} />
+        </TabPanel>
+        <TabPanel value={tabs.LIKES}>
+          <Templates templates={likeList} />
         </TabPanel>
       </TabContext>
     </Box>
