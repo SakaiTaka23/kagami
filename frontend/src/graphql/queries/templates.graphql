@@ -1,3 +1,7 @@
+query TemplateCount {
+  templateCount
+}
+
 query TemplateDetail($templateDetailId: String!) {
   templateDetail(id: $templateDetailId) {
     id

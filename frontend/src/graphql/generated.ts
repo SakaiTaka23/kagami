@@ -97,6 +97,7 @@ export type Query = {
   postDetail?: Maybe<Post>;
   postUser: Array<Post>;
   postsFromTag: Array<Post>;
+  templateCount: Scalars['Int'];
   templateDetail?: Maybe<Template>;
   templateEdit: Template;
   templateList: Array<Template>;
@@ -280,6 +281,11 @@ export type PostsFromTagQueryVariables = Exact<{
 
 
 export type PostsFromTagQuery = { __typename?: 'Query', postsFromTag: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } }> };
+
+export type TemplateCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TemplateCountQuery = { __typename?: 'Query', templateCount: number };
 
 export type TemplateDetailQueryVariables = Exact<{
   templateDetailId: Scalars['String'];
@@ -704,6 +710,38 @@ export function usePostsFromTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type PostsFromTagQueryHookResult = ReturnType<typeof usePostsFromTagQuery>;
 export type PostsFromTagLazyQueryHookResult = ReturnType<typeof usePostsFromTagLazyQuery>;
 export type PostsFromTagQueryResult = Apollo.QueryResult<PostsFromTagQuery, PostsFromTagQueryVariables>;
+export const TemplateCountDocument = gql`
+    query TemplateCount {
+  templateCount
+}
+    `;
+
+/**
+ * __useTemplateCountQuery__
+ *
+ * To run a query within a React component, call `useTemplateCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTemplateCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTemplateCountQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTemplateCountQuery(baseOptions?: Apollo.QueryHookOptions<TemplateCountQuery, TemplateCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TemplateCountQuery, TemplateCountQueryVariables>(TemplateCountDocument, options);
+      }
+export function useTemplateCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TemplateCountQuery, TemplateCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TemplateCountQuery, TemplateCountQueryVariables>(TemplateCountDocument, options);
+        }
+export type TemplateCountQueryHookResult = ReturnType<typeof useTemplateCountQuery>;
+export type TemplateCountLazyQueryHookResult = ReturnType<typeof useTemplateCountLazyQuery>;
+export type TemplateCountQueryResult = Apollo.QueryResult<TemplateCountQuery, TemplateCountQueryVariables>;
 export const TemplateDetailDocument = gql`
     query TemplateDetail($templateDetailId: String!) {
   templateDetail(id: $templateDetailId) {
