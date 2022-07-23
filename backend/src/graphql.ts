@@ -38,7 +38,7 @@ export abstract class IQuery {
 
     abstract postsFromTag(tag: string, take: number, cursor?: Nullable<string>): Post[] | Promise<Post[]>;
 
-    abstract likeList(): Template[] | Promise<Template[]>;
+    abstract likeList(userName: string): Template[] | Promise<Template[]>;
 
     abstract likeTemplateCheck(id: string): boolean | Promise<boolean>;
 

@@ -13,14 +13,19 @@ export class TempFavoriteService {
     });
   }
 
-  findUser(userId: string) {
-    return this.prisma.userFavoriteTemplate.findMany({
-      select: {
-        template: true,
-        user: true,
-      },
+  findUser(userName: string) {
+    return this.prisma.template.findMany({
       where: {
-        userId,
+        favoredBy: {
+          some: {
+            user: {
+              userName,
+            },
+          },
+        },
+      },
+      include: {
+        user: true,
       },
     });
   }

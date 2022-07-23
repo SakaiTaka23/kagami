@@ -19,10 +19,9 @@ export class TempFavoriteResolver {
     return !!(await this.tempFavoriteService.isLiked(id, userId));
   }
 
-  @UseGuards(FirebaseAuthGuard)
   @Query('likeList')
-  user(@CurrentUserID() userId: string) {
-    return this.tempFavoriteService.findUser(userId);
+  user(@Args('userName') userName: string) {
+    return this.tempFavoriteService.findUser(userName);
   }
 
   @UseGuards(FirebaseAuthGuard)

@@ -1,5 +1,5 @@
 type Query {
-  likeList: [Template!]!
+  likeList(userName: String!): [Template!]!
   likeTemplateCheck(id: String!): Boolean!
 }
 
