@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
+import { OptionalAuthGuard } from 'src/auth/optional-auth.guard';
 
 import { TempFavoriteService } from './temp_favorite.service';
 
@@ -9,9 +10,12 @@ import { TempFavoriteService } from './temp_favorite.service';
 export class TempFavoriteResolver {
   constructor(private readonly tempFavoriteService: TempFavoriteService) {}
 
-  @UseGuards(FirebaseAuthGuard)
+  @UseGuards(OptionalAuthGuard)
   @Query('likeTemplateCheck')
   async check(@CurrentUserID() userId: string, @Args('id') id: string) {
+    if (userId === undefined) {
+      return false;
+    }
     return !!(await this.tempFavoriteService.isLiked(id, userId));
   }
 
