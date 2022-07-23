@@ -12,6 +12,12 @@ export class TemplatesResolver {
   constructor(private readonly templatesService: TemplatesService) {}
 
   @UseGuards(FirebaseAuthGuard)
+  @Query('templateCount')
+  count(@CurrentUserID() id: string) {
+    return this.templatesService.count(id);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
   @Mutation('createTemplate')
   async create(@CurrentUserID() id: string, @Args('template', TemplatesValidationPipe) content: CreateTemplateInput) {
     const count = await this.templatesService.count(id);

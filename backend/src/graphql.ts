@@ -7,6 +7,7 @@
 
 /* tslint:disable */
 /* eslint-disable */
+
 export class CreateTemplateInput {
     content: string;
     detail: string;
@@ -41,6 +42,8 @@ export abstract class IQuery {
     abstract likeList(userName: string): Template[] | Promise<Template[]>;
 
     abstract likeTemplateCheck(id: string): boolean | Promise<boolean>;
+
+    abstract templateCount(): number | Promise<number>;
 
     abstract templateDetail(id: string): Nullable<Template> | Promise<Nullable<Template>>;
 
