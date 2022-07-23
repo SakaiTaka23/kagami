@@ -11,6 +11,7 @@ type Query {
   postsFromTag(tag: String!, take: Int!, cursor: String): [Post!]!
   likeList(userName: String!): [Template!]!
   likeTemplateCheck(id: String!): Boolean!
+  templateCount: Int!
   templateDetail(id: String!): Template
   templateEdit(id: String!): Template!
   templateList(take: Int!, cursor: String): [Template!]!

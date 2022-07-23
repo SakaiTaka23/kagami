@@ -14,6 +14,7 @@ type Template {
 }
 
 type Query {
+  templateCount: Int!
   templateDetail(id: String!): Template
   templateEdit(id: String!): Template!
   templateList(take: Int!, cursor: String): [Template!]!

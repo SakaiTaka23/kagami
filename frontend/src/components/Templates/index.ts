@@ -1,4 +1,5 @@
 export * from './Template';
+export * from './TemplateCreateLimit';
 export * from './TemplateEditor';
 export * from './TemplateDetail';
 export * from './TemplateEdit';
