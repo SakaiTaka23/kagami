@@ -167,8 +167,6 @@ export type QueryTemplateListArgs = {
 
 
 export type QueryTemplateUserArgs = {
-  cursor?: InputMaybe<Scalars['String']>;
-  take: Scalars['Int'];
   userName: Scalars['String'];
 };
 
@@ -1031,7 +1029,7 @@ export const UserProfileDocument = gql`
       userName
     }
   }
-  templateUser(userName: $userName, take: $take, cursor: $cursor) {
+  templateUser(userName: $userName) {
     id
     content
     createdAt
