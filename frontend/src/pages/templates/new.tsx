@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import { SubmitData, TemplatesEditor } from '@/components/Templates';
+import { SubmitData, TemplateCreateLimit, TemplatesEditor } from '@/components/Templates';
 import { useCreateTemplateMutation, useTemplateCountQuery } from '@/graphql/generated';
 
 const NewTemplate = () => {
@@ -24,7 +24,7 @@ const NewTemplate = () => {
       router.replace(`${res.data?.createTemplate.id}`);
     });
   };
-  return <>{data && data.templateCount > 10 ? '' : <TemplatesEditor submit={submit} />}</>;
+  return <>{data && data.templateCount > 10 ? <TemplateCreateLimit /> : <TemplatesEditor submit={submit} />}</>;
 };
 
 export default NewTemplate;
