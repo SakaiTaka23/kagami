@@ -51,7 +51,7 @@ export abstract class IQuery {
 
     abstract templateList(take: number, cursor?: Nullable<string>): Template[] | Promise<Template[]>;
 
-    abstract templateUser(userName: string, take: number, cursor?: Nullable<string>): Template[] | Promise<Template[]>;
+    abstract templateUser(userName: string): Template[] | Promise<Template[]>;
 
     abstract userFromToken(): User | Promise<User>;
 

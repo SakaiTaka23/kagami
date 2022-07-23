@@ -55,9 +55,8 @@ export class TemplatesResolver {
   }
 
   @Query('templateUser')
-  user(@Args('userName') userName: string, @Args('take') take: number, @Args('cursor') cursor?: string) {
-    const cursorObj = cursor === undefined ? undefined : { id: cursor };
-    return this.templatesService.user(userName, take, cursorObj);
+  user(@Args('userName') userName: string) {
+    return this.templatesService.user(userName);
   }
 
   @UseGuards(FirebaseAuthGuard)
