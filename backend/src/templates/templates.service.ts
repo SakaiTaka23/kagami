@@ -18,6 +18,14 @@ export class TemplatesService {
     });
   }
 
+  count(userId: string) {
+    return this.prisma.template.count({
+      where: {
+        userId,
+      },
+    });
+  }
+
   create(id: string, content: string, detail: string) {
     return this.prisma.template.create({
       data: {

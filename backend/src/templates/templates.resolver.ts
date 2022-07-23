@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUserID } from 'src/auth/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
@@ -13,7 +13,11 @@ export class TemplatesResolver {
 
   @UseGuards(FirebaseAuthGuard)
   @Mutation('createTemplate')
-  create(@CurrentUserID() id: string, @Args('template', TemplatesValidationPipe) content: CreateTemplateInput) {
+  async create(@CurrentUserID() id: string, @Args('template', TemplatesValidationPipe) content: CreateTemplateInput) {
+    const count = await this.templatesService.count(id);
+    if (count > 10) {
+      throw new HttpException('BadRequest', HttpStatus.BAD_REQUEST);
+    }
     return this.templatesService.create(id, content.content, content.detail);
   }
 
