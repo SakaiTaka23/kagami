@@ -31,6 +31,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createTemplate: Template;
   createUser: User;
+  deleteTemplate: Scalars['String'];
   followToggle: Follow;
   likeTemplateToggle: Scalars['String'];
   postCreate: Post;
@@ -46,6 +47,11 @@ export type MutationCreateTemplateArgs = {
 
 export type MutationCreateUserArgs = {
   username: UserName;
+};
+
+
+export type MutationDeleteTemplateArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -219,6 +225,13 @@ export type CreateTemplateMutationVariables = Exact<{
 
 
 export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate: { __typename?: 'Template', id: string } };
+
+export type DeleteTemplateMutationVariables = Exact<{
+  deleteTemplateId: Scalars['String'];
+}>;
+
+
+export type DeleteTemplateMutation = { __typename?: 'Mutation', deleteTemplate: string };
 
 export type LikeTemplateToggleMutationVariables = Exact<{
   likeTemplateToggleId: Scalars['String'];
@@ -419,6 +432,37 @@ export function useCreateTemplateMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateTemplateMutationHookResult = ReturnType<typeof useCreateTemplateMutation>;
 export type CreateTemplateMutationResult = Apollo.MutationResult<CreateTemplateMutation>;
 export type CreateTemplateMutationOptions = Apollo.BaseMutationOptions<CreateTemplateMutation, CreateTemplateMutationVariables>;
+export const DeleteTemplateDocument = gql`
+    mutation DeleteTemplate($deleteTemplateId: String!) {
+  deleteTemplate(id: $deleteTemplateId)
+}
+    `;
+export type DeleteTemplateMutationFn = Apollo.MutationFunction<DeleteTemplateMutation, DeleteTemplateMutationVariables>;
+
+/**
+ * __useDeleteTemplateMutation__
+ *
+ * To run a mutation, you first call `useDeleteTemplateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTemplateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTemplateMutation, { data, loading, error }] = useDeleteTemplateMutation({
+ *   variables: {
+ *      deleteTemplateId: // value for 'deleteTemplateId'
+ *   },
+ * });
+ */
+export function useDeleteTemplateMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTemplateMutation, DeleteTemplateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteTemplateMutation, DeleteTemplateMutationVariables>(DeleteTemplateDocument, options);
+      }
+export type DeleteTemplateMutationHookResult = ReturnType<typeof useDeleteTemplateMutation>;
+export type DeleteTemplateMutationResult = Apollo.MutationResult<DeleteTemplateMutation>;
+export type DeleteTemplateMutationOptions = Apollo.BaseMutationOptions<DeleteTemplateMutation, DeleteTemplateMutationVariables>;
 export const LikeTemplateToggleDocument = gql`
     mutation LikeTemplateToggle($likeTemplateToggleId: String!) {
   likeTemplateToggle(id: $likeTemplateToggleId)

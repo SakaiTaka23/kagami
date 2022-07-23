@@ -26,6 +26,7 @@ type Mutation {
   postCreate(content: String!): Post!
   likeTemplateToggle(id: String!): String!
   createTemplate(template: CreateTemplateInput): Template!
+  deleteTemplate(id: String!): String!
   updateTemplate(id: String!, content: String!, detail: String!): String!
   createUser(username: UserName!): User!
   updateUserProfile(profileEditInput: ProfileEditInput!): User!
