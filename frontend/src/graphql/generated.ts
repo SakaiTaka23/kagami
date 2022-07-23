@@ -93,6 +93,7 @@ export type Query = {
   __typename?: 'Query';
   isFollowing: Scalars['Boolean'];
   likeList: Array<Template>;
+  likeTemplateCheck: Scalars['Boolean'];
   postDetail?: Maybe<Post>;
   postUser: Array<Post>;
   postsFromTag: Array<Post>;
@@ -109,6 +110,11 @@ export type Query = {
 
 export type QueryIsFollowingArgs = {
   userName: Scalars['String'];
+};
+
+
+export type QueryLikeTemplateCheckArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -275,7 +281,7 @@ export type TemplateDetailQueryVariables = Exact<{
 }>;
 
 
-export type TemplateDetailQuery = { __typename?: 'Query', templateDetail?: { __typename?: 'Template', id: string, content: string, detail: string, createdAt: any, updatedAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
+export type TemplateDetailQuery = { __typename?: 'Query', likeTemplateCheck: boolean, templateDetail?: { __typename?: 'Template', id: string, content: string, detail: string, createdAt: any, updatedAt: any, userId: string, user: { __typename?: 'User', accountName: string, userName: string } } | null };
 
 export type TemplateEditQueryVariables = Exact<{
   templateEditId: Scalars['String'];
@@ -707,6 +713,7 @@ export const TemplateDetailDocument = gql`
       userName
     }
   }
+  likeTemplateCheck(id: $templateDetailId)
 }
     `;
 
