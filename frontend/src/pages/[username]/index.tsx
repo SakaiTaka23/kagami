@@ -24,7 +24,9 @@ const UserProfile = () => {
   return (
     <>
       {data?.userFromUserName && <Profile {...data.userFromUserName} isFollowing={data.isFollowing} />}
-      {data?.postUser && data.templateUser && <ProfileTabs posts={data.postUser} templates={data.templateUser} />}
+      {data?.postUser && data.templateUser && data.likeList && (
+        <ProfileTabs posts={data.postUser} templates={data.templateUser} likeList={data.likeList} />
+      )}
     </>
   );
 };

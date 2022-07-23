@@ -113,6 +113,11 @@ export type QueryIsFollowingArgs = {
 };
 
 
+export type QueryLikeListArgs = {
+  userName: Scalars['String'];
+};
+
+
 export type QueryLikeTemplateCheckArgs = {
   id: Scalars['String'];
 };
@@ -324,7 +329,7 @@ export type UserProfileQueryVariables = Exact<{
 }>;
 
 
-export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } }>, templateUser: Array<{ __typename?: 'Template', id: string, content: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } }> };
+export type UserProfileQuery = { __typename?: 'Query', isFollowing: boolean, userFromUserName?: { __typename?: 'User', accountName: string, userName: string, profile: string } | null, postUser: Array<{ __typename?: 'Post', id: string, content: string, createdAt: any, user: { __typename?: 'User', accountName: string, userName: string } }>, templateUser: Array<{ __typename?: 'Template', id: string, content: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } }>, likeList: Array<{ __typename?: 'Template', id: string, content: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', accountName: string, userName: string } }> };
 
 export type UserUniqueQueryVariables = Exact<{
   userName: Scalars['String'];
@@ -945,6 +950,16 @@ export const UserProfileDocument = gql`
     }
   }
   templateUser(userName: $userName, take: $take, cursor: $cursor) {
+    id
+    content
+    createdAt
+    updatedAt
+    user {
+      accountName
+      userName
+    }
+  }
+  likeList(userName: $userName) {
     id
     content
     createdAt
