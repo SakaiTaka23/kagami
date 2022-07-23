@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Button } from '@mui/material';
 
@@ -6,13 +6,19 @@ import { useLikeTemplateToggleMutation } from '@/graphql/generated';
 
 type Props = {
   id: string;
+  isLikedDefault: boolean;
 };
 
-export const TemplateLike: FC<Props> = ({ id }) => {
+export const TemplateLike: FC<Props> = ({ id, isLikedDefault }) => {
+  const [isLiked, setIsLiked] = useState(isLikedDefault);
   const [toggle] = useLikeTemplateToggleMutation({
     variables: {
       likeTemplateToggleId: id,
     },
   });
-  return <Button onClick={() => toggle()}>Like This Template</Button>;
+  const handleClick = () => {
+    toggle();
+    setIsLiked(!isLiked);
+  };
+  return <Button onClick={() => handleClick()}>{isLiked ? `UnLike This Template` : `Like This Template`}</Button>;
 };

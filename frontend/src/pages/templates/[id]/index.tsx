@@ -35,7 +35,7 @@ const TemplateDetailPage = () => {
     <>
       <div>TemplateDetail</div>
       {userID && <TemplateUse useTemplate={useTemplate} />}
-      {userID && <TemplateLike id={String(id)} />}
+      {data && userID && <TemplateLike id={String(id)} isLikedDefault={data.likeTemplateCheck} />}
       {data?.templateDetail?.userId === userID && <TemplateEdit id={String(id)} />}
       {data?.templateDetail && <Detail {...data.templateDetail} />}
       {data?.templateDetail?.detail && <TemplateDetail detail={data.templateDetail.detail} />}
