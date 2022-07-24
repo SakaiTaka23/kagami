@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
 import { PostEditor, SubmitData } from '@/components/PostEditor';
-import { usePostCreateMutation, useTemplateUseQuery } from '@/graphql/generated';
+import { TemplateSelector } from '@/components/Templates';
+import { usePostCreateMutation, useTemplateUseLazyQuery } from '@/graphql/generated';
 
 const NewPost = () => {
   const router = useRouter();
+  const [templateId, setTemplateId] = useState<string | undefined>('');
   const [postCreateMutation] = usePostCreateMutation();
-  const { data, loading } = useTemplateUseQuery({
-    skip: !router.isReady,
+  const [getTemplate, { data, loading }] = useTemplateUseLazyQuery({
     variables: {
       templateDetailId: String(router.query?.template),
     },
@@ -25,9 +26,29 @@ const NewPost = () => {
     });
   };
 
+  useEffect(() => {
+    if (router.isReady) {
+      setTemplateId(String(router.query?.template));
+    }
+    if (templateId !== 'undefined') {
+      console.log(`get template`);
+      getTemplate();
+    }
+  }, [router, templateId, getTemplate]);
+
   if (loading) return <p>Loading...</p>;
 
-  return <PostEditor content={data?.templateDetail?.content} submit={submit} />;
+  console.log(data?.templateDetail?.content);
+
+  return (
+    <>
+      {templateId === 'undefined' ? (
+        <TemplateSelector />
+      ) : (
+        <PostEditor content={data?.templateDetail?.content} submit={submit} />
+      )}
+    </>
+  );
 };
 
 export default NewPost;
