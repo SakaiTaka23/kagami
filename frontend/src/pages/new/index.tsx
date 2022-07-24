@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
 import { PostEditor, SubmitData } from '@/components/PostEditor';
+import { AuthContext } from '@/firebase/authContext';
 import { usePostCreateMutation, useTemplateUseQuery } from '@/graphql/generated';
 
 const NewPost = () => {
+  const { useAuthGuard } = useContext(AuthContext);
   const router = useRouter();
   const [postCreateMutation] = usePostCreateMutation();
   const { data, loading } = useTemplateUseQuery({
@@ -14,6 +16,7 @@ const NewPost = () => {
       templateDetailId: String(router.query?.template),
     },
   });
+  useAuthGuard();
 
   const submit = (submitData: SubmitData) => {
     postCreateMutation({
