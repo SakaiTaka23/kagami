@@ -7,9 +7,11 @@ import { TemplateContainer } from './TemplateContainer';
 
 type Props = {
   likeList: {
+    id: string;
     content: string;
   }[];
   templateUser: {
+    id: string;
     content: string;
   }[];
 };
