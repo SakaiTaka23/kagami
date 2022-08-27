@@ -317,7 +317,7 @@ export type TemplateSelectionQueryVariables = Exact<{
 }>;
 
 
-export type TemplateSelectionQuery = { __typename?: 'Query', likeList: Array<{ __typename?: 'Template', content: string }>, templateUser: Array<{ __typename?: 'Template', content: string }> };
+export type TemplateSelectionQuery = { __typename?: 'Query', likeList: Array<{ __typename?: 'Template', id: string, content: string }>, templateUser: Array<{ __typename?: 'Template', id: string, content: string }> };
 
 export type TemplateListQueryVariables = Exact<{
   take: Scalars['Int'];
@@ -875,9 +875,11 @@ export type TemplateEditQueryResult = Apollo.QueryResult<TemplateEditQuery, Temp
 export const TemplateSelectionDocument = gql`
     query TemplateSelection($userName: String!) {
   likeList(userName: $userName) {
+    id
     content
   }
   templateUser(userName: $userName) {
+    id
     content
   }
 }
