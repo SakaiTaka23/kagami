@@ -11,7 +11,7 @@ const NewPost = () => {
   const router = useRouter();
   const [postCreateMutation] = usePostCreateMutation();
   const { data, loading } = useTemplateUseQuery({
-    skip: !router.isReady || router.query?.template === undefined,
+    skip: !router.isReady || router.query?.template === undefined || router.query?.template === 'blank',
     variables: {
       templateDetailId: String(router.query?.template),
     },
