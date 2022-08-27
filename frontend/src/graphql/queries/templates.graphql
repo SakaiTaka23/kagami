@@ -25,6 +25,17 @@ query TemplateEdit($templateEditId: String!) {
   }
 }
 
+query TemplateSelection($userName: String!) {
+  likeList(userName: $userName) {
+    id
+    content
+  }
+  templateUser(userName: $userName) {
+    id
+    content
+  }
+}
+
 query TemplateList($take: Int!, $cursor: String) {
   templateList(take: $take, cursor: $cursor) {
     id

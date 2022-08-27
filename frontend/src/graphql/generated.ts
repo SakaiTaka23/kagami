@@ -312,6 +312,13 @@ export type TemplateEditQueryVariables = Exact<{
 
 export type TemplateEditQuery = { __typename?: 'Query', templateEdit: { __typename?: 'Template', content: string, detail: string } };
 
+export type TemplateSelectionQueryVariables = Exact<{
+  userName: Scalars['String'];
+}>;
+
+
+export type TemplateSelectionQuery = { __typename?: 'Query', likeList: Array<{ __typename?: 'Template', id: string, content: string }>, templateUser: Array<{ __typename?: 'Template', id: string, content: string }> };
+
 export type TemplateListQueryVariables = Exact<{
   take: Scalars['Int'];
   cursor?: InputMaybe<Scalars['String']>;
@@ -865,6 +872,46 @@ export function useTemplateEditLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type TemplateEditQueryHookResult = ReturnType<typeof useTemplateEditQuery>;
 export type TemplateEditLazyQueryHookResult = ReturnType<typeof useTemplateEditLazyQuery>;
 export type TemplateEditQueryResult = Apollo.QueryResult<TemplateEditQuery, TemplateEditQueryVariables>;
+export const TemplateSelectionDocument = gql`
+    query TemplateSelection($userName: String!) {
+  likeList(userName: $userName) {
+    id
+    content
+  }
+  templateUser(userName: $userName) {
+    id
+    content
+  }
+}
+    `;
+
+/**
+ * __useTemplateSelectionQuery__
+ *
+ * To run a query within a React component, call `useTemplateSelectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTemplateSelectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTemplateSelectionQuery({
+ *   variables: {
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function useTemplateSelectionQuery(baseOptions: Apollo.QueryHookOptions<TemplateSelectionQuery, TemplateSelectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TemplateSelectionQuery, TemplateSelectionQueryVariables>(TemplateSelectionDocument, options);
+      }
+export function useTemplateSelectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TemplateSelectionQuery, TemplateSelectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TemplateSelectionQuery, TemplateSelectionQueryVariables>(TemplateSelectionDocument, options);
+        }
+export type TemplateSelectionQueryHookResult = ReturnType<typeof useTemplateSelectionQuery>;
+export type TemplateSelectionLazyQueryHookResult = ReturnType<typeof useTemplateSelectionLazyQuery>;
+export type TemplateSelectionQueryResult = Apollo.QueryResult<TemplateSelectionQuery, TemplateSelectionQueryVariables>;
 export const TemplateListDocument = gql`
     query TemplateList($take: Int!, $cursor: String) {
   templateList(take: $take, cursor: $cursor) {
