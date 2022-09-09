@@ -31,7 +31,7 @@
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.34.2"
+    "react-hook-form": "7.35.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.12.0",
