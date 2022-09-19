@@ -55,7 +55,7 @@ export const TemplatesEditor: FC<Props> = ({ detailDefault, postDefault, submit 
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!(post.postCount > maxLength && detail.detailCount)) {
+    if (post.postCount <= maxLength && detail.detailCount <= maxLength) {
       submit({
         post: post.post,
         detail: detail.detail,
