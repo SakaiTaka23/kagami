@@ -65,7 +65,7 @@ export const TemplatesEditor: FC<Props> = ({ detailDefault, postDefault, submit 
 
   return (
     <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
-      <PostInput content={postDefault} count={post.postCount} onChange={onChangePost} />
+      <PostInput count={post.postCount} onChange={onChangePost} />
       <DetailInput count={detail.detailCount} detail={detail.detail} onChange={onChangeDetail} />
       <SubmitButton />
     </Box>

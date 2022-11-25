@@ -36,7 +36,7 @@ export const PostEditor: FC<Props> = ({ content, submit }) => {
 
   return (
     <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
-      <PostInput content={content} count={count} onChange={onChange} />
+      <PostInput count={count} onChange={onChange} />
       <SubmitButton />
     </Box>
   );
