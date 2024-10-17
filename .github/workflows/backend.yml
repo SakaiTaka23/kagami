@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: yarn
@@ -30,7 +30,7 @@ jobs:
         id: yarn-cache-backend-path
         run: echo "::set-output name=backend::$(yarn cache dir)"
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: yarn-cache-backend
         with:
           path: ${{ steps.yarn-cache-backend-path.outputs.backend }}
